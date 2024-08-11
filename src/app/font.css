@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+.view_all {
+     font-family: "Oswald", sans-serif;
+     text-transform: uppercase;
+}
+
+.pentagon {
+     clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 59%, 80% 0);
+     height: 100%;
+     width: 100%;
+   }
+
+.pentagon1
+{
+     clip-path: polygon(0 0, 1% 100%, 100% 100%, 100% 21%, 79% 0);
+     height: 100%;
+     width: 100%;
+}
+   
