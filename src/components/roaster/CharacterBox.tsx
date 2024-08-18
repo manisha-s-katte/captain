@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 
 interface CharacterBoxProps {
@@ -14,8 +14,8 @@ const CharacterBox: React.FC<CharacterBoxProps> = ({ imageSrc, name, pickRate, p
   return (
     <div
       onClick={onClick}
+      className={`flex flex-col items-center p-4 text-white border rounded-lg cursor-pointer ${isActive ? 'bg-[#D600E1] border-[#D600E1] border-opacity-60 bg-opacity-10' : 'bg-transparent border-[#D600E1]'}`}
       style={{ width: '150px' }}
-      className={`flex flex-col items-center p-4 text-white border-1 border-[#D600E1] bg-opacity-20 bg-[#330B45] cursor-pointer ${isActive ? 'bg-[#D600E1] border-[#D600E1]' : 'bg-transparent'}`}
     >
       <Image
         src={imageSrc}
@@ -24,10 +24,10 @@ const CharacterBox: React.FC<CharacterBoxProps> = ({ imageSrc, name, pickRate, p
         height={80}
         className="object-contain mb-4"
       />
-      <span className="text-lg font-bold">{name}</span>
+      <span className="text-lg font-bold text-center">{name}</span>
       <hr className="w-full border-[#D600E1] my-2" />
-      <span className="text-sm text-[#D600E1]">{pickRate}</span>
-      <span className="text-2xl font-bold">{percentage}</span>
+      <span className="text-sm text-[#D600E1] text-center">{pickRate}</span>
+      <span className="text-2xl font-bold text-center">{percentage}</span>
     </div>
   );
 };

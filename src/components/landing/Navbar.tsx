@@ -12,9 +12,15 @@ interface NavbarProps {
 
 export default function Navbar({ bgColor = "#110219" }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState<string>('');
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleLinkClick = (link: string) => {
+    setActiveLink(link);
+    if (isOpen) toggleMenu(); // Close menu on link click for mobile
   };
 
   return (
@@ -27,22 +33,42 @@ export default function Navbar({ bgColor = "#110219" }: NavbarProps) {
             </a>
           </div>
           <div className="hidden ml-5 md:flex md:items-center md:space-x-4">
-            <a href="/events" className="text-lg hover:text-fuchsia-600">
+            <a
+              href="/events"
+              className={`text-lg ${activeLink === 'events' ? 'text-fuchsia-600' : 'hover:text-fuchsia-600'}`}
+              onClick={() => handleLinkClick('events')}
+            >
               Events
             </a>
-            <a href="#" className="text-lg hover:text-fuchsia-600">
+            <a
+              href="#"
+              className={`text-lg ${activeLink === 'gamePass' ? 'text-fuchsia-600' : 'hover:text-fuchsia-600'}`}
+              onClick={() => handleLinkClick('gamePass')}
+            >
               Game Pass
             </a>
-            <a href="#" className="text-lg hover:text-fuchsia-600">
+            <a
+              href="#"
+              className={`text-lg ${activeLink === 'testing' ? 'text-fuchsia-600' : 'hover:text-fuchsia-600'}`}
+              onClick={() => handleLinkClick('testing')}
+            >
               Testing
             </a>
-            <a href="/aboutus" className="text-lg hover:text-fuchsia-600">
+            <a
+              href="/aboutus"
+              className={`text-lg ${activeLink === 'aboutUs' ? 'text-fuchsia-600' : 'hover:text-fuchsia-600'}`}
+              onClick={() => handleLinkClick('aboutUs')}
+            >
               About Us
             </a>
           </div>
           <div className="hidden md:flex ml-20 md:items-center">
             <div className="relative flex items-center">
-              <a href="/login" className="relative text-white px-3.5 py-0.5 text-base font-semibold overflow-hidden">
+              <a
+                href="/login"
+                className="relative text-white px-3.5 py-0.5 text-base font-semibold overflow-hidden"
+                onClick={() => handleLinkClick('login')}
+              >
                 <div className="pentagon bg-[#D600E1] absolute inset-0"></div>
                 <span className="relative text-black z-10 text-center">Login</span>
               </a>
@@ -59,19 +85,39 @@ export default function Navbar({ bgColor = "#110219" }: NavbarProps) {
       {isOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700">
+            <a
+              href="#"
+              className={`block px-3 py-2 rounded-md text-base font-medium ${activeLink === 'events' ? 'bg-gray-700' : 'hover:bg-gray-700'}`}
+              onClick={() => handleLinkClick('events')}
+            >
               Events
             </a>
-            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700">
+            <a
+              href="#"
+              className={`block px-3 py-2 rounded-md text-base font-medium ${activeLink === 'gamePass' ? 'bg-gray-700' : 'hover:bg-gray-700'}`}
+              onClick={() => handleLinkClick('gamePass')}
+            >
               Game Pass
             </a>
-            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700">
+            <a
+              href="#"
+              className={`block px-3 py-2 rounded-md text-base font-medium ${activeLink === 'testing' ? 'bg-gray-700' : 'hover:bg-gray-700'}`}
+              onClick={() => handleLinkClick('testing')}
+            >
               Testing
             </a>
-            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700">
+            <a
+              href="#"
+              className={`block px-3 py-2 rounded-md text-base font-medium ${activeLink === 'aboutUs' ? 'bg-gray-700' : 'hover:bg-gray-700'}`}
+              onClick={() => handleLinkClick('aboutUs')}
+            >
               About Us
             </a>
-            <a href="/login" className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700">
+            <a
+              href="/login"
+              className={`block px-3 py-2 rounded-md text-base font-medium ${activeLink === 'login' ? 'bg-gray-700' : 'hover:bg-gray-700'}`}
+              onClick={() => handleLinkClick('login')}
+            >
               Login
             </a>
           </div>
