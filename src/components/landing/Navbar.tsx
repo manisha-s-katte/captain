@@ -41,7 +41,7 @@ export default function Navbar({ bgColor = "#110219" }: NavbarProps) {
               Events
             </a>
             <a
-              href="#"
+              href="gamePass"
               className={`text-lg ${activeLink === 'gamePass' ? 'text-fuchsia-600' : 'hover:text-fuchsia-600'}`}
               onClick={() => handleLinkClick('gamePass')}
             >
