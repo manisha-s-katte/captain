@@ -10,7 +10,7 @@ const GamePassFooter = () => {
           <div>
             <div className="flex items-center">
               <a href="/" className="flex-shrink-0">
-                <Logo className="text-base h-auto w-auto" />
+                {/* <Logo className="text-base h-auto w-auto" /> */}
               </a>
             </div>
             <p className="mt-8 text-gray-300 text-base">
