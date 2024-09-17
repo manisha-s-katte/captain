@@ -48,13 +48,6 @@ export default function Navbar({ bgColor = "#110219" }: NavbarProps) {
               Game Pass
             </a>
             <a
-              href="#"
-              className={`text-lg ${activeLink === 'testing' ? 'text-fuchsia-600' : 'hover:text-fuchsia-600'}`}
-              onClick={() => handleLinkClick('testing')}
-            >
-              Testing
-            </a>
-            <a
               href="/aboutus"
               className={`text-lg ${activeLink === 'aboutUs' ? 'text-fuchsia-600' : 'hover:text-fuchsia-600'}`}
               onClick={() => handleLinkClick('aboutUs')}
