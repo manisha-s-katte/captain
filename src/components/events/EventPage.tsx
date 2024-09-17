@@ -25,7 +25,7 @@ const EventPage = () => {
   return (
     <main className="min-h-screen">
       <section className="block mt-8 mx-4 lg:mx-16">
-        <h1 className="text-3xl font-semibold">Events & Tournaments</h1>
+        <h1 className="text-3xl font-semibold">Events & Tournament</h1>
 
         <div className="flex flex-col lg:flex-row items-center">
           {/* Left Image */}
