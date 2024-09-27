@@ -1,15 +1,15 @@
-import React from 'react'
-import Navbar from '@/components/landing/Navbar'
-import UpcomingPage from '@/components/events/upcoming/UpcomingPage'
+'use client';
+import React from 'react';
+import Navbar from '@/components/landing/Navbar';
+import PreviousPage from '@/components/events/previous/PreviousPage';
 
-const upcoming = () => {
+const previous = () => {
   return (
-    <main className='bg-gradient-to-tr from-[#35044D] to-[#1A0226] min-h-screen'>
-      <Navbar bgColor='transparent' />
-      <UpcomingPage />
-      
+    <main className="bg-gradient-to-tr from-[#35044D] to-[#1A0226] min-h-screen">
+      <Navbar bgColor="transparent" />
+      <PreviousPage />
     </main>
-  )
-}
+  );
+};
 
-export default upcoming
+export default previous;

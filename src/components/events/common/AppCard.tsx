@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+// import Image from 'next/image';
 import Image from 'next/image';
 import { Card, CardBody } from '@nextui-org/react';
 import { format } from 'date-fns';
@@ -16,11 +17,11 @@ const EventDetails: React.FC<{ tournament: any }> = ({ tournament }) => {
           {/* Image Section */}
           <div className="mr-10">
             <Image
-              alt="Event cover"
+              alt={tournament?.title}
               className="object-cover w-60 h-60"
-              height={200}
+              height={240}
               src={tournament.fileUrl}
-              width={200}
+              width={240}
             />
           </div>
 
