@@ -12,7 +12,7 @@ export default function Home() {
     <Navbar />
     <HeroSection />
     <PopularEvents />
-    <Roaster />
+    {/* <Roaster /> */}
     <News />
     <Subscribe />
     <Footer />
