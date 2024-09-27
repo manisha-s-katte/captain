@@ -78,12 +78,12 @@ const PreviousPage = () => {
             <Spinner />
           ) : (
             <>
-              {filteredTournaments.length === 0 ? (
-                <p className="text-white text-center">
+              {filteredTournaments?.length === 0 ? (
+                <p className="text-white text-center mt-32">
                   No previous tournaments
                 </p>
               ) : (
-                filteredTournaments.map((tournament) => (
+                filteredTournaments?.map((tournament) => (
                   <EventDetails key={tournament.id} tournament={tournament} />
                 ))
               )}

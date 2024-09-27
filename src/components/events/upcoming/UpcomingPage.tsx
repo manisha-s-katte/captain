@@ -79,7 +79,7 @@ const UpcomingPage = () => {
           ) : (
             <>
               {filteredTournaments.length === 0 ? (
-                <p className="text-white text-center">
+                <p className="text-white text-center mt-32">
                   No upcoming tournaments
                 </p>
               ) : (
