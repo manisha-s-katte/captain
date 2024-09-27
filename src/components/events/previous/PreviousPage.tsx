@@ -6,7 +6,7 @@ import EventDetails from '../common/AppCard'; // Adjust the import path as neede
 import { createClient } from '@/lib/supabase/client';
 import Spinner from '@/components/Spinner/spinner';
 
-const UpcomingPage = () => {
+const PreviousPage = () => {
   const [selectedSort, setSelectedSort] = useState('Short');
   const [tournaments, setTournaments] = useState<Record<string, any>[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -35,8 +35,8 @@ const UpcomingPage = () => {
   const filteredTournaments = useMemo(() => {
     const today = new Date();
     return tournaments.filter((tournament) => {
-      const startDate = new Date(tournament.startDate);
-      return startDate > today;
+      const endDate = new Date(tournament.endDate);
+      return endDate < today;
     });
   }, [tournaments]);
 
@@ -46,7 +46,7 @@ const UpcomingPage = () => {
     <main>
       <section className="block mt-8 pb-8 mx-4 sm:mx-8 lg:mx-16">
         <h1 className="text-xl sm:text-2xl font-semibold mb-4 text-center">
-          {/* Center the heading */}Upcoming Events & Tournaments
+          {/* Center the heading */}Previous Events & Tournaments
         </h1>
 
         <div className="flex flex-col sm:flex-row items-center justify-between mb-6 space-y-4 sm:space-y-0">
@@ -78,12 +78,12 @@ const UpcomingPage = () => {
             <Spinner />
           ) : (
             <>
-              {filteredTournaments.length === 0 ? (
+              {filteredTournaments?.length === 0 ? (
                 <p className="text-white text-center mt-32">
-                  No upcoming tournaments
+                  No previous tournaments
                 </p>
               ) : (
-                filteredTournaments.map((tournament) => (
+                filteredTournaments?.map((tournament) => (
                   <EventDetails key={tournament.id} tournament={tournament} />
                 ))
               )}
@@ -95,4 +95,4 @@ const UpcomingPage = () => {
   );
 };
 
-export default UpcomingPage;
+export default PreviousPage;
