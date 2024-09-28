@@ -116,9 +116,9 @@ const Signup = () => {
             </button>
           </div>
           <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-8">
-            <button className="w-full py-4 text-sm font-bold bg-[#350949] rounded-3xl text-white">
+            {/* <button className="w-full py-4 text-sm font-bold bg-[#350949] rounded-3xl text-white">
               Change Method
-            </button>
+            </button> */}
             <button
               type="submit"
               className="w-full py-4 text-sm font-bold bg-[#D700E1] text-white rounded-3xl"
