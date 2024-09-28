@@ -7,6 +7,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'wteevsttakocypgyobcb.supabase.co',
       },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
     ],
   },
   webpack(config) {

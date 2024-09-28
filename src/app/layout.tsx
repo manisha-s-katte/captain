@@ -6,6 +6,7 @@ import { SessionProvider } from 'next-auth/react';
 import TanStackProvider from '@/providers/tan-stack-provider';
 import { Toaster } from 'sonner';
 import { auth } from '@/auth';
+import type { CustomUser } from '@/types';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,6 +21,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
+
   return (
     <html lang="en">
       <body className={`${inter.className} text-white`}>

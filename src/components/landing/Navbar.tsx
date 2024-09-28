@@ -5,6 +5,9 @@ import { GiMagicAxe } from 'react-icons/gi';
 import Logo from '@/assets/Resources/logo.svg';
 import User from '@/assets/Resources/User.svg';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
+import type { CustomUser } from '@/types';
 
 interface NavbarProps {
   bgColor?: string;
@@ -13,6 +16,8 @@ interface NavbarProps {
 export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeLink, setActiveLink] = useState<string>('');
+  const { data: session } = useSession();
+  const user = (session?.user as CustomUser) || null;
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -72,16 +77,34 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
           </div>
           <div className="hidden md:flex ml-20 md:items-center">
             <div className="relative flex items-center">
-              <a
-                href="/login"
-                className="relative text-white px-3.5 py-0.5 text-base font-semibold overflow-hidden"
-                onClick={() => handleLinkClick('login')}
-              >
-                <div className="pentagon bg-[#D600E1] absolute inset-0"></div>
-                <span className="relative text-black z-10 text-center">
-                  Login
-                </span>
-              </a>
+              {user ? (
+                <div className="flex items-center">
+                  <Image
+                    src={user?.image || User}
+                    alt="User Avatar"
+                    width={40}
+                    height={40}
+                    className="rounded-full mr-2"
+                  />
+                  <button
+                    onClick={() => signOut()}
+                    className="text-white hover:text-fuchsia-600"
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <a
+                  href="/login"
+                  className="relative text-white px-3.5 py-0.5 text-base font-semibold overflow-hidden"
+                  onClick={() => handleLinkClick('login')}
+                >
+                  <div className="pentagon bg-[#D600E1] absolute inset-0"></div>
+                  <span className="relative text-black z-10 text-center">
+                    Login
+                  </span>
+                </a>
+              )}
             </div>
           </div>
           <div className="flex md:hidden">
@@ -137,15 +160,35 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
             >
               About Us
             </a>
-            <a
-              href="/login"
-              className={`block px-3 py-2 rounded-md text-base font-medium ${
-                activeLink === 'login' ? 'bg-gray-700' : 'hover:bg-gray-700'
-              }`}
-              onClick={() => handleLinkClick('login')}
-            >
-              Login
-            </a>
+            {session ? (
+              <div className="flex items-center px-3 py-2">
+                <Image
+                  src={session.user?.image || User}
+                  alt="User Avatar"
+                  width={32}
+                  height={32}
+                  className="rounded-full mr-2"
+                />
+                <button
+                  onClick={() => {
+                    signOut();
+                  }}
+                  className="px-3 py-2 rounded-md text-base font-medium"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <a
+                href="/login"
+                className={`block px-3 py-2 rounded-md text-base font-medium ${
+                  activeLink === 'login' ? 'bg-gray-700' : 'hover:bg-gray-700'
+                }`}
+                onClick={() => handleLinkClick('login')}
+              >
+                Login
+              </a>
+            )}
           </div>
         </div>
       )}
