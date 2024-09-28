@@ -4,7 +4,7 @@ import { FaDiscord, FaInstagram, FaYoutube, FaEnvelope } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <div className='p-8 pb-0 bg-gradient-to-tr from-[#370450] to-[#1A0226] min-h-screen'>
+    <div className='p-8 pb-0 bg-gradient-to-tr from-[#370450] to-[#1A0226] min-h-screen text-gray-300'>
       <div className="flex flex-col md:flex-row mx-4 md:mx-12 my-12 md:my-20 justify-between">
         <div className="w-full md:w-1/2 flex flex-col justify-between">
           <div>
@@ -55,7 +55,7 @@ const Footer = () => {
         <div className="w-full md:w-1/2 flex justify-center md:justify-end mt-12 md:mt-0">
           <div className="pentagon1 p-8 md:p-16 pl-8 md:pl-20 shadow-lg bg-[#310F43] flex flex-col md:flex-row justify-center items-stretch w-full h-auto md:h-full">
             {/* Left Partition */}
-            <div className="w-full md:w-1/2 flex flex-col space-y-6 md:space-y-12 mb-6 md:mb-0">
+            <div className="w-full md:w-1/2 flex flex-col space-y-6 md:space-y-12 mb-6 md:mb-0 text-white">
               <a href="/" className="hover:underline">Events</a>
               <a href="/" className="hover:underline">Game Pass</a>
               <a href="/" className="hover:underline">Testing</a>
@@ -68,7 +68,7 @@ const Footer = () => {
             <div className="border-l border-[#D700E1] mx-0 md:mx-4 mb-6 md:mb-7"></div>
 
             {/* Right Partition */}
-            <div className="w-full md:w-1/2 pl-0 md:pl-12 flex flex-col space-y-6 md:space-y-12">
+            <div className="w-full md:w-1/2 pl-0 md:pl-12 flex flex-col space-y-6 md:space-y-12 text-white">
               <a href="/" className="flex items-center hover:underline">
                 <FaDiscord className="mr-2 w-6 h-6" /> Discord
               </a>

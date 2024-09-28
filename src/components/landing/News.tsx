@@ -5,7 +5,7 @@ import EventCard1 from "@/assets/Images/Event Card/048dcaf894496b7e214e4d9ac3483
 import EventCard2 from "@/assets/Images/Event Card/162cd1e7d132a7cd3d3faca93effdef4.jpeg";
 import EventCard3 from "@/assets/Images/Event Card/6fc85454b8182288d6abdef5c0e65121.jpeg";
 import EventCard4 from "@/assets/Images/Event Card/be8d1b473c9bc73dce8397acace05dd2.jpeg";
-import User from '@/assets/Resources/User.svg'
+import User from '@/assets/Resources/User.webp'
 import Image from 'next/image';
 import { FaUser } from 'react-icons/fa'; // Import user icon from react-icons
 
@@ -86,7 +86,7 @@ const News = () => {
               />
               <div className="bg-[#330B45] border-b-5 border-[#D600E1]  p-4 text-white">
                 <div className="flex items-center mb-2">
-                <User className = "mr-2" />
+                <Image src={User} alt='user' className='mr-2'></Image>
                   <span className="font-semibold">User Name</span>
                 </div>
                 <p className='text-sm font-light'>

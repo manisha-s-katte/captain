@@ -4,8 +4,8 @@ import { CiMenuFries } from 'react-icons/ci';
 import { GiMagicAxe } from 'react-icons/gi';
 import Logo from "@/assets/Resources/logo.svg";
 import User from '@/assets/Resources/User.svg';
+import Image from 'next/image';
 
-// Define the props type
 interface NavbarProps {
   bgColor?: string;
 }
@@ -29,7 +29,7 @@ export default function Navbar({ bgColor = "#110219" }: NavbarProps) {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <a href="/" className="flex-shrink-0">
-              <Logo className="text-base h-auto w-auto" />
+              <Logo></Logo>
             </a>
           </div>
           <div className="hidden ml-5 md:flex md:items-center md:space-x-4">
@@ -65,7 +65,7 @@ export default function Navbar({ bgColor = "#110219" }: NavbarProps) {
                 <div className="pentagon bg-[#D600E1] absolute inset-0"></div>
                 <span className="relative text-black z-10 text-center">Login</span>
               </a>
-              <User className="ml-5" />
+
             </div>
           </div>
           <div className="flex md:hidden">
