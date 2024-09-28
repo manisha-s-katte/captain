@@ -1,18 +1,71 @@
-"use client";
-import React, { useState } from "react";
-import { FaGoogle, FaDiscord, FaEnvelope, FaEye, FaEyeSlash } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
+'use client';
+import React, { useState, FormEvent } from 'react';
+import {
+  FaGoogle,
+  FaDiscord,
+  FaEnvelope,
+  FaEye,
+  FaEyeSlash,
+} from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
+import { useMutation } from '@tanstack/react-query';
+import { loginUser } from '@/http/api';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
+import { Loader2Icon } from 'lucide-react';
+import google from 'next-auth/providers/google';
+import { signIn } from '@/auth';
+import signWithGoogle from './signWithGoogle';
 
 const Login = () => {
+  const router = useRouter();
   const [showEmailLogin, setShowEmailLogin] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const { mutate: loginUserMutate, isPending: isLoginUserMutatePending } =
+    useMutation({
+      mutationKey: ['loginUser'],
+      mutationFn: async (data: any) => await loginUser(data),
+      onSuccess: (data: any) => {
+        toast.success(data.message);
+        router.push('/');
+      },
+      onError: (error: any) => {
+        toast.error(error?.response?.data?.message || error?.message);
+      },
+    });
 
   const togglePasswordVisibility = () => {
-    setShowPassword(prev => !prev);
+    setShowPassword((prev) => !prev);
   };
 
   const toggleEmailLogin = () => {
-    setShowEmailLogin(prev => !prev);
+    setShowEmailLogin((prev) => !prev);
+  };
+
+  const handleSubmit = (
+    event: FormEvent<HTMLFormElement>,
+    loginType: string
+  ) => {
+    event.preventDefault();
+    switch (loginType) {
+      case 'google':
+        console.log('Logging in with Google');
+        signWithGoogle();
+        break;
+      case 'discord':
+        console.log('Logging in with Discord');
+        // Add Discord login logic here
+        break;
+      case 'email':
+        console.log('Logging in with email', { email, password });
+        loginUserMutate({ email, password });
+        break;
+      default:
+        console.error('Unknown login type');
+    }
   };
 
   return (
@@ -21,20 +74,33 @@ const Login = () => {
         <h1 className="text-3xl sm:text-[42px] font-medium mb-6 text-center">
           Login
         </h1>
-        <div className="space-y-6 p-0 sm:p-5">
-          <button className="w-full py-2 text-xl font-semibold bg-white text-black rounded-xl flex items-center justify-center">
+        <form
+          onSubmit={(e) => handleSubmit(e, showEmailLogin ? 'email' : 'social')}
+          className="space-y-6 p-0 sm:p-5"
+        >
+          <button
+            type="button"
+            onClick={() => handleSubmit(new Event('submit') as any, 'google')}
+            className="w-full py-2 text-xl font-semibold bg-white text-black rounded-xl flex items-center justify-center"
+          >
             Login with Google <FcGoogle className="ml-2 w-7 h-7" />
           </button>
 
           <div className="space-y-2">
-            {/* Login with Discord */}
-            <button className="w-full py-2 text-xl font-semibold bg-[#5865F2] text-white rounded-xl flex items-center justify-center">
+            <button
+              type="button"
+              onClick={() =>
+                handleSubmit(new Event('submit') as any, 'discord')
+              }
+              className="w-full py-2 text-xl font-semibold bg-[#5865F2] text-white rounded-xl flex items-center justify-center"
+            >
               Login with Discord <FaDiscord className="ml-2 w-7 h-7" />
             </button>
 
             <p className="text-center text-xl">or</p>
 
             <button
+              type="button"
               className="w-full py-2 text-xl font-semibold bg-[#350949] text-white rounded-xl flex items-center justify-center"
               onClick={toggleEmailLogin}
             >
@@ -42,22 +108,27 @@ const Login = () => {
             </button>
           </div>
 
-          {/* Email and Password Fields */}
           {showEmailLogin && (
             <div className="space-y-4 mt-4">
               <div className="relative">
                 <input
                   type="email"
                   placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full p-3 pl-5 bg-[#350949] rounded-lg focus:outline-none"
+                  required
                 />
                 <FaEnvelope className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400" />
               </div>
               <div className="relative">
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="w-full p-3 pl-5 bg-[#350949] rounded-lg focus:outline-none"
+                  required
                 />
                 <button
                   type="button"
@@ -70,13 +141,25 @@ const Login = () => {
             </div>
           )}
 
-          {/* Login Button */}
           <div className="flex justify-center">
-            <button className="px-14 py-3 text-sm font-bold bg-[#D700E1] text-white rounded-3xl">
-              <a href="/">Sign in</a>
+            <button
+              type="submit"
+              className="px-14 py-3 text-sm font-bold bg-[#D700E1] text-white rounded-3xl"
+            >
+              {isLoginUserMutatePending ? (
+                <div className="flex items-center gap-2">
+                  <Loader2Icon
+                    strokeWidth={4}
+                    className="w-4 h-4 animate-spin"
+                  />
+                  <span>Signing in...</span>
+                </div>
+              ) : (
+                'Sign in'
+              )}
             </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
