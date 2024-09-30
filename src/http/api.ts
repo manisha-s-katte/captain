@@ -12,3 +12,9 @@ export const loginUser = async (data: any) => {
   const response = await api.post('/auth/login-user', data);
   return response.data;
 };
+
+export const joinTournament = async (data: any) => {
+  setJSONDataHeaders();
+  const response = await api.post('/tournament/join', data);
+  return response.data;
+};
