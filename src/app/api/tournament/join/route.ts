@@ -1,5 +1,6 @@
 import { auth } from '@/auth';
 import prisma from '@/lib/prisma';
+import { sendRegisterTournamentEmail } from '@/services/email/nodemailer';
 import { NextResponse, type NextRequest } from 'next/server';
 
 export async function POST(req: NextRequest) {
@@ -35,6 +36,8 @@ export async function POST(req: NextRequest) {
         userId: user!.id,
       },
     });
+
+    await sendRegisterTournamentEmail(user?.email as string);
     return NextResponse.json(
       { message: 'Joined successfully' },
       { status: 200 }
