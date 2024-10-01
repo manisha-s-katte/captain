@@ -161,7 +161,7 @@ const EventPage = () => {
                     style={{ objectFit: 'cover' }}
                     width={320}
                     height={320}
-                    className="h-[20rem] w-[20rem] md:h-[30rem] md:w-[30rem]"
+                    className="h-[20rem] w-[20rem] md:h-[30rem] md:w-[30rem] aspect-square"
                   />
                 </div>
                 {/* Right Content */}
@@ -244,7 +244,7 @@ const EventPage = () => {
                   alt={tournament.title}
                   width={374}
                   height={384}
-                  className="w-[374px] h-[384px] relative z-10 object-cover"
+                  className="w-[374px] h-[384px] relative z-10 object-cover aspect-square"
                 />
                 <div className="absolute bottom-0 left-0 right-0 p-4 backdrop-blur-sm  text-white z-20">
                   <div className="flex justify-between gap-2 text-base">

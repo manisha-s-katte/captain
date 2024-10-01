@@ -44,7 +44,7 @@ const PopularEvents = () => {
 
       {/* Game Pass Section */}
       <div className="bg-gradient-to-r from-[#3C0056] to-[#14021D] pb-20">
-        <div className="flex flex-col md:flex-row items-center justify-between px-4 sm:px-20 py-8 text-white">
+        <div className="flex flex-col md:flex-row items-center justify-between px-4 sm:pl-20 sm:pr-0 py-8 text-white">
           <h1 className="view_all text-2xl sm:text-3xl md:text-4xl lg:text-[3.5em] font-medium tracking-tight text-center md:text-left mb-6 md:mb-0 leading-snug">
             Get Your Game Pass <br />
             <span className="mt-3 block md:inline-flex text-nowrap">
