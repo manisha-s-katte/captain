@@ -26,6 +26,7 @@ import { toast } from 'sonner';
 import { joinTournament } from '@/http/api';
 import { Loader2Icon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 // import { Spinner } from '@nextui-org/react';
 
 const imageArray = [
@@ -37,6 +38,8 @@ const imageArray = [
 
 const EventPage = () => {
   const router = useRouter();
+  const session = useSession();
+  console.log('session in event page', session);
   const [activeLink, setActiveLink] = useState('ongoing');
   const [tournaments, setTournaments] = useState<Record<string, any>[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -111,6 +114,11 @@ const EventPage = () => {
   };
 
   const handleJoinClick = () => {
+    if (!session?.data) {
+      toast.error('Please login to join the tournament');
+      router.push('/login');
+      return;
+    }
     setIsDialogOpen(true);
   };
 

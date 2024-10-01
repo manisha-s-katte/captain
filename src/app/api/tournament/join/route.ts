@@ -9,10 +9,7 @@ export async function POST(req: NextRequest) {
   console.log(name, gender, age, teamName, heardFrom, tournamentId);
   const session = await auth();
   if (!session) {
-    return NextResponse.json(
-      { message: 'In order to join a tournament, you need to be logged in.' },
-      { status: 401 }
-    );
+    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
   }
 
   try {
