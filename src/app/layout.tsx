@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   applicationName: 'Captain Side Gaming',
   referrer: 'origin-when-cross-origin',
   alternates: {
-    canonical: '/',
+    canonical: 'https://www.captainside.com/',
 },
   keywords: ['Gaming Tournaments', 'Prize Competitions', 'Esports', 'Competitive Gaming', 'Online Tournaments', 'Game Registration', 'Gaming Rewards', 'Multiplayer Contests', 'Cash Prizes', 'Tournament Platform'],
   authors: [{ name: 'Captain Side Gaming' }],
