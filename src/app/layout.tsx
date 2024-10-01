@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   description: 'Enter the world of Captain Side Gaming, where gamers compete for glory and prizes. Join thrilling tournaments across popular game titles, showcase your skills, and win real rewards. Our platform offers easy registration, fair matchmaking, and exciting competitions for players of all levels. Start your journey to gaming stardom and prize-winning today!',
   applicationName: 'Captain Side Gaming',
   referrer: 'origin-when-cross-origin',
+  alternates: {
+    canonical: '/',
+},
   keywords: ['Gaming Tournaments', 'Prize Competitions', 'Esports', 'Competitive Gaming', 'Online Tournaments', 'Game Registration', 'Gaming Rewards', 'Multiplayer Contests', 'Cash Prizes', 'Tournament Platform'],
   authors: [{ name: 'Captain Side Gaming' }],
   creator: 'Finzie',
