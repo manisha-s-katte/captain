@@ -1,18 +1,13 @@
 import React from 'react';
 import Image from 'next/image';
-import EventCard1 from "@/assets/Images/Event Card/048dcaf894496b7e214e4d9ac34831de.jpeg";
-import EventCard2 from "@/assets/Images/Event Card/162cd1e7d132a7cd3d3faca93effdef4.jpeg";
-import EventCard3 from "@/assets/Images/Event Card/6fc85454b8182288d6abdef5c0e65121.jpeg";
-import EventCard4 from "@/assets/Images/Event Card/be8d1b473c9bc73dce8397acace05dd2.jpeg";
-import GamePass from "@/assets/Resources/GamePass.webp";
+import EventCard1 from '@/assets/Images/Event Card/048dcaf894496b7e214e4d9ac34831de.jpeg';
+import EventCard2 from '@/assets/Images/Event Card/162cd1e7d132a7cd3d3faca93effdef4.jpeg';
+import EventCard3 from '@/assets/Images/Event Card/6fc85454b8182288d6abdef5c0e65121.jpeg';
+import EventCard4 from '@/assets/Images/Event Card/be8d1b473c9bc73dce8397acace05dd2.jpeg';
+import GamePass from '@/assets/Resources/GamePass.webp';
 import Link from 'next/link';
 
-const EventCard = [
-  EventCard1,
-  EventCard2,
-  EventCard3,
-  EventCard4,
-];
+const EventCard = [EventCard1, EventCard2, EventCard3, EventCard4];
 
 const PopularEvents = () => {
   return (
@@ -57,14 +52,19 @@ const PopularEvents = () => {
             </span>
           </h1>
           <div className="pt-10 md:mt-0 md:ml-12 flex justify-center w-full">
-            <Image src={GamePass} alt='gamepass' className='className="w-full sm:w-[400px] md:w-[650px]"'></Image>
+            <Image
+              src={GamePass}
+              alt="gamepass"
+              className="w-full sm:w-[400px] md:w-[650px] lg:w-full"
+            ></Image>
           </div>
         </div>
         <div className="flex justify-center md:justify-start ml-0 md:ml-20 mt-8">
-        <Link href="/gamePass"><button className="relative view_all text-white pl-5 pr-9 py-3 text-lg sm:text-[1.2em] font-semibold overflow-hidden">
-            <div className="pentagon bg-yellow-500 absolute inset-0"></div>
-            <span className="relative text-black z-10">Explore more</span>
-          </button>
+          <Link href="/gamePass">
+            <button className="relative view_all text-white pl-5 pr-9 py-3 text-lg sm:text-[1.2em] font-semibold overflow-hidden">
+              <div className="pentagon bg-yellow-500 absolute inset-0"></div>
+              <span className="relative text-black z-10">Explore more</span>
+            </button>
           </Link>
         </div>
       </div>
