@@ -146,7 +146,7 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <a
-              href="#"
+              href="/events"
               className={`block px-3 py-2 rounded-md text-base font-medium ${
                 activeLink === 'events' ? 'bg-gray-700' : 'hover:bg-gray-700'
               }`}
@@ -155,7 +155,7 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
               Events
             </a>
             <a
-              href="#"
+              href="/gamePass"
               className={`block px-3 py-2 rounded-md text-base font-medium ${
                 activeLink === 'gamePass' ? 'bg-gray-700' : 'hover:bg-gray-700'
               }`}
@@ -164,16 +164,7 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
               Game Pass
             </a>
             <a
-              href="#"
-              className={`block px-3 py-2 rounded-md text-base font-medium ${
-                activeLink === 'testing' ? 'bg-gray-700' : 'hover:bg-gray-700'
-              }`}
-              onClick={() => handleLinkClick('testing')}
-            >
-              Testing
-            </a>
-            <a
-              href="#"
+              href="/aboutus"
               className={`block px-3 py-2 rounded-md text-base font-medium ${
                 activeLink === 'aboutUs' ? 'bg-gray-700' : 'hover:bg-gray-700'
               }`}
