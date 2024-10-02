@@ -23,7 +23,7 @@ const PopularEvents = () => {
       </div>
 
       {/* Event Cards Section */}
-      <div className="flex flex-wrap">
+      <div className="bg-gradient-to-r from-[#3C0056] to-[#14021D] grid grid-cols-2 gap-8 p-8 sm:flex">
         {EventCard.map((image, index) => (
           <div
             key={index}
