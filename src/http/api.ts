@@ -24,3 +24,9 @@ export const getSocialMediaPosts = async () => {
   const response = await api.get('/social-media/get-all');
   return response.data;
 };
+
+export const getTournamentDetails = async (tournamentId: string) => {
+  setJSONDataHeaders();
+  const response = await api.get(`/tournament/details/${tournamentId}`);
+  return response.data;
+};

@@ -235,9 +235,10 @@ const EventPage = () => {
 
           <div className="grid grid-cols-1 gap-y-8 mt-8 md:grid-cols-2 lg:grid-cols-3 md:gap-x-4 lg:gap-y-20">
             {filteredTournaments.map((tournament) => (
-              <div
+              <Link
+                href={`/events/${tournament.id}`}
                 key={tournament.id}
-                className="relative w-[374px] h-[384px] overflow-hidden group"
+                className="relative w-[374px] h-[384px] overflow-hidden group cursor-pointer"
               >
                 <Image
                   src={tournament.fileUrl}
@@ -259,7 +260,7 @@ const EventPage = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </section>
