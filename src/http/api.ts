@@ -18,3 +18,9 @@ export const joinTournament = async (data: any) => {
   const response = await api.post('/tournament/join', data);
   return response.data;
 };
+
+export const getSocialMediaPosts = async () => {
+  setJSONDataHeaders();
+  const response = await api.get('/social-media/get-all');
+  return response.data;
+};
