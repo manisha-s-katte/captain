@@ -39,8 +39,9 @@ export async function POST(req: NextRequest) {
       { message: 'Joined successfully' },
       { status: 200 }
     );
-  } catch (error) {
+  } catch (error: any) {
+    const errorMessage = error.message || "Internal server error";
     console.error('Error joining tournament', error);
-    return NextResponse.json({ message: 'Failed to join' }, { status: 500 });
+    return NextResponse.json({ message: errorMessage }, { status: 500 });
   }
 }

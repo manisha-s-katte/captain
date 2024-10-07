@@ -21,6 +21,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    if (user.role === 'virtual') {
+      return NextResponse.json(
+        {
+          message:
+            'This email is associated with a virtual account. Please sign in with Google with the same email.',
+        },
+        { status: 400 }
+      );
+    }
+
     if (!user.password) {
       return NextResponse.json(
         {

@@ -30,3 +30,39 @@ export const getTournamentDetails = async (tournamentId: string) => {
   const response = await api.get(`/tournament/details/${tournamentId}`);
   return response.data;
 };
+
+export const createTeam = async (data: any) => {
+  setJSONDataHeaders();
+  const response = await api.post('/tournament/create-team', data);
+  return response.data;
+};
+
+export const getUserTeam = async (tournamentId: string) => {
+  setJSONDataHeaders();
+  const response = await api.get(`/tournament/user-team/${tournamentId}`);
+  return response.data;
+};
+
+export const inviteTeamMate = async (data: any) => {
+  setJSONDataHeaders();
+  const response = await api.post('/tournament/invite-mate', data);
+  return response.data;
+};
+
+export const respondToInvitation = async (data: any) => {
+  setJSONDataHeaders();
+  const response = await api.post('/tournament/respond-invitation', data);
+  return response.data;
+};
+
+export const getNotifications = async () => {
+  setJSONDataHeaders();
+  const response = await api.get('/notifications');
+  return response.data;
+};
+
+export const markNotificationsAsRead = async (notificationIds: number[]) => {
+  setJSONDataHeaders();
+  const response = await api.put('/notifications', { notificationIds });
+  return response.data;
+};

@@ -16,10 +16,17 @@ model User {
     googleId                String?                  @unique
     resetTokenExpiry        DateTime?
     role                    String                   @default("user")
+    gender                  String?
+    age                     Int?
+    phoneNumber             String?
     createdAt               DateTime                 @default(now())
     updatedAt               DateTime                 @updatedAt
     tournaments             Tournament[]
     tournamentRegistrations TournamentRegistration[]
+    captainedTeams          Team[]                   @relation("TeamCaptain")
+    teamMembers             TeamMember[]
+    // teams                   Team[]
+    notifications           Notification[]
 }
 
 model GamePass {
@@ -33,6 +40,32 @@ model GamePass {
     tournaments Tournament[]
     createdAt   DateTime     @default(now())
     updatedAt   DateTime     @updatedAt
+}
+
+model Team {
+    id           Int          @id @default(autoincrement())
+    name         String
+    tournamentId Int
+    tournament   Tournament   @relation(fields: [tournamentId], references: [id])
+    captainId    Int
+    captain      User         @relation("TeamCaptain", fields: [captainId], references: [id])
+    members      TeamMember[]
+    createdAt    DateTime     @default(now())
+    updatedAt    DateTime     @updatedAt
+    // User         User         @relation(fields: [userId], references: [id])
+    // userId       Int
+    heardFrom    String
+}
+
+model TeamMember {
+    id        Int      @id @default(autoincrement())
+    teamId    Int
+    team      Team     @relation(fields: [teamId], references: [id])
+    userId    Int
+    user      User     @relation(fields: [userId], references: [id])
+    status    String   @default("pending") // "pending", "accepted", "rejected"
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model Tournament {
@@ -54,6 +87,7 @@ model Tournament {
     createdAt            DateTime                 @default(now())
     updatedAt            DateTime                 @updatedAt
     registrations        TournamentRegistration[]
+    teams                Team[]
 }
 
 model TournamentRegistration {
@@ -75,6 +109,17 @@ model SocialMediaPost {
     id        Int      @id @default(autoincrement())
     platform  String
     url       String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Notification {
+    id        Int      @id @default(autoincrement())
+    userId    Int
+    user      User     @relation(fields: [userId], references: [id])
+    message   String
+    type      String // e.g., "invite_sent", "invite_accepted", "invite_rejected"
+    read      Boolean  @default(false)
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }

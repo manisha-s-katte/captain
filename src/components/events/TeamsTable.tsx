@@ -11,7 +11,7 @@ export default function TeamTable({ teamsData }: { teamsData: any }) {
           </tr>
         </thead>
         <tbody>
-          {teamsData.map((team: any) => (
+          {teamsData?.map((team: any) => (
             <tr key={team.id} className="border-b border-[#4A0D63]">
               <td className="p-3">{team.teamName}</td>
               <td className="p-3">{team.name}</td>

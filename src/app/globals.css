@@ -18,7 +18,8 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
@@ -29,7 +30,6 @@ html, body {
     text-wrap: balance;
   }
 }
-
 
 @layer base {
   :root {
@@ -88,7 +88,6 @@ html, body {
   }
 }
 
-
 @layer base {
   * {
     @apply border-border;
@@ -98,3 +97,26 @@ html, body {
   }
 }
 
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #d600e1 #310f43;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #310f43;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #d600e1;
+  border-radius: 4px;
+  border: 2px solid #310f43;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #a000ab;
+}

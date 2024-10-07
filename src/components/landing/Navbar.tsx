@@ -8,6 +8,8 @@ import Image from 'next/image';
 import { getSession, signOut } from 'next-auth/react';
 import type { CustomUser } from '@/types';
 import { Loader2Icon } from 'lucide-react';
+import Link from 'next/link';
+import Notification from './Notification';
 
 interface NavbarProps {
   bgColor?: string;
@@ -99,24 +101,28 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
                   <Loader2Icon className="h-6 w-6 animate-spin" />
                 </div>
               ) : session ? (
-                <div className="flex items-center">
-                  <Image
-                    src={session.user?.image || User}
-                    alt="User Avatar"
-                    width={40}
-                    height={40}
-                    className="rounded-full mr-2"
-                  />
-                  <button
-                    onClick={() => signOut()}
-                    className="text-white hover:text-fuchsia-600"
-                  >
-                    Logout
-                  </button>
+                <div className="flex items-center gap-2">
+                  <Notification />
+                  <div className="flex items-center">
+                    <Image
+                      src={session.user?.image || User}
+                      alt="User Avatar"
+                      width={40}
+                      height={40}
+                      className="rounded-full mr-2"
+                    />
+                    <button
+                      onClick={() => signOut()}
+                      className="text-white hover:text-fuchsia-600"
+                    >
+                      Logout
+                    </button>
+                  </div>
                 </div>
               ) : (
-                <a
+                <Link
                   href="/login"
+                  prefetch={false}
                   className="relative text-white px-3.5 py-0.5 text-base font-semibold overflow-hidden"
                   onClick={() => handleLinkClick('login')}
                 >
@@ -124,7 +130,7 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
                   <span className="relative text-black z-10 text-center">
                     Login
                   </span>
-                </a>
+                </Link>
               )}
             </div>
           </div>
@@ -173,22 +179,25 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
               About Us
             </a>
             {session ? (
-              <div className="flex items-center px-3 py-2">
-                <Image
-                  src={session.user?.image || User}
-                  alt="User Avatar"
-                  width={32}
-                  height={32}
-                  className="rounded-full mr-2"
-                />
-                <button
-                  onClick={() => {
-                    signOut();
-                  }}
-                  className="px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Logout
-                </button>
+              <div className="flex items-center gap-2">
+                <Notification />
+                <div className="flex items-center px-3 py-2">
+                  <Image
+                    src={session.user?.image || User}
+                    alt="User Avatar"
+                    width={32}
+                    height={32}
+                    className="rounded-full mr-2"
+                  />
+                  <button
+                    onClick={() => {
+                      signOut();
+                    }}
+                    className="px-3 py-2 rounded-md text-base font-medium"
+                  >
+                    Logout
+                  </button>
+                </div>
               </div>
             ) : (
               <a

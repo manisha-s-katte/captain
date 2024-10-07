@@ -1,5 +1,6 @@
 import {
   Body,
+  Button,
   Container,
   Head,
   Heading,
@@ -13,7 +14,11 @@ import {
 } from '@react-email/components';
 import * as React from 'react';
 
-export default function RegisterTournamentEmail() {
+export default function Invite(
+  teamName: string,
+  captainName: string,
+  tournamentName: string
+) {
   return (
     <Html>
       <Head />
@@ -28,11 +33,24 @@ export default function RegisterTournamentEmail() {
             height={50}
             alt="captain-side"
           />
-          <Heading style={heading}>Successfully Registered</Heading>
+          <Heading style={heading}>Invitation</Heading>
           <Section style={body}>
             <Text style={paragraph}>
-              You have successfully registered the tournament.
+              Exciting news! Yo&#39;ve been invited to join the team{' '}
+              <strong>{teamName}</strong> for the upcoming tournament:{' '}
+              <strong>{tournamentName}</strong>.
             </Text>
+            <Text style={paragraph}>
+              Your team captain, <strong>{captainName}</strong>, has personally
+              invited you to be part of this exciting journey.
+            </Text>
+            <Text style={paragraph}>
+              Ready to join the action? Click the button below to accept the
+              invitation and become part of the team!
+            </Text>
+            <Button href="https://www.captainside.com/login" style={button}>
+              Accept Invitation
+            </Button>
           </Section>
           <Text style={paragraph}>
             Best,
@@ -98,4 +116,16 @@ const footer = {
   color: '#8898aa',
   fontSize: '12px',
   marginLeft: '4px',
+};
+
+const button = {
+  backgroundColor: '#FF6363',
+  color: '#ffffff',
+  fontSize: '16px',
+  fontWeight: 'bold',
+  padding: '12px 24px',
+  borderRadius: '4px',
+  textDecoration: 'none',
+  display: 'inline-block',
+  marginTop: '24px',
 };

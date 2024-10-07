@@ -17,7 +17,11 @@ export async function GET(
     const parsedTournamentId = parseInt(tournamentId);
     const tournament = await prisma.tournament.findUnique({
       where: { id: parsedTournamentId },
-      include: { gamePass: true, registrations: true },
+      include: {
+        gamePass: true,
+        registrations: true,
+        teams: true,
+      },
     });
 
     return NextResponse.json(tournament, { status: 200 });

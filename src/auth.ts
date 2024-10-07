@@ -37,7 +37,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           if (!existingUser.googleId) {
             await prisma.user.update({
               where: { id: existingUser.id },
-              data: { googleId: user.id },
+              data: { googleId: user.id, role: 'user' },
             });
           }
           return true; // Allow sign in
