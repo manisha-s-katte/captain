@@ -6,6 +6,7 @@ import CategoryGamePass from '@/components/GamePass/CategoryGamePass';
 import GamePassFooter from '@/components/GamePass/GamePassFooter';
 import { createClient } from '@/lib/supabase/client';
 import Spinner from '@/components/Spinner/spinner';
+import Nft from '@/components/GamePass/Nft';
 
 const GamePass = () => {
   const [gamePasses, setGamePasses] = useState<Record<string, any>[]>([]);
@@ -39,13 +40,14 @@ const GamePass = () => {
           {gamePasses?.length === 0 ? (
             <p className="text-white text-center mt-32">No game passes</p>
           ) : (
-            <>
+            <div className="space-y-8">
               <div className="w-full flex justify-center items-center">
                 <GamePassCarousel gamePasses={gamePasses} />
               </div>
               <CategoryGamePass />
+              <Nft />
               <GamePassFooter />
-            </>
+            </div>
           )}
         </>
       )}
