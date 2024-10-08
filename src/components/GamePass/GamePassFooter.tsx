@@ -1,6 +1,8 @@
 import React from 'react';
 import Logo from '@/assets/Resources/logo.svg';
 import { FaDiscord, FaInstagram, FaYoutube, FaEnvelope } from 'react-icons/fa';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const GamePassFooter = () => {
   return (
@@ -9,9 +11,15 @@ const GamePassFooter = () => {
         <div className="w-full md:w-1/2 flex flex-col justify-between">
           <div>
             <div className="flex items-center">
-              <a href="/" className="flex-shrink-0">
-                {/* <Logo className="text-base h-auto w-auto" /> */}
-              </a>
+              <Link href="/" className="flex-shrink-0">
+                <Image
+                  src={Logo}
+                  alt="logo"
+                  width={224}
+                  height={224}
+                  className="w-56 h-56"
+                />
+              </Link>
             </div>
             <p className="mt-8 text-gray-300 text-base">
               Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
@@ -44,21 +52,21 @@ const GamePassFooter = () => {
           <div className="pentagon1 p-8 md:p-16 pl-8 md:pl-20 shadow-lg bg-[#310F43] flex flex-col md:flex-row justify-center items-stretch w-full h-auto md:h-full">
             {/* Left Partition */}
             <div className="w-full md:w-1/2 flex flex-col space-y-6 md:space-y-12 mb-6 md:mb-0">
-              <a href="/" className="hover:underline">
+              <Link href="/events" className="hover:underline">
                 Events
-              </a>
-              <a href="/" className="hover:underline">
+              </Link>
+              <Link href="/gamePass" className="hover:underline">
                 Game Pass
-              </a>
-              <a href="/" className="hover:underline">
+              </Link>
+              <Link href="/aboutus" className="hover:underline">
                 About Us
-              </a>
-              <a href="/" className="hover:underline">
+              </Link>
+              <Link href="/login" className="hover:underline">
                 Log in
-              </a>
-              <a href="/" className="hover:underline">
+              </Link>
+              <Link href="/" className="hover:underline">
                 Help & Support
-              </a>
+              </Link>
             </div>
 
             {/* Divider */}
@@ -78,12 +86,12 @@ const GamePassFooter = () => {
               <a href="/" className="flex items-center hover:underline">
                 <FaEnvelope className="mr-2 w-5 h-5" /> Email
               </a>
-              <a href="/" className="hover:underline">
+              <Link href="/" className="hover:underline">
                 Privacy Policy
-              </a>
-              <a href="/" className="hover:underline">
+              </Link>
+              <Link href="/" className="hover:underline">
                 Terms & Conditions
-              </a>
+              </Link>
             </div>
           </div>
         </div>

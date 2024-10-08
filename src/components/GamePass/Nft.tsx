@@ -46,7 +46,7 @@ export default function Nft() {
                   alt={data.title}
                   width={48}
                   height={48}
-                  className="w-4 h-4 sm:w-12 sm:h-12"
+                  className="w-6 h-6 sm:w-12 sm:h-12"
                 />
                 {index < cardsData.length - 1 && (
                   <div className="w-10 sm:w-72  h-0.5 bg-[#7E5D84] self-start mt-2 sm:mt-[23px]" />

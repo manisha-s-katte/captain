@@ -55,12 +55,18 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <a href="/" className="flex-shrink-0">
-              <Image src={Logo} alt="Logo" width={100} height={50} />
-            </a>
+            <Link href="/" className="flex-shrink-0">
+              <Image
+                src={Logo}
+                alt="Logo"
+                width={224}
+                height={224}
+                className="w-56 h-56"
+              />
+            </Link>
           </div>
           <div className="hidden ml-5 md:flex md:items-center md:space-x-4">
-            <a
+            <Link
               href="/events"
               className={`text-lg ${
                 activeLink === 'events'
@@ -70,8 +76,8 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
               onClick={() => handleLinkClick('events')}
             >
               Events
-            </a>
-            <a
+            </Link>
+            <Link
               href="gamePass"
               className={`text-lg ${
                 activeLink === 'gamePass'
@@ -81,8 +87,8 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
               onClick={() => handleLinkClick('gamePass')}
             >
               Game Pass
-            </a>
-            <a
+            </Link>
+            <Link
               href="/aboutus"
               className={`text-lg ${
                 activeLink === 'aboutUs'
@@ -92,7 +98,7 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
               onClick={() => handleLinkClick('aboutUs')}
             >
               About Us
-            </a>
+            </Link>
           </div>
           <div className="hidden md:flex ml-20 md:items-center">
             <div className="relative flex items-center">
@@ -151,7 +157,7 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
       {isOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a
+            <Link
               href="/events"
               className={`block px-3 py-2 rounded-md text-base font-medium ${
                 activeLink === 'events' ? 'bg-gray-700' : 'hover:bg-gray-700'
@@ -159,8 +165,8 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
               onClick={() => handleLinkClick('events')}
             >
               Events
-            </a>
-            <a
+            </Link>
+            <Link
               href="/gamePass"
               className={`block px-3 py-2 rounded-md text-base font-medium ${
                 activeLink === 'gamePass' ? 'bg-gray-700' : 'hover:bg-gray-700'
@@ -168,8 +174,8 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
               onClick={() => handleLinkClick('gamePass')}
             >
               Game Pass
-            </a>
-            <a
+            </Link>
+            <Link
               href="/aboutus"
               className={`block px-3 py-2 rounded-md text-base font-medium ${
                 activeLink === 'aboutUs' ? 'bg-gray-700' : 'hover:bg-gray-700'
@@ -177,7 +183,7 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
               onClick={() => handleLinkClick('aboutUs')}
             >
               About Us
-            </a>
+            </Link>
             {session ? (
               <div className="flex items-center gap-2">
                 <Notification />
@@ -200,7 +206,7 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
                 </div>
               </div>
             ) : (
-              <a
+              <Link
                 href="/login"
                 className={`block px-3 py-2 rounded-md text-base font-medium ${
                   activeLink === 'login' ? 'bg-gray-700' : 'hover:bg-gray-700'
@@ -208,7 +214,7 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
                 onClick={() => handleLinkClick('login')}
               >
                 Login
-              </a>
+              </Link>
             )}
           </div>
         </div>
