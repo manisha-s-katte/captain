@@ -31,7 +31,7 @@ const GamePass = () => {
     fetchGamePasses();
   }, []);
   return (
-    <main className="bg-gradient-to-tl from-[#110219] to-[#37024F] text-white min-h-screen">
+    <main className="flex flex-col bg-gradient-to-tl from-[#110219] to-[#37024F] text-white min-h-screen">
       <Navbar bgColor="transparent" />
       {isLoading ? (
         <Spinner />

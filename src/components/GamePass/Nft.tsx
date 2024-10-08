@@ -35,7 +35,7 @@ export default function Nft() {
         <div className="flex gap-4 justify-between w-full">
           {cardsData.map((data: any, index) => (
             <div key={index} className="space-y-4 w-1/4">
-              <h3 className="font-extrabold text-[10px] sm:text-sm md:text-base">
+              <h3 className="font-extrabold text-[8px] sm:text-sm md:text-base">
                 <span className="bg-gradient-to-r from-[#FF41B3] to-[#379FFF] bg-clip-text text-transparent">
                   {data.title}
                 </span>
@@ -46,13 +46,13 @@ export default function Nft() {
                   alt={data.title}
                   width={48}
                   height={48}
-                  className="w-6 h-6 sm:w-12 sm:h-12"
+                  className="w-4 h-4 sm:w-12 sm:h-12"
                 />
                 {index < cardsData.length - 1 && (
-                  <div className="w-72  h-0.5 bg-[#7E5D84] self-start mt-2 sm:mt-[23px]" />
+                  <div className="w-10 sm:w-72  h-0.5 bg-[#7E5D84] self-start mt-2 sm:mt-[23px]" />
                 )}
               </div>
-              <p className="text-[10px] md:text-sm">{data.description}</p>
+              <p className="text-[8px] md:text-sm">{data.description}</p>
             </div>
           ))}
         </div>
