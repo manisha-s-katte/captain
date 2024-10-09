@@ -12,8 +12,9 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getNotifications, markNotificationsAsRead } from '@/http/api';
 import Link from 'next/link';
 
-export function NotificationDropdown({ notifications, onOpen }: any) {
+export function NotificationDropdown({ notifications }: any) {
   const queryClient = useQueryClient();
+
   const { mutate: markAsRead } = useMutation({
     mutationFn: markNotificationsAsRead,
     onSuccess: () => {
@@ -22,7 +23,6 @@ export function NotificationDropdown({ notifications, onOpen }: any) {
   });
 
   const handleOpen = () => {
-    onOpen();
     const unreadNotifications = notifications
       .filter((n: any) => !n.read)
       .map((n: any) => n.id);
@@ -32,7 +32,7 @@ export function NotificationDropdown({ notifications, onOpen }: any) {
   };
 
   return (
-    <Menu as="div" className="relative inline-block text-left z-50">
+    <Menu as="div" className="relative inline-block text-left">
       <div>
         <MenuButton
           onClick={handleOpen}
@@ -55,7 +55,7 @@ export function NotificationDropdown({ notifications, onOpen }: any) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <MenuItems className="absolute md:right-0 mt-2 w-64 origin-top-right bg-[#310F43] border border-[#D600E1] text-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <MenuItems className="absolute md:right-0 mt-2 w-72 origin-top-right bg-[#310F43] border border-[#D600E1] text-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
           <div className="px-1 py-1">
             <div className="px-4 py-2 text-sm font-medium">Notifications</div>
             <div className="border-t border-[#D600E1]" />
@@ -103,14 +103,5 @@ export default function Notification() {
     refetchInterval: 60000,
   });
 
-  const handleOpen = () => {
-    queryClient.invalidateQueries({ queryKey: ['notifications'] });
-  };
-
-  return (
-    <NotificationDropdown
-      notifications={notifications || []}
-      onOpen={handleOpen}
-    />
-  );
+  return <NotificationDropdown notifications={notifications || []} />;
 }

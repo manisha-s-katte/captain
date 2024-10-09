@@ -132,7 +132,7 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
                   className="relative text-white px-3.5 py-0.5 text-base font-semibold overflow-hidden"
                   onClick={() => handleLinkClick('login')}
                 >
-                  <div className="pentagon bg-[#D600E1] absolute inset-0"></div>
+                  <div className="pentagon bg-[#d600e1] absolute inset-0"></div>
                   <span className="relative text-black z-10 text-center">
                     Login
                   </span>
