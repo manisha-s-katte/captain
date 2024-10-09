@@ -27,6 +27,7 @@ import { joinTournament } from '@/http/api';
 import { Loader2Icon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { SingleElimination } from './SingleElimination';
 // import { Spinner } from '@nextui-org/react';
 
 const imageArray = [
@@ -265,6 +266,10 @@ const EventPage = () => {
           </div>
         </section>
       )}
+
+      <section className="mt-8 mb-8 mx-4 lg:mx-16 w-full min-h-screen">
+        <SingleElimination />
+      </section>
 
       {/* Add this dialog component */}
       <Transition appear show={isDialogOpen} as={Fragment}>
