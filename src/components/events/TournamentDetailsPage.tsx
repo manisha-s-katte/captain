@@ -283,7 +283,7 @@ export default function TournamentDetailsPage({
                   Create Team
                 </button>
               </div>
-              <TeamsTable teamsData={tournamentsData?.teams} />
+             <TeamsTable teamsData={tournamentsData?.teams} />
             </div>
 
             <Transition appear show={isCreateTeamModalOpen} as={Fragment}>

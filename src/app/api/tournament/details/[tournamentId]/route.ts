@@ -19,8 +19,11 @@ export async function GET(
       where: { id: parsedTournamentId },
       include: {
         gamePass: true,
-        registrations: true,
-        teams: true,
+        teams: {
+          include: {
+            captain: true,
+          },
+        },
       },
     });
 

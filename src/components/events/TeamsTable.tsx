@@ -11,14 +11,22 @@ export default function TeamTable({ teamsData }: { teamsData: any }) {
           </tr>
         </thead>
         <tbody>
-          {teamsData?.map((team: any) => (
-            <tr key={team.id} className="border-b border-[#4A0D63]">
-              <td className="p-3">{team.teamName}</td>
-              <td className="p-3">{team.name}</td>
-              <td className="p-3">{team.gender}</td>
-              <td className="p-3">{team.age}</td>
+          {teamsData?.length > 0 ? (
+            teamsData?.map((team: any) => (
+              <tr key={team.id} className="border-b border-[#4A0D63]">
+                <td className="p-3">{team.name}</td>
+                <td className="p-3">{team?.captain?.name}</td>
+                <td className="p-3">{team?.captain?.gender}</td>
+                <td className="p-3">{team?.captain?.age}</td>
+              </tr>
+            ))
+          ) : (
+            <tr className="border-b border-[#4A0D63] h-[20vh]">
+              <td colSpan={4} className="text-center">
+                Teams haven&#39;t been created yet
+              </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>
