@@ -45,6 +45,26 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    //* check if the user is already a member of the tournament
+    const existingMember = await prisma.teamMember.findFirst({
+      where: {
+        team: { tournamentId: parseInt(tournamentId) },
+        userId: user.id,
+      },
+    });
+
+    console.log('existingMember', existingMember);
+
+    if (existingMember) {
+      return NextResponse.json(
+        {
+          message:
+            'You are  already a member or has a pending invitation of this tournament',
+        },
+        { status: 400 }
+      );
+    }
+
     const newTeam = await prisma.team.create({
       data: {
         name: teamName,
@@ -68,7 +88,7 @@ export async function POST(req: NextRequest) {
       { status: 201 }
     );
   } catch (error: any) {
-    const errorMessage = error.message || "Internal server error";
+    const errorMessage = error.message || 'Internal server error';
     console.error('Error creating team:', error);
     return NextResponse.json({ message: errorMessage }, { status: 500 });
   }

@@ -67,7 +67,7 @@ export function NotificationDropdown({ notifications }: any) {
                   <MenuItem key={notification.id}>
                     {() => (
                       <Link
-                        href={`/events/${notification?.user?.teamMembers[0]?.team?.tournamentId}`}
+                        href={`/events/${notification?.tournamentId}`}
                         className={`block px-4 py-2 text-sm hover:bg-[#D600E1] hover:bg-opacity-20 cursor-pointer transition-colors duration-200 ${
                           !notification.read ? 'font-bold' : ''
                         }`}

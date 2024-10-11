@@ -197,13 +197,13 @@ export default function TournamentDetailsPage({
                     {tournamentsData?.description}
                   </p>
                 </div>
-                <div className="flex items-center">
+                <div className="col-span-2 sm:col-span-1 flex items-center">
                   <FaMoneyBillWave className="text-green-500 mr-3 text-xl" />
                   <p className="text-white">
                     Entry Fee: {tournamentsData?.entryFee} INR
                   </p>
                 </div>
-                <div className="flex items-center">
+                <div className="col-span-2 sm:col-span-1 flex items-center">
                   <FaCalendarAlt className="text-red-500 mr-3 text-xl" />
                   <p className="text-white">
                     Date:{' '}
@@ -217,31 +217,31 @@ export default function TournamentDetailsPage({
                       format(new Date(tournamentsData?.endDate), 'd MMM')}
                   </p>
                 </div>
-                <div className="flex items-center">
+                <div className="col-span-2 sm:col-span-1 flex items-center">
                   <FaUsers className="text-yellow-500 mr-3 text-xl" />
                   <p className="text-white">
                     Max Teams: {tournamentsData?.maxNofTeams}
                   </p>
                 </div>
-                <div className="flex items-center">
+                <div className="col-span-2 sm:col-span-1 flex items-center">
                   <FaUserFriends className="text-yellow-500 mr-3 text-xl" />
                   <p className="text-white">
                     Players per Team: {tournamentsData?.maxNofPlayersPerTeam}
                   </p>
                 </div>
-                <div className="flex items-center">
+                <div className="col-span-2 sm:col-span-1 flex items-center">
                   <FaMoneyBillWave className="text-green-500 mr-3 text-xl" />
                   <p className="text-white">
                     Prize Pool: {tournamentsData?.prize || 'TBD'}
                   </p>
                 </div>
-                <div className="flex items-center">
+                <div className="col-span-2 sm:col-span-1 flex items-center">
                   <FaFlag className="text-blue-500 mr-3 text-xl" />
                   <p className="text-white">
                     Game Pass: {tournamentsData?.gamePass?.title}
                   </p>
                 </div>
-                <div className="flex items-center">
+                <div className="col-span-2 sm:col-span-1 flex items-center">
                   <FaTrophy className="text-yellow-600 mr-3 text-xl" />
                   <p className="text-white">
                     Mode:{' '}
@@ -283,7 +283,7 @@ export default function TournamentDetailsPage({
                   Create Team
                 </button>
               </div>
-              <TeamsTable teamsData={tournamentsData?.registrations} />
+              <TeamsTable teamsData={tournamentsData?.teams} />
             </div>
 
             <Transition appear show={isCreateTeamModalOpen} as={Fragment}>

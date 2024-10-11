@@ -3,7 +3,6 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { CiSearch } from 'react-icons/ci';
 import CustomDropdown from '../common/CustomDropdown'; // Adjust the import path as needed
 import EventDetails from '../common/AppCard'; // Adjust the import path as needed
-import { createClient } from '@/lib/supabase/client';
 import Spinner from '@/components/Spinner/spinner';
 import { useQuery } from '@tanstack/react-query';
 import { getTournaments } from '@/http/api';
