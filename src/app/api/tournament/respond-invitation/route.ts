@@ -51,6 +51,7 @@ export async function POST(req: NextRequest) {
       await prisma.notification.create({
         data: {
           userId: invitation.team.captainId,
+          tournamentId: invitation.team.tournamentId,
           message: `${invitation.user.name} has accepted your invitation to join ${invitation.team.name}`,
           type: 'invite_accepted',
         },
@@ -69,6 +70,7 @@ export async function POST(req: NextRequest) {
       await prisma.notification.create({
         data: {
           userId: invitation.team.captainId,
+          tournamentId: invitation.team.tournamentId,
           message: `${invitation.user.name} has rejected your invitation to join ${invitation.team.name}`,
           type: 'invite_rejected',
         },

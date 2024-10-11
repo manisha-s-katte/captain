@@ -5,42 +5,17 @@ import CustomDropdown from '../common/CustomDropdown'; // Adjust the import path
 import EventDetails from '../common/AppCard'; // Adjust the import path as needed
 import { createClient } from '@/lib/supabase/client';
 import Spinner from '@/components/Spinner/spinner';
+import { useQuery } from '@tanstack/react-query';
+import { getTournaments } from '@/http/api';
 
 const UpcomingPage = () => {
   const [selectedSort, setSelectedSort] = useState('Short');
-  const [tournaments, setTournaments] = useState<Record<string, any>[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchTournaments = async () => {
-      setIsLoading(true);
-      const supabase = createClient();
-      const { data, error } = await supabase
-        .from('Tournament')
-        .select('*')
-        .eq('status', 'active')
-        .order('startDate', { ascending: true });
-
-      if (error) {
-        console.error('Error fetching tournaments:', error);
-      } else {
-        setTournaments(data || []);
-      }
-      setIsLoading(false);
-    };
-
-    fetchTournaments();
-  }, []);
-
-  const filteredTournaments = useMemo(() => {
-    const today = new Date();
-    return tournaments.filter((tournament) => {
-      const startDate = new Date(tournament.startDate);
-      return startDate > today;
-    });
-  }, [tournaments]);
-
-  console.log('filteredTournaments', filteredTournaments);
+  const { data: tournaments, isLoading } = useQuery({
+    queryKey: ['tournaments'],
+    queryFn: async () => await getTournaments('upcoming'),
+    refetchInterval: 60000,
+  });
 
   return (
     <main>
@@ -78,12 +53,12 @@ const UpcomingPage = () => {
             <Spinner />
           ) : (
             <>
-              {filteredTournaments.length === 0 ? (
+              {tournaments.length === 0 ? (
                 <p className="text-white text-center mt-32">
                   No upcoming tournaments
                 </p>
               ) : (
-                filteredTournaments.map((tournament) => (
+                tournaments?.map((tournament: any) => (
                   <EventDetails key={tournament.id} tournament={tournament} />
                 ))
               )}

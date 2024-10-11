@@ -93,6 +93,7 @@ export async function POST(req: NextRequest) {
     await prisma.notification.create({
       data: {
         userId: user.id,
+        tournamentId: team.tournamentId,
         message: `You've been invited to join team ${team.name}`,
         type: 'invite_sent',
       },
@@ -102,6 +103,7 @@ export async function POST(req: NextRequest) {
     await prisma.notification.create({
       data: {
         userId: team.captainId,
+        tournamentId: team.tournamentId,
         message: `You've invited ${name} to join your team ${team.name}`,
         type: 'invite_sent',
       },

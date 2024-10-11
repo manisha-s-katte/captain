@@ -5,7 +5,8 @@ import {
   SVGViewer,
   createTheme,
 } from '@g-loot/react-tournament-brackets';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
+import { useWindowSize } from '@uidotdev/usehooks';
 
 const matches = [
   {
@@ -23,6 +24,7 @@ const matches = [
         isWinner: false,
         status: null,
         name: 'TestTeam1234',
+        roundTextGenerator: '02',
         picture: null,
       },
     ],
@@ -1697,7 +1699,7 @@ const theme = createTheme({
     color: '#FFD700', // Gold color for borders
     highlightedColor: '#FFD700',
   },
-  roundHeader: { backgroundColor: '#2A0A38', fontColor: '#FFFFFF' },
+  roundHeader: { backgroundColor: '#2A0A', fontColor: '#FFFFFF' },
   connectorColor: '#FFD700', // Gold color for connectors
   connectorColorHighlight: '#FFD700',
   svgBackground: '#1A0024', // Dark purple background
@@ -1705,6 +1707,9 @@ const theme = createTheme({
 
 export const SingleElimination = () => {
   const [updatedMatches, setUpdatedMatches] = useState(matches);
+  const size = useWindowSize();
+  const finalWidth = size?.width && size.width * 0.9;
+  const finalHeight = size?.height && size.height * 0.9;
 
   return (
     <SingleEliminationBracket
@@ -1713,7 +1718,7 @@ export const SingleElimination = () => {
       options={{
         style: {
           roundHeader: {
-            color: theme.roundHeader.backgroundColor,
+            backgroundColor: theme.roundHeader.backgroundColor, //* this is not changing
             fontColor: theme.roundHeader.fontColor,
           },
           connectorColor: theme.connectorColor,
@@ -1725,8 +1730,8 @@ export const SingleElimination = () => {
         <SVGViewer
           background={theme.svgBackground}
           SVGBackground={theme.svgBackground}
-          width={1400}
-          height={800}
+          width={finalWidth}
+          height={finalHeight}
           {...props}
         >
           {children}

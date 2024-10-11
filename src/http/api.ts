@@ -19,6 +19,12 @@ export const joinTournament = async (data: any) => {
   return response.data;
 };
 
+export const getTournaments = async (type: string) => {
+  setJSONDataHeaders();
+  const response = await api.get(`/tournament?type=${type}`);
+  return response.data;
+};
+
 export const getSocialMediaPosts = async () => {
   setJSONDataHeaders();
   const response = await api.get('/social-media/get-all');
