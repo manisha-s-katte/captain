@@ -63,7 +63,7 @@ const PopularEvents = () => {
           <Link href="/gamePass">
             <button className="relative view_all text-white pl-5 pr-9 py-3 text-lg sm:text-[1.2em] font-semibold overflow-hidden">
               <div className="pentagon bg-yellow-500 absolute inset-0"></div>
-              <span className="relative text-black z-10">Explore more</span>
+              <span className="relative text-black z-10">Coming Soon</span>
             </button>
           </Link>
         </div>

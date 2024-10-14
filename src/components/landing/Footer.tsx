@@ -15,9 +15,7 @@ const Footer = () => {
               </a>
             </div>
             <p className="mt-8 text-gray-300 text-base">
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna amet,
-              consectetue.
+            All chains, all games—single destination. Captain Side, where Web3 gaming connects.
             </p>
             <div className="mt-8 md:mt-24">
               <h1 className="text-xl md:text-2xl font-medium">
