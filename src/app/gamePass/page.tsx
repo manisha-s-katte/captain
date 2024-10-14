@@ -7,29 +7,14 @@ import GamePassFooter from '@/components/GamePass/GamePassFooter';
 import { createClient } from '@/lib/supabase/client';
 import Spinner from '@/components/Spinner/spinner';
 import Nft from '@/components/GamePass/Nft';
+import { useQuery } from '@tanstack/react-query';
+import { getGamePasses } from '@/http/api';
 
 const GamePass = () => {
-  const [gamePasses, setGamePasses] = useState<Record<string, any>[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    const fetchGamePasses = async () => {
-      setIsLoading(true);
-      const supabase = createClient();
-      const { data, error } = await supabase
-        .from('GamePass')
-        .select('*')
-        .eq('status', 'active');
-
-      if (error) {
-        console.error('Error fetching game passes:', error);
-      } else {
-        setGamePasses(data || []);
-      }
-      setIsLoading(false);
-    };
-
-    fetchGamePasses();
-  }, []);
+  const { data: gamePasses, isLoading } = useQuery({
+    queryKey: ['gamePasses'],
+    queryFn: async () => await getGamePasses(),
+  });
   return (
     <main className="flex flex-col bg-gradient-to-tl from-[#110219] to-[#37024F] text-white min-h-screen">
       <Navbar bgColor="transparent" />

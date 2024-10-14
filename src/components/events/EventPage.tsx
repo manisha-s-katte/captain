@@ -248,10 +248,6 @@ const EventPage = () => {
         </section>
       }
 
-      <section className="mt-8 mb-8 mx-4 lg:flex justify-center items-center">
-        <SingleElimination />
-      </section>
-
       {/* Add this dialog component */}
       <Transition appear show={isDialogOpen} as={Fragment}>
         <Dialog as="div" className="relative z-50" onClose={handleCloseDialog}>

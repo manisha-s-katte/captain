@@ -72,3 +72,9 @@ export const markNotificationsAsRead = async (notificationIds: number[]) => {
   const response = await api.put('/notifications', { notificationIds });
   return response.data;
 };
+
+export const getGamePasses = async () => {
+  setJSONDataHeaders();
+  const response = await api.get('/game-pass/get-all');
+  return response.data;
+};

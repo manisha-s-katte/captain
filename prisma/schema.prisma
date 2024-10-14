@@ -89,6 +89,44 @@ model Tournament {
     registrations        TournamentRegistration[]
     teams                Team[]
     notifications        Notification[]
+    brackets             Bracket[]
+}
+
+model Match {
+    id                  Int                @id @default(autoincrement())
+    name                String
+    startTime           DateTime // ISO date string
+    state               String
+    tournamentRoundText String
+    nextMatchId         String
+    participants        MatchParticipant[]
+    upperBracketId      Int?
+    lowerBracketId      Int?
+    upperBrackets       Bracket?           @relation("UpperBracket", fields: [upperBracketId], references: [id])
+    lowerBrackets       Bracket?           @relation("LowerBracket", fields: [lowerBracketId], references: [id])
+    createdAt           DateTime           @default(now())
+    updatedAt           DateTime           @updatedAt
+}
+
+model MatchParticipant {
+    id         Int      @id @default(autoincrement())
+    matchId    Int
+    Match      Match    @relation(fields: [matchId], references: [id])
+    name       String
+    resultText String?
+    isWinner   Boolean? @default(false)
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+}
+
+model Bracket {
+    id           Int        @id @default(autoincrement())
+    tournamentId Int
+    tournament   Tournament @relation(fields: [tournamentId], references: [id])
+    upperMatches Match[]    @relation("UpperBracket")
+    lowerMatches Match[]    @relation("LowerBracket")
+    createdAt    DateTime   @default(now())
+    updatedAt    DateTime   @updatedAt
 }
 
 model TournamentRegistration {

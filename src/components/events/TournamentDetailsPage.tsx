@@ -36,6 +36,7 @@ import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import UserTeamTable from './UserTeamTable';
 import { useSession } from 'next-auth/react';
+import { SingleElimination } from './SingleElimination';
 
 export default function TournamentDetailsPage({
   tournamentId,
@@ -283,7 +284,13 @@ export default function TournamentDetailsPage({
                   Create Team
                 </button>
               </div>
-             <TeamsTable teamsData={tournamentsData?.teams} />
+              <TeamsTable teamsData={tournamentsData?.teams} />
+            </div>
+
+            <div className="my-8  lg:flex justify-center items-center">
+              {tournamentsData?.tournamentType === 'single elimination' && (
+                <SingleElimination matches={tournamentsData?.upperMatches} />
+              )}
             </div>
 
             <Transition appear show={isCreateTeamModalOpen} as={Fragment}>
