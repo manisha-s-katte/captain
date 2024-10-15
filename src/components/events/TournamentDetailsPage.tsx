@@ -37,6 +37,7 @@ import { useRouter } from 'next/navigation';
 import UserTeamTable from './UserTeamTable';
 import { useSession } from 'next-auth/react';
 import { SingleElimination } from './SingleElimination';
+import { DoubleEliminationBrackets } from './DoubleEliminationBrackets';
 
 export default function TournamentDetailsPage({
   tournamentId,
@@ -289,7 +290,14 @@ export default function TournamentDetailsPage({
 
             <div className="my-8  lg:flex justify-center items-center">
               {tournamentsData?.tournamentType === 'single elimination' && (
-                <SingleElimination matches={tournamentsData?.upperMatches} />
+                <SingleElimination
+                  matches={JSON.parse(tournamentsData?.bracket)}
+                />
+              )}
+              {tournamentsData?.tournamentType === 'double elimination' && (
+                <DoubleEliminationBrackets
+                  matches={tournamentsData?.upperMatches}
+                />
               )}
             </div>
 

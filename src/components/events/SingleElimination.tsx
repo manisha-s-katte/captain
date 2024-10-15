@@ -12,9 +12,9 @@ const matchesMockData = [
   {
     id: 1,
     name: 'Round 1 - Match 1',
-    nextMatchId: 16,
+    nextMatchId: 17,
     tournamentRoundText: '1',
-    startTime: '2024-10-14T09:15:48.990Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -36,9 +36,9 @@ const matchesMockData = [
   {
     id: 2,
     name: 'Round 1 - Match 2',
-    nextMatchId: 16,
+    nextMatchId: 17,
     tournamentRoundText: '1',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -60,9 +60,9 @@ const matchesMockData = [
   {
     id: 3,
     name: 'Round 1 - Match 3',
-    nextMatchId: 17,
+    nextMatchId: 18,
     tournamentRoundText: '1',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -84,9 +84,9 @@ const matchesMockData = [
   {
     id: 4,
     name: 'Round 1 - Match 4',
-    nextMatchId: 17,
+    nextMatchId: 18,
     tournamentRoundText: '1',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -108,9 +108,9 @@ const matchesMockData = [
   {
     id: 5,
     name: 'Round 1 - Match 5',
-    nextMatchId: 18,
+    nextMatchId: 19,
     tournamentRoundText: '1',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -132,9 +132,9 @@ const matchesMockData = [
   {
     id: 6,
     name: 'Round 1 - Match 6',
-    nextMatchId: 18,
+    nextMatchId: 19,
     tournamentRoundText: '1',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -156,9 +156,9 @@ const matchesMockData = [
   {
     id: 7,
     name: 'Round 1 - Match 7',
-    nextMatchId: 19,
+    nextMatchId: 20,
     tournamentRoundText: '1',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -180,9 +180,9 @@ const matchesMockData = [
   {
     id: 8,
     name: 'Round 1 - Match 8',
-    nextMatchId: 19,
+    nextMatchId: 20,
     tournamentRoundText: '1',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -204,9 +204,9 @@ const matchesMockData = [
   {
     id: 9,
     name: 'Round 1 - Match 9',
-    nextMatchId: 20,
+    nextMatchId: 21,
     tournamentRoundText: '1',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -228,9 +228,9 @@ const matchesMockData = [
   {
     id: 10,
     name: 'Round 1 - Match 10',
-    nextMatchId: 20,
+    nextMatchId: 21,
     tournamentRoundText: '1',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -252,9 +252,9 @@ const matchesMockData = [
   {
     id: 11,
     name: 'Round 1 - Match 11',
-    nextMatchId: 21,
+    nextMatchId: 22,
     tournamentRoundText: '1',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -276,9 +276,9 @@ const matchesMockData = [
   {
     id: 12,
     name: 'Round 1 - Match 12',
-    nextMatchId: 21,
+    nextMatchId: 22,
     tournamentRoundText: '1',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -300,9 +300,9 @@ const matchesMockData = [
   {
     id: 13,
     name: 'Round 1 - Match 13',
-    nextMatchId: 22,
+    nextMatchId: 23,
     tournamentRoundText: '1',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -324,9 +324,9 @@ const matchesMockData = [
   {
     id: 14,
     name: 'Round 1 - Match 14',
-    nextMatchId: 22,
+    nextMatchId: 23,
     tournamentRoundText: '1',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -348,9 +348,9 @@ const matchesMockData = [
   {
     id: 15,
     name: 'Round 1 - Match 15',
-    nextMatchId: 23,
+    nextMatchId: 24,
     tournamentRoundText: '1',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -371,10 +371,10 @@ const matchesMockData = [
   },
   {
     id: 16,
-    name: 'Round 2 - Match 1',
+    name: 'Round 1 - Match 16',
     nextMatchId: 24,
-    tournamentRoundText: '2',
-    startTime: '2024-10-14T09:15:48.991Z',
+    tournamentRoundText: '1',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -385,8 +385,8 @@ const matchesMockData = [
         status: null,
       },
       {
-        id: 'bye',
-        name: 'BYE',
+        id: 'team32',
+        name: 'Team 32',
         resultText: null,
         isWinner: false,
         status: null,
@@ -395,10 +395,10 @@ const matchesMockData = [
   },
   {
     id: 17,
-    name: 'Round 2 - Match 2',
-    nextMatchId: 24,
+    name: 'Round 2 - Match 1',
+    nextMatchId: 25,
     tournamentRoundText: '2',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -419,10 +419,10 @@ const matchesMockData = [
   },
   {
     id: 18,
-    name: 'Round 2 - Match 3',
+    name: 'Round 2 - Match 2',
     nextMatchId: 25,
     tournamentRoundText: '2',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -443,10 +443,10 @@ const matchesMockData = [
   },
   {
     id: 19,
-    name: 'Round 2 - Match 4',
-    nextMatchId: 25,
+    name: 'Round 2 - Match 3',
+    nextMatchId: 26,
     tournamentRoundText: '2',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -467,10 +467,10 @@ const matchesMockData = [
   },
   {
     id: 20,
-    name: 'Round 2 - Match 5',
+    name: 'Round 2 - Match 4',
     nextMatchId: 26,
     tournamentRoundText: '2',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -491,10 +491,10 @@ const matchesMockData = [
   },
   {
     id: 21,
-    name: 'Round 2 - Match 6',
-    nextMatchId: 26,
+    name: 'Round 2 - Match 5',
+    nextMatchId: 27,
     tournamentRoundText: '2',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -515,10 +515,10 @@ const matchesMockData = [
   },
   {
     id: 22,
-    name: 'Round 2 - Match 7',
+    name: 'Round 2 - Match 6',
     nextMatchId: 27,
     tournamentRoundText: '2',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -539,10 +539,10 @@ const matchesMockData = [
   },
   {
     id: 23,
-    name: 'Round 2 - Match 8',
-    nextMatchId: 27,
+    name: 'Round 2 - Match 7',
+    nextMatchId: 28,
     tournamentRoundText: '2',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -563,10 +563,10 @@ const matchesMockData = [
   },
   {
     id: 24,
-    name: 'Round 3 - Match 1',
+    name: 'Round 2 - Match 8',
     nextMatchId: 28,
-    tournamentRoundText: '3',
-    startTime: '2024-10-14T09:15:48.991Z',
+    tournamentRoundText: '2',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -587,10 +587,10 @@ const matchesMockData = [
   },
   {
     id: 25,
-    name: 'Round 3 - Match 2',
-    nextMatchId: 28,
+    name: 'Round 3 - Match 1',
+    nextMatchId: 29,
     tournamentRoundText: '3',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -611,10 +611,10 @@ const matchesMockData = [
   },
   {
     id: 26,
-    name: 'Round 3 - Match 3',
+    name: 'Round 3 - Match 2',
     nextMatchId: 29,
     tournamentRoundText: '3',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -635,10 +635,10 @@ const matchesMockData = [
   },
   {
     id: 27,
-    name: 'Round 3 - Match 4',
-    nextMatchId: 29,
+    name: 'Round 3 - Match 3',
+    nextMatchId: 30,
     tournamentRoundText: '3',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -659,10 +659,10 @@ const matchesMockData = [
   },
   {
     id: 28,
-    name: 'Round 4 - Match 1',
+    name: 'Round 3 - Match 4',
     nextMatchId: 30,
-    tournamentRoundText: '4',
-    startTime: '2024-10-14T09:15:48.991Z',
+    tournamentRoundText: '3',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -683,10 +683,10 @@ const matchesMockData = [
   },
   {
     id: 29,
-    name: 'Round 4 - Match 2',
-    nextMatchId: 30,
+    name: 'Round 4 - Match 1',
+    nextMatchId: 31,
     tournamentRoundText: '4',
-    startTime: '2024-10-14T09:15:48.991Z',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -707,10 +707,10 @@ const matchesMockData = [
   },
   {
     id: 30,
-    name: 'Round 5 - Match 1',
-    nextMatchId: null,
-    tournamentRoundText: '5',
-    startTime: '2024-10-14T09:15:48.991Z',
+    name: 'Round 4 - Match 2',
+    nextMatchId: 31,
+    tournamentRoundText: '4',
+    startTime: '2024-10-15T09:06:33.222Z',
     state: 'SCHEDULED',
     participants: [
       {
@@ -723,6 +723,30 @@ const matchesMockData = [
       {
         id: 'team60',
         name: 'Team 60',
+        resultText: null,
+        isWinner: false,
+        status: null,
+      },
+    ],
+  },
+  {
+    id: 31,
+    name: 'Round 5 - Match 1',
+    nextMatchId: null,
+    tournamentRoundText: '5',
+    startTime: '2024-10-15T09:06:33.222Z',
+    state: 'SCHEDULED',
+    participants: [
+      {
+        id: 'team61',
+        name: 'Team 61',
+        resultText: null,
+        isWinner: false,
+        status: null,
+      },
+      {
+        id: 'team62',
+        name: 'Team 62',
         resultText: null,
         isWinner: false,
         status: null,
@@ -763,7 +787,7 @@ export const SingleElimination = ({ matches }: { matches: any }) => {
 
   return (
     <SingleEliminationBracket
-      matches={updatedMatches}
+      matches={matches}
       theme={theme}
       options={{
         style: {

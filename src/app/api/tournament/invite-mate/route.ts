@@ -37,6 +37,8 @@ export async function POST(req: NextRequest) {
     //   );
     // }
 
+    // Check if the user is captain  of the team of the same tournament: we will need tournament id
+
     // Check if the user is already a member of the team
     const existingMember = await prisma.teamMember.findFirst({
       where: {
