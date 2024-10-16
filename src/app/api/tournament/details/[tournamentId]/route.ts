@@ -27,6 +27,14 @@ export async function GET(
       },
     });
 
+    if (!tournament) {
+      return NextResponse.json(
+        { message: 'Tournament not found' },
+        {
+          status: 404,
+        }
+      );
+    }
     return NextResponse.json(tournament, { status: 200 });
   } catch (error: any) {
     const errorMessage = error.message || 'Internal server error';

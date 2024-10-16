@@ -138,12 +138,18 @@ export default function TournamentDetailsPage({
     },
   });
 
+  const bracket =
+    tournamentsData && JSON.parse(tournamentsData?.bracket || '[]');
+
   if (isError) {
     if (error) {
       toast.error((error as any)?.response?.data?.message || error.message);
     }
     if ((error as any)?.response?.status === 401) {
       router.push('/login');
+    }
+    if ((error as any)?.response?.status === 404) {
+      router.push('/events');
     }
     return;
   }
@@ -290,14 +296,19 @@ export default function TournamentDetailsPage({
 
             <div className="my-8  lg:flex justify-center items-center">
               {tournamentsData?.tournamentType === 'single elimination' && (
-                <SingleElimination
-                  matches={JSON.parse(tournamentsData?.bracket)}
-                />
+                <SingleElimination matches={bracket} />
               )}
               {tournamentsData?.tournamentType === 'double elimination' && (
-                <DoubleEliminationBrackets
-                  matches={tournamentsData?.upperMatches}
-                />
+                <div className="flex flex-col gap-6">
+                  <h2 className="text-xl md:text-2xl font-semibold mb-2">
+                    Winner Brackets
+                  </h2>
+                  <SingleElimination matches={bracket?.upper} />
+                  <h2 className="text-xl md:text-2xl font-semibold mb-2">
+                    Loser Brackets
+                  </h2>
+                  <SingleElimination matches={bracket?.lower} />
+                </div>
               )}
             </div>
 
