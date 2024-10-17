@@ -37,8 +37,9 @@ import { useRouter } from 'next/navigation';
 import UserTeamTable from './UserTeamTable';
 import { useSession } from 'next-auth/react';
 import { SingleElimination } from './SingleElimination';
-import { DoubleEliminationBrackets } from './DoubleEliminationBrackets';
+import { Input } from '../ui/input';
 import { FaGamepad } from 'react-icons/fa6';
+import { Button } from '../ui/button';
 
 export default function TournamentDetailsPage({
   tournamentId,
@@ -48,6 +49,7 @@ export default function TournamentDetailsPage({
   const router = useRouter();
   const session = useSession();
   const queryClient = useQueryClient();
+  const [searchTerm, setSearchTerm] = useState('');
   const [isCreateTeamModalOpen, setIsCreateTeamModalOpen] = useState(false);
   const [isInviteMateModalOpen, setIsInviteMateModalOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -135,6 +137,13 @@ export default function TournamentDetailsPage({
       }
     },
   });
+
+  // Filtered teams based on search term
+  const filteredTeams =
+    tournamentsData &&
+    tournamentsData?.teams?.filter((team: any) =>
+      team.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
   const bracket =
     tournamentsData &&
@@ -272,12 +281,16 @@ export default function TournamentDetailsPage({
                   </h2>
                   {session?.data?.user?.email ===
                     userTeamData?.captain?.email && (
-                    <button
+                    <Button
                       onClick={() => setIsInviteMateModalOpen(true)}
+                      disabled={
+                        userTeamData?.members?.length ===
+                        tournamentsData?.maxNofPlayersPerTeam
+                      }
                       className="bg-[#D600E1] text-white px-4 py-2 rounded-lg hover:bg-[#A800B3]"
                     >
                       Invite Mates
-                    </button>
+                    </Button>
                   )}
                 </div>
                 <UserTeamTable userTeamData={userTeamData} />
@@ -286,34 +299,81 @@ export default function TournamentDetailsPage({
 
             <div className="mb-8">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl md:text-2xl font-semibold mb-2">
+                <h2 className="text-xl md:text-2xl font-semibold mb-2 flex justify-between items-start">
                   Participating Teams
                 </h2>
-                <button
-                  onClick={() => setIsCreateTeamModalOpen(true)}
-                  className="bg-[#D600E1] text-white px-4 py-2 rounded-lg hover:bg-[#A800B3]"
+                <div
+                  className="flex flex-col
+                 sm:flex-row justify-end items-end gap-4"
                 >
-                  Create Team
-                </button>
+                  <Input
+                    type="text"
+                    placeholder="Search Teams"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full px-3 py-2 bg-[#350949] text-white placeholder-gray-400 rounded-lg  border border-[#60078C] focus:outline-none focus:ring-2 focus:ring-[#D600E1]"
+                  />
+                  <Button
+                    disabled={
+                      tournamentsData?.teams?.length ===
+                      tournamentsData?.maxNofTeams
+                    }
+                    onClick={() => setIsCreateTeamModalOpen(true)}
+                    className="bg-[#D600E1] text-white px-4 py-2 rounded-lg hover:bg-[#A800B3]"
+                  >
+                    Create Team
+                  </Button>
+                </div>
               </div>
-              <TeamsTable teamsData={tournamentsData?.teams} />
+              <TeamsTable
+                filteredTeamsData={filteredTeams}
+                originalTeamsData={tournamentsData?.teams}
+              />
             </div>
 
             {bracket && (
               <div className="my-8  lg:flex justify-center items-center">
                 {tournamentsData?.tournamentType === 'single elimination' && (
-                  <SingleElimination matches={bracket} />
+                  <div className="flex flex-col gap-6">
+                    <SingleElimination matches={bracket} />
+                    <h2 className="text-xl md:text-2xl font-semibold mb-2">
+                      Final:{' '}
+                      {bracket?.[bracket?.length - 1].participants?.[0].name ||
+                        'TBD'}{' '}
+                      V/S{' '}
+                      {bracket?.[bracket?.length - 1].participants?.[1].name ||
+                        'TBD'}
+                    </h2>
+                  </div>
                 )}
                 {tournamentsData?.tournamentType === 'double elimination' && (
                   <div className="flex flex-col gap-6">
+                    <div>
+                      <h2 className="text-xl md:text-2xl font-semibold mb-2">
+                        Winner Brackets
+                      </h2>
+                      <SingleElimination matches={bracket?.upper} />
+                    </div>
+                    <div>
+                      <h2 className="text-xl md:text-2xl font-semibold mb-2">
+                        Loser Brackets
+                      </h2>
+                      <SingleElimination matches={bracket?.lower} />
+                    </div>
                     <h2 className="text-xl md:text-2xl font-semibold mb-2">
-                      Winner Brackets
+                      Grand Final:{' '}
+                      {bracket?.upper[
+                        bracket?.upper.length - 1
+                      ].participants.find(
+                        (participant: any) => participant.resultText === 'WON'
+                      )?.name || 'TBD'}{' '}
+                      V/S{' '}
+                      {bracket?.lower[
+                        bracket?.lower.length - 1
+                      ].participants.find(
+                        (participant: any) => participant.resultText === 'WON'
+                      )?.name || 'TBD'}
                     </h2>
-                    <SingleElimination matches={bracket?.upper} />
-                    <h2 className="text-xl md:text-2xl font-semibold mb-2">
-                      Loser Brackets
-                    </h2>
-                    <SingleElimination matches={bracket?.lower} />
                   </div>
                   // <DoubleEliminationBrackets matches={bracket} />
                 )}

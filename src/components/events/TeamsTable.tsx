@@ -1,4 +1,10 @@
-export default function TeamTable({ teamsData }: { teamsData: any }) {
+export default function TeamTable({
+  filteredTeamsData,
+  originalTeamsData,
+}: {
+  filteredTeamsData: any;
+  originalTeamsData: any;
+}) {
   return (
     <div className="bg-[#330B45] rounded-lg overflow-x-auto">
       <table className="w-full text-white">
@@ -11,8 +17,8 @@ export default function TeamTable({ teamsData }: { teamsData: any }) {
           </tr>
         </thead>
         <tbody>
-          {teamsData?.length > 0 ? (
-            teamsData?.map((team: any) => (
+          {filteredTeamsData?.length > 0 ? (
+            filteredTeamsData?.map((team: any) => (
               <tr key={team.id} className="border-b border-[#4A0D63]">
                 <td className="p-3">{team.name}</td>
                 <td className="p-3">{team?.captain?.name}</td>
@@ -23,7 +29,9 @@ export default function TeamTable({ teamsData }: { teamsData: any }) {
           ) : (
             <tr className="border-b border-[#4A0D63] h-[20vh]">
               <td colSpan={4} className="text-center">
-                Teams haven&#39;t been created yet
+                {originalTeamsData?.length === 0
+                  ? "Teams haven't been created yet"
+                  : 'No Team found'}
               </td>
             </tr>
           )}

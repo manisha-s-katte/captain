@@ -44,6 +44,9 @@ export async function GET(req: NextRequest) {
       gamePass: true,
       teams: true,
     },
+    orderBy: {
+      startDate: 'desc',
+    },
   });
 
   return NextResponse.json(tournaments, { status: 200 });
