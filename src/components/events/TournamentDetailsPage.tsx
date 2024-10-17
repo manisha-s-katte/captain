@@ -38,6 +38,7 @@ import UserTeamTable from './UserTeamTable';
 import { useSession } from 'next-auth/react';
 import { SingleElimination } from './SingleElimination';
 import { DoubleEliminationBrackets } from './DoubleEliminationBrackets';
+import { FaGamepad } from 'react-icons/fa6';
 
 export default function TournamentDetailsPage({
   tournamentId,
@@ -248,11 +249,17 @@ export default function TournamentDetailsPage({
                   </p>
                 </div>
                 <div className="col-span-2 sm:col-span-1 flex items-center">
-                  <FaTrophy className="text-yellow-600 mr-3 text-xl" />
+                  <FaGamepad className="text-pink-500 mr-3 text-xl" />
                   <p className="text-white">
                     Mode:{' '}
                     {tournamentsData?.tournamentType &&
                       toCapitalize(tournamentsData?.tournamentType)}
+                  </p>
+                </div>
+                <div className="col-span-2 sm:col-span-1 flex items-center">
+                  <FaTrophy className="text-yellow-500 mr-3 text-xl" />
+                  <p className="text-white">
+                    Winner: {tournamentsData?.winner || 'TBD'}
                   </p>
                 </div>
               </div>
