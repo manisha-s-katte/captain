@@ -204,7 +204,6 @@ const theme = createTheme({
 });
 
 export const SingleElimination = ({ matches }: { matches: any }) => {
-  const [updatedMatches, setUpdatedMatches] = useState(matchesMockData);
   const size = useWindowSize();
   const finalWidth = size?.width && size.width * 0.9;
   const finalHeight = size?.height && size.height * 0.9;

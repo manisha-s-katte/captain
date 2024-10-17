@@ -136,7 +136,10 @@ export default function TournamentDetailsPage({
   });
 
   const bracket =
-    tournamentsData && JSON.parse(tournamentsData?.bracket || '[]');
+    tournamentsData &&
+    tournamentsData?.bracket &&
+    JSON.parse(tournamentsData?.bracket);
+  console.log(bracket);
 
   if (isError) {
     if (error) {
@@ -289,24 +292,26 @@ export default function TournamentDetailsPage({
               <TeamsTable teamsData={tournamentsData?.teams} />
             </div>
 
-            <div className="my-8  lg:flex justify-center items-center">
-              {tournamentsData?.tournamentType === 'single elimination' && (
-                <SingleElimination matches={bracket} />
-              )}
-              {tournamentsData?.tournamentType === 'double elimination' && (
-                <div className="flex flex-col gap-6">
-                  <h2 className="text-xl md:text-2xl font-semibold mb-2">
-                    Winner Brackets
-                  </h2>
-                  <SingleElimination matches={bracket?.upper} />
-                  <h2 className="text-xl md:text-2xl font-semibold mb-2">
-                    Loser Brackets
-                  </h2>
-                  <SingleElimination matches={bracket?.lower} />
-                </div>
-                // <DoubleEliminationBrackets matches={bracket} />
-              )}
-            </div>
+            {bracket && (
+              <div className="my-8  lg:flex justify-center items-center">
+                {tournamentsData?.tournamentType === 'single elimination' && (
+                  <SingleElimination matches={bracket} />
+                )}
+                {tournamentsData?.tournamentType === 'double elimination' && (
+                  <div className="flex flex-col gap-6">
+                    <h2 className="text-xl md:text-2xl font-semibold mb-2">
+                      Winner Brackets
+                    </h2>
+                    <SingleElimination matches={bracket?.upper} />
+                    <h2 className="text-xl md:text-2xl font-semibold mb-2">
+                      Loser Brackets
+                    </h2>
+                    <SingleElimination matches={bracket?.lower} />
+                  </div>
+                  // <DoubleEliminationBrackets matches={bracket} />
+                )}
+              </div>
+            )}
 
             <Transition appear show={isCreateTeamModalOpen} as={Fragment}>
               <Dialog
