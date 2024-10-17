@@ -6,8 +6,6 @@ export async function GET(req: NextRequest) {
   const filterType = searchParams.get('type'); // Get the filter type from query string
   const today = new Date();
 
-  console.log('searchParams', searchParams);
-
   let whereClause = {
     status: 'active',
     startDate: {},

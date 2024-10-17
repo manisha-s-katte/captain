@@ -9,10 +9,6 @@ export async function POST(req: NextRequest) {
   }
 
   const { memberId, action } = await req.json();
-  console.log('memberId', memberId);
-  console.log('action', action);
-  console.log('session', session.user?.email);
-  //   return NextResponse.json({ message: 'Not implemented' });
 
   try {
     const invitation = await prisma.teamMember.findUnique({

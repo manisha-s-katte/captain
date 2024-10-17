@@ -12,12 +12,6 @@ export async function POST(req: NextRequest) {
   }
 
   const { teamId, name, email, gender, phoneNumber, age } = await req.json();
-  console.log('teamId', teamId);
-  console.log('name', name);
-  console.log('email', email);
-  console.log('gender', gender);
-  console.log('phoneNumber', phoneNumber);
-  console.log('age', age);
 
   try {
     const team = await prisma.team.findUnique({

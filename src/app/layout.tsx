@@ -37,10 +37,10 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-    
-  },  
-  
-  
+
+  },
+
+
 
 };
 
@@ -50,8 +50,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
-  console.log('session in layout', session);
-
   return (
     <html lang="en">
       <body className={`${inter.className} text-white`}>

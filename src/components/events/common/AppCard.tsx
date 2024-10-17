@@ -42,7 +42,7 @@ const EventDetails: React.FC<{ tournament: any }> = ({ tournament }) => {
             <div className="text-white">
               <p className="text-sm font-extralight text-gray-300">Prizepool</p>
               <p className="text-xl font-semibold">
-                {tournament?.prizePool || 'TBD'}
+                {tournament?.prize || 'TBD'}
               </p>
             </div>
 

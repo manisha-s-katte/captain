@@ -50,15 +50,12 @@ const Login = () => {
     event.preventDefault();
     switch (loginType) {
       case 'google':
-        console.log('Logging in with Google');
         signIn('google', { redirectTo: '/' });
         break;
       case 'discord':
-        console.log('Logging in with Discord');
         // Add Discord login logic here
         break;
       case 'email':
-        console.log('Logging in with email', { email, password });
         loginUserMutate({ email, password });
         break;
       default:

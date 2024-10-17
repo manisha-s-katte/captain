@@ -76,9 +76,6 @@ export default function TournamentDetailsPage({
     queryFn: async () => getUserTeam(tournamentId),
   });
 
-  console.log('userTeamData', userTeamData);
-  console.log('session', session);
-
   const { mutate: createTeamMutate, isPending: isCreateTeamMutatePending } =
     useMutation({
       mutationKey: ['createTeam'],
@@ -174,7 +171,6 @@ export default function TournamentDetailsPage({
     tournamentId: string
   ) => {
     e.preventDefault();
-    console.log('Form submitted:', formData, tournamentId);
     createTeamMutate({ ...formData, tournamentId });
   };
 
@@ -183,7 +179,6 @@ export default function TournamentDetailsPage({
     teamId: string
   ) => {
     e.preventDefault();
-    console.log('Form submitted:', formData, teamId);
     inviteTeamMateMutate({ ...formData, teamId });
   };
 

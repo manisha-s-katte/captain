@@ -34,7 +34,6 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
 
   async function getSessionData() {
     const sessionData = await getSession();
-    console.log('sessionData in navbar', sessionData);
   }
   getSessionData();
 

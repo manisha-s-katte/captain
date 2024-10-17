@@ -10,7 +10,6 @@ import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 export default function UserTeamTable({ userTeamData }: { userTeamData: any }) {
   const { data: session } = useSession();
-  console.log('session', session);
   const queryClient = useQueryClient();
   const [isSelectedMemberId, setIsSelectedMemberId] = useState('');
   const [action, setAction] = useState('');
@@ -31,14 +30,12 @@ export default function UserTeamTable({ userTeamData }: { userTeamData: any }) {
   });
 
   const handleAccept = (memberId: string) => {
-    console.log(`Accepted member with ID: ${memberId}`);
     respondToInvitationMutate({ memberId, action: 'accept' });
     setAction('accept');
     setIsSelectedMemberId(memberId);
   };
 
   const handleReject = (memberId: string) => {
-    console.log(`Rejected member with ID: ${memberId}`);
     respondToInvitationMutate({ memberId, action: 'reject' });
     setAction('reject');
     setIsSelectedMemberId(memberId);
