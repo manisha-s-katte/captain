@@ -309,6 +309,7 @@ export default function TournamentDetailsPage({
                   </h2>
                   <SingleElimination matches={bracket?.lower} />
                 </div>
+                // <DoubleEliminationBrackets matches={bracket} />
               )}
             </div>
 
