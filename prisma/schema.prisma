@@ -72,7 +72,7 @@ model Tournament {
     description          String
     status               String
     winner               String?
-    prize                String
+    prize                Int
     fileUrl              String
     maxNofTeams          Int
     maxNofPlayersPerTeam Int
