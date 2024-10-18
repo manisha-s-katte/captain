@@ -5,8 +5,7 @@ import { GiMagicAxe } from 'react-icons/gi';
 import Logo from '@/assets/Resources/logo.svg';
 import User from '@/assets/Resources/User.svg';
 import Image from 'next/image';
-import { getSession, signOut } from 'next-auth/react';
-import type { CustomUser } from '@/types';
+import { signOut, useSession } from 'next-auth/react';
 import { Loader2Icon } from 'lucide-react';
 import Link from 'next/link';
 import Notification from './Notification';
@@ -18,25 +17,7 @@ interface NavbarProps {
 export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeLink, setActiveLink] = useState<string>('');
-  const [session, setSession] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchSession() {
-      const sessionData = await getSession();
-      setSession(sessionData);
-      setLoading(false);
-    }
-    fetchSession();
-  }, []);
-
-  const user = (session?.user as CustomUser) || null;
-
-  async function getSessionData() {
-    const sessionData = await getSession();
-  }
-  getSessionData();
-
+  const { data: session } = useSession();
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -101,11 +82,7 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
           </div>
           <div className="hidden md:flex ml-20 md:items-center">
             <div className="relative flex items-center">
-              {loading ? (
-                <div>
-                  <Loader2Icon className="h-6 w-6 animate-spin" />
-                </div>
-              ) : session ? (
+              {session ? (
                 <div className="flex items-center gap-2">
                   <Notification />
                   <div className="flex items-center">

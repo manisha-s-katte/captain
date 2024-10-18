@@ -149,7 +149,6 @@ export default function TournamentDetailsPage({
     tournamentsData &&
     tournamentsData?.bracket &&
     JSON.parse(tournamentsData?.bracket);
-  console.log(bracket);
 
   if (isError) {
     if (error) {
@@ -308,7 +307,7 @@ export default function TournamentDetailsPage({
                 >
                   <Input
                     type="text"
-                    placeholder="Search Teams"
+                    placeholder="Search Team"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="w-full px-3 py-2 bg-[#350949] text-white placeholder-gray-400 rounded-lg  border border-[#60078C] focus:outline-none focus:ring-2 focus:ring-[#D600E1]"
@@ -332,22 +331,37 @@ export default function TournamentDetailsPage({
             </div>
 
             {bracket && (
-              <div className="my-8  lg:flex justify-center items-center">
+              <div className="my-8 lg:flex justify-center items-center">
                 {tournamentsData?.tournamentType === 'single elimination' && (
-                  <div className="flex flex-col gap-6">
+                  <div className="flex flex-col justify-center items-center gap-6">
                     <SingleElimination matches={bracket} />
-                    <h2 className="text-xl md:text-2xl font-semibold mb-2">
-                      Final:{' '}
-                      {bracket?.[bracket?.length - 1].participants?.[0].name ||
-                        'TBD'}{' '}
-                      V/S{' '}
-                      {bracket?.[bracket?.length - 1].participants?.[1].name ||
-                        'TBD'}
-                    </h2>
+                    <div className="bg-gradient-to-tr from-[#60078C] to-[#1A0226] p-6 rounded-lg shadow-lg border border-[#60078C]">
+                      <h2 className="text-2xl md:text-3xl font-semibold mb-2 view_all">
+                        <span className="bg-gradient-to-r from-[#FF41B3] to-[#379FFF] bg-clip-text text-transparent">
+                          {' '}
+                          Final Match
+                        </span>
+                      </h2>
+                      <div className="flex items-center justify-center">
+                        <p className="text-white text-xl view_all">
+                          {bracket?.[bracket?.length - 1].participants?.[0]
+                            .name || 'TBD'}
+                        </p>
+                        <span className="mx-4 text-3xl text-white font-bold shadow-lg view_all">
+                          <span className="bg-gradient-to-r from-[#FF41B3] to-[#379FFF] bg-clip-text text-transparent ">
+                            V/S
+                          </span>
+                        </span>
+                        <p className="text-white text-xl view_all">
+                          {bracket?.[bracket?.length - 1].participants?.[1]
+                            .name || 'TBD'}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 )}
                 {tournamentsData?.tournamentType === 'double elimination' && (
-                  <div className="flex flex-col gap-6">
+                  <div className="flex flex-col justify-center items-center gap-6">
                     <div>
                       <h2 className="text-xl md:text-2xl font-semibold mb-2">
                         Winner Brackets
@@ -360,22 +374,38 @@ export default function TournamentDetailsPage({
                       </h2>
                       <SingleElimination matches={bracket?.lower} />
                     </div>
-                    <h2 className="text-xl md:text-2xl font-semibold mb-2">
-                      Grand Final:{' '}
-                      {bracket?.upper[
-                        bracket?.upper.length - 1
-                      ].participants.find(
-                        (participant: any) => participant.resultText === 'WON'
-                      )?.name || 'TBD'}{' '}
-                      V/S{' '}
-                      {bracket?.lower[
-                        bracket?.lower.length - 1
-                      ].participants.find(
-                        (participant: any) => participant.resultText === 'WON'
-                      )?.name || 'TBD'}
-                    </h2>
+                    <div className="bg-gradient-to-tr from-[#60078C] to-[#1A0226] p-6 rounded-lg shadow-lg border border-[#60078C]">
+                      <h2 className="text-2xl md:text-3xl font-semibold mb-2 view_all">
+                        <span className="bg-gradient-to-r from-[#FF41B3] to-[#379FFF] bg-clip-text text-transparent">
+                          {' '}
+                          Grand Final Match
+                        </span>
+                      </h2>
+                      <div className="flex items-center justify-center">
+                        <p className="text-white text-xl view_all">
+                          {bracket?.upper[
+                            bracket?.upper.length - 1
+                          ].participants.find(
+                            (participant: any) =>
+                              participant.resultText === 'WON'
+                          )?.name || 'TBD'}
+                        </p>
+                        <span className="mx-4 text-3xl text-white font-bold shadow-lg view_all">
+                          <span className="bg-gradient-to-r from-[#FF41B3] to-[#379FFF] bg-clip-text text-transparent ">
+                            V/S
+                          </span>
+                        </span>
+                        <p className="text-white text-xl view_all">
+                          {bracket?.lower[
+                            bracket?.lower.length - 1
+                          ].participants.find(
+                            (participant: any) =>
+                              participant.resultText === 'WON'
+                          )?.name || 'TBD'}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  // <DoubleEliminationBrackets matches={bracket} />
                 )}
               </div>
             )}

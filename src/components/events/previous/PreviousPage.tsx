@@ -22,25 +22,16 @@ const PreviousPage = () => {
   const filteredTournaments = useMemo(() => {
     if (!tournaments) return [];
 
-    // Log the current search term
-    console.log('Current search term:', searchTerm);
-
     // Filter tournaments based on search term
     const filtered = tournaments.filter((tournament: any) => {
       const name = tournament?.title?.toLowerCase() || '';
       return name.includes(searchTerm.toLowerCase());
     });
 
-    // Log filtered tournaments
-    console.log('Filtered tournaments:', filtered);
-
     // Sort tournaments based on selected sort option
     return filtered.sort((a: any, b: any) => {
       const dateA = new Date(a.startDate).getTime(); // Ensure date is in timestamp format
-      const dateB = new Date(b.endDate).getTime();
-
-      console.log('Date A:', dateA);
-      console.log('Date B:', dateB);
+      const dateB = new Date(b.endDate).getTime(); // Ensure date is in timestamp format
 
       return selectedSort === 'Short' ? dateA - dateB : dateB - dateA;
     });

@@ -21,33 +21,19 @@ const UpcomingPage = () => {
   const filteredTournaments = useMemo(() => {
     if (!tournaments) return [];
 
-    // Log the current search term
-    console.log('Current search term:', searchTerm);
-
     // Filter tournaments based on search term
     const filtered = tournaments.filter((tournament: any) => {
       const name = tournament?.title?.toLowerCase() || '';
       return name.includes(searchTerm.toLowerCase());
     });
 
-    // Log filtered tournaments
-    console.log('Filtered tournaments:', filtered);
-
     // Sort tournaments based on selected sort option
     return filtered.sort((a: any, b: any) => {
       const dateA = new Date(a.startDate).getTime(); // Ensure date is in timestamp format
       const dateB = new Date(b.endDate).getTime();
-
-      console.log('Date A:', dateA);
-      console.log('Date B:', dateB);
-
       return selectedSort === 'Short' ? dateA - dateB : dateB - dateA;
     });
   }, [tournaments, searchTerm, selectedSort]);
-
-  console.log('Fetched tournaments:', tournaments);
-  console.log('Filtered tournaments:', filteredTournaments);
-
   return (
     <main>
       <section className="block mt-8 pb-8 mx-4 sm:mx-8 lg:mx-16">
