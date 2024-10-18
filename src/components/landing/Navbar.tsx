@@ -125,7 +125,7 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
                   </div>
                 </div>
               ) : (
-                <div className="w-[160px]">
+                <div className="w-[160px] flex items-center justify-center">
                   <Link
                     href="/login"
                     prefetch={false}
