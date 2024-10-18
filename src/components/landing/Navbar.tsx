@@ -102,11 +102,11 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
           <div className="hidden md:flex ml-20 md:items-center">
             <div className="relative flex items-center">
               {loading ? (
-                <div>
+                <div className="w-[160px] flex items-center justify-center gap-2">
                   <Loader2Icon className="h-6 w-6 animate-spin" />
                 </div>
               ) : session ? (
-                <div className="flex items-center gap-2">
+                <div className="w-[160px] flex items-center gap-2">
                   <Notification />
                   <div className="flex items-center">
                     <Image
@@ -125,17 +125,19 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
                   </div>
                 </div>
               ) : (
-                <Link
-                  href="/login"
-                  prefetch={false}
-                  className="relative text-white px-3.5 py-0.5 text-base font-semibold overflow-hidden"
-                  onClick={() => handleLinkClick('login')}
-                >
-                  <div className="pentagon bg-[#d600e1] absolute inset-0"></div>
-                  <span className="relative text-black z-10 text-center">
-                    Login
-                  </span>
-                </Link>
+                <div className="w-[160px]">
+                  <Link
+                    href="/login"
+                    prefetch={false}
+                    className=" relative text-white px-3.5 py-0.5 text-base font-semibold overflow-hidden"
+                    onClick={() => handleLinkClick('login')}
+                  >
+                    <div className="pentagon bg-[#d600e1] absolute inset-0"></div>
+                    <span className="relative text-black z-10 text-center">
+                      Login
+                    </span>
+                  </Link>
+                </div>
               )}
             </div>
           </div>

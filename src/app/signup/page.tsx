@@ -7,6 +7,7 @@ import { registerUser } from '@/http/api';
 import { toast } from 'sonner';
 import { Loader2Icon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const Signup = () => {
   const router = useRouter();
@@ -53,9 +54,9 @@ const Signup = () => {
         </h1>
         <p className="text-base mb-6 text-center sm:text-left text-white">
           Already have an account?{' '}
-          <a href="/login" className="text-[#D700E1] hover:underline">
+          <Link href="/login" className="text-[#D700E1] hover:underline">
             Login
-          </a>
+          </Link>
         </p>
         <form className="space-y-7 p-0 sm:p-3" onSubmit={handleSubmit}>
           <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0">

@@ -14,6 +14,7 @@ import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { Loader2Icon } from 'lucide-react';
 import { signIn } from 'next-auth/react';
+import Link from 'next/link';
 
 const Login = () => {
   const router = useRouter();
@@ -142,10 +143,10 @@ const Login = () => {
                 'Sign in'
               )}
             </button>
-            <a href="/signup" className="text-sm text-center">
+            <Link href="/signup" className="text-sm text-center">
               Don&apos;t have an account?{' '}
               <span className="text-[#D700E1] hover:underline">Sign up</span>
-            </a>
+            </Link>
           </div>
         </form>
       </div>
