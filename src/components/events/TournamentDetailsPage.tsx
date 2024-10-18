@@ -344,8 +344,10 @@ export default function TournamentDetailsPage({
                       </h2>
                       <div className="flex items-center justify-center">
                         <p className="text-white text-xl view_all">
-                          {bracket?.[bracket?.length - 1].participants?.[0]
-                            .name || 'TBD'}
+                          {bracket?.[bracket?.length - 3].participants?.find(
+                            (participant: any) =>
+                              participant.resultText === 'WON'
+                          )?.name || 'TBD'}
                         </p>
                         <span className="mx-4 text-3xl text-white font-bold shadow-lg view_all">
                           <span className="bg-gradient-to-r from-[#FF41B3] to-[#379FFF] bg-clip-text text-transparent ">
@@ -353,8 +355,10 @@ export default function TournamentDetailsPage({
                           </span>
                         </span>
                         <p className="text-white text-xl view_all">
-                          {bracket?.[bracket?.length - 1].participants?.[1]
-                            .name || 'TBD'}
+                          {bracket?.[bracket?.length - 2].participants?.find(
+                            (participant: any) =>
+                              participant.resultText === 'WON'
+                          )?.name || 'TBD'}
                         </p>
                       </div>
                     </div>
