@@ -12,18 +12,30 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Captain Side Gaming | Win Prizes in Competitive Gaming Tournaments',
-  description: 'Enter the world of Captain Side Gaming, where gamers compete for glory and prizes. Join thrilling tournaments across popular game titles, showcase your skills, and win real rewards. Our platform offers easy registration, fair matchmaking, and exciting competitions for players of all levels. Start your journey to gaming stardom and prize-winning today!',
+  description:
+    'Enter the world of Captain Side Gaming, where gamers compete for glory and prizes. Join thrilling tournaments across popular game titles, showcase your skills, and win real rewards. Our platform offers easy registration, fair matchmaking, and exciting competitions for players of all levels. Start your journey to gaming stardom and prize-winning today!',
   applicationName: 'Captain Side Gaming',
   referrer: 'origin-when-cross-origin',
   alternates: {
     canonical: 'https://www.captainside.com/',
-},
-  keywords: ['Gaming Tournaments', 'Prize Competitions', 'Esports', 'Competitive Gaming', 'Online Tournaments', 'Game Registration', 'Gaming Rewards', 'Multiplayer Contests', 'Cash Prizes', 'Tournament Platform'],
+  },
+  keywords: [
+    'Gaming Tournaments',
+    'Prize Competitions',
+    'Esports',
+    'Competitive Gaming',
+    'Online Tournaments',
+    'Game Registration',
+    'Gaming Rewards',
+    'Multiplayer Contests',
+    'Cash Prizes',
+    'Tournament Platform',
+  ],
   authors: [{ name: 'Captain Side Gaming' }],
   creator: 'Finzie',
   publisher: 'Dhruv Rekhawat',
-  twitter:{
-    card:"summary_large_image"
+  twitter: {
+    card: 'summary_large_image',
   },
   robots: {
     index: false,
@@ -37,11 +49,7 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-
   },
-
-
-
 };
 
 export default async function RootLayout({
