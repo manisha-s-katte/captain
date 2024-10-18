@@ -28,7 +28,7 @@ const EventDetails: React.FC<{ tournament: any }> = ({ tournament }) => {
           {/* Event Details Section */}
           <div className="flex flex-col items-start text-center md:text-left gap-4">
             <h1 className="text-4xl view_all font-bold tracking-tight text-white">
-              {tournament.name}
+              {tournament.title}
             </h1>
 
             <div className="text-white">

@@ -44,9 +44,7 @@ export async function GET(req: NextRequest) {
       gamePass: true,
       teams: true,
     },
-    orderBy: {
-      startDate: 'desc',
-    },
+    orderBy: { startDate: filterType === 'ongoing' ? 'desc' : 'asc' }, // Ensure startDate is of type SortOrder
   });
 
   return NextResponse.json(tournaments, { status: 200 });

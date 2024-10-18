@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { CiSearch } from 'react-icons/ci';
 import CustomDropdown from '../common/CustomDropdown'; // Adjust the import path as needed
 import EventDetails from '../common/AppCard'; // Adjust the import path as needed
@@ -9,12 +9,44 @@ import { getTournaments } from '@/http/api';
 
 const UpcomingPage = () => {
   const [selectedSort, setSelectedSort] = useState('Short');
+  const [searchTerm, setSearchTerm] = useState('');
 
   const { data: tournaments, isLoading } = useQuery({
     queryKey: ['tournaments'],
     queryFn: async () => await getTournaments('upcoming'),
     refetchInterval: 60000,
   });
+
+  // Filter and sort tournaments based on search term and selected sort
+  const filteredTournaments = useMemo(() => {
+    if (!tournaments) return [];
+
+    // Log the current search term
+    console.log('Current search term:', searchTerm);
+
+    // Filter tournaments based on search term
+    const filtered = tournaments.filter((tournament: any) => {
+      const name = tournament?.title?.toLowerCase() || '';
+      return name.includes(searchTerm.toLowerCase());
+    });
+
+    // Log filtered tournaments
+    console.log('Filtered tournaments:', filtered);
+
+    // Sort tournaments based on selected sort option
+    return filtered.sort((a: any, b: any) => {
+      const dateA = new Date(a.startDate).getTime(); // Ensure date is in timestamp format
+      const dateB = new Date(b.endDate).getTime();
+
+      console.log('Date A:', dateA);
+      console.log('Date B:', dateB);
+
+      return selectedSort === 'Short' ? dateA - dateB : dateB - dateA;
+    });
+  }, [tournaments, searchTerm, selectedSort]);
+
+  console.log('Fetched tournaments:', tournaments);
+  console.log('Filtered tournaments:', filteredTournaments);
 
   return (
     <main>
@@ -38,6 +70,7 @@ const UpcomingPage = () => {
             <input
               type="text"
               placeholder="Search..."
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="p-2 bg-transparent text-white outline-none text-sm sm:text-base"
             />
             <button className="text-white">
@@ -52,12 +85,14 @@ const UpcomingPage = () => {
             <Spinner />
           ) : (
             <>
-              {tournaments.length === 0 ? (
+              {tournaments.length === 0 || filteredTournaments.length === 0 ? (
                 <p className="text-white text-center mt-32">
-                  No upcoming tournaments
+                  {tournaments.length === 0
+                    ? 'No upcoming tournaments'
+                    : 'No upcoming tournament found'}
                 </p>
               ) : (
-                tournaments?.map((tournament: any) => (
+                filteredTournaments?.map((tournament: any) => (
                   <EventDetails key={tournament.id} tournament={tournament} />
                 ))
               )}
