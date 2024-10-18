@@ -141,7 +141,7 @@ const EventPage = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 gap-y-8 mt-8 md:grid-cols-2 lg:grid-cols-3 md:gap-x-4 lg:gap-y-20">
+          <div className="grid place-items-center grid-cols-1 gap-8 gap-y-8 mt-8 sm:grid-cols-2  lg:grid-cols-3 md:gap-x-4 lg:gap-y-20">
             {tournaments?.length === 0 ? (
               <p className="text-white text-start">
                 No ongoing events & tournaments
@@ -151,16 +151,16 @@ const EventPage = () => {
                 <Link
                   href={`/events/${tournament.id}`}
                   key={tournament.id}
-                  className="relative w-[374px] h-[384px] overflow-hidden group cursor-pointer"
+                  className="relative w-[374px] h-[384px] overflow-hidden group cursor-pointer m-4"
                 >
                   <Image
                     src={tournament.fileUrl}
                     alt={tournament.title}
                     width={374}
                     height={384}
-                    className="w-[374px] h-[384px] relative z-10 object-cover aspect-square"
+                    className="w-full h-full relative z-10 object-top aspect-square"
                   />
-                  <div className="absolute bottom-0 left-0 right-0 p-4 backdrop-blur-sm  text-white z-20">
+                  <div className="absolute bottom-0 left-0 right-0 p-4 backdrop-blur-sm text-white z-20">
                     <div className="flex justify-between gap-2 text-base">
                       <div>
                         <div>ENTRY</div> {tournament.entryFee} INR
