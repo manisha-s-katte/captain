@@ -9,6 +9,7 @@ const Subscribe = () => {
   const { data: socialMediaPosts } = useQuery({
     queryKey: ['getSocialMediaPosts'],
     queryFn: () => getSocialMediaPosts(),
+    staleTime: 0, // Data is considered stale immediately
   });
   return (
     <div className="bg-gradient-to-b from-[#14021D] to-[#60078C]">
