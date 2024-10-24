@@ -27,7 +27,7 @@ const cardsData = [
 ];
 export default function Nft() {
   return (
-    <div className="p-0 mx-4 md:8 md:mx-12">
+    <div className="mx-4 lg:mx-16">
       <div>
         <h2 className="text-2xl font-bold mb-8">
           Play and earn with Game Passes

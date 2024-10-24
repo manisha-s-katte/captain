@@ -9,6 +9,7 @@ import EventCard4 from '@/assets/Images/Event Card/be8d1b473c9bc73dce8397acace05
 import Image from 'next/image';
 import { User } from 'lucide-react';
 import { FaUser } from 'react-icons/fa'; // Import user icon from react-icons
+import Link from 'next/link';
 
 const EventCard = [EventCard1, EventCard2, EventCard3, EventCard4];
 
@@ -25,8 +26,8 @@ const News = () => {
         <div className="flex  items-center">
           <span className="text-2xl font-semibold mx-16">News</span>
           <div className="flex view_all text-xl tracking-lighter pl-20 space-x-10 relative">
-            <a
-              href="#latest-events"
+            <Link
+              href="/events"
               onClick={() => handleLinkClick('latest-events')}
               className={`relative pb-2 ${
                 activeLink === 'latest-events' ? 'text-white' : 'text-white'
@@ -36,8 +37,8 @@ const News = () => {
               {activeLink === 'latest-events' && (
                 <div className="absolute inset-x-0 bottom-0 border-b-3 border-[#D600E1]"></div>
               )}
-            </a>
-            <a
+            </Link>
+            <Link
               href="/events"
               onClick={() => handleLinkClick('events')}
               className={`relative pb-2 ${
@@ -48,8 +49,8 @@ const News = () => {
               {activeLink === 'events' && (
                 <div className="absolute inset-x-0 bottom-0 border-b-3 border-[#D600E1]"></div>
               )}
-            </a>
-            <a
+            </Link>
+            <Link
               href="/gamePass"
               onClick={() => handleLinkClick('game-pass')}
               className={`relative pb-2 ${
@@ -60,7 +61,7 @@ const News = () => {
               {activeLink === 'game-pass' && (
                 <div className="absolute inset-x-0 bottom-0 border-b-3 border-[#D600E1]"></div>
               )}
-            </a>
+            </Link>
           </div>
         </div>
         <div className="flex border-b-3 pb-3 border-[#D600E1] items-center space-x-4">

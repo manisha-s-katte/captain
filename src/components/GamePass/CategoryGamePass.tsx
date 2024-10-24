@@ -20,7 +20,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
       <h2 className="text-2xl font-bold mb-4">{title}</h2>
       <div className="pl-32">
         <div className="border-2 border-[#FF41B3] max-w-sm">
-          <div className=" mb-2">
+          <div className="mb-2">
             <Image
               src={imageSrc}
               alt={title}
@@ -64,7 +64,7 @@ const CategoryGamePass: React.FC = () => {
   ];
 
   return (
-    <div className="p-0 md:p-8 mx-4 md:mx-12 flex flex-col  min-h-screen  gap-8">
+    <div className="mx-4 lg:mx-16 flex flex-col  min-h-screen  gap-8">
       {cardData.map((data, index) => (
         <CategoryCard
           key={index}

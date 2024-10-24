@@ -26,7 +26,10 @@ const GamePass = () => {
             <p className="text-white text-center mt-32">No game passes</p>
           ) : (
             <div className="space-y-8">
-              <div className="w-full flex justify-center items-center">
+              <h1 className="text-3xl font-semibold mt-8 mx-4 lg:mx-16">
+                Game Passes
+              </h1>
+              <div className="flex justify-center items-center m-4">
                 <GamePassCarousel gamePasses={gamePasses} />
               </div>
               <CategoryGamePass />

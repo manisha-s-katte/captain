@@ -13,7 +13,7 @@ const EventDetails: React.FC<{ tournament: any }> = ({ tournament }) => {
       shadow="sm"
     >
       <CardBody>
-        <div className="flex flex-col m-2 md:flex-row items-start">
+        <div className="flex flex-col m-2 md:flex-row items-start space-y-4 gap-x-4">
           {/* Image Section */}
           <div className="mr-10">
             <Image
@@ -26,9 +26,9 @@ const EventDetails: React.FC<{ tournament: any }> = ({ tournament }) => {
           </div>
 
           {/* Event Details Section */}
-          <div className="flex flex-col items-start text-center md:text-left gap-4">
+          <div className="flex flex-col items-start  md:text-left gap-4">
             <h1 className="text-4xl view_all font-bold tracking-tight text-white">
-              {tournament.name}
+              {tournament.title}
             </h1>
 
             <div className="text-white">
@@ -42,7 +42,7 @@ const EventDetails: React.FC<{ tournament: any }> = ({ tournament }) => {
             <div className="text-white">
               <p className="text-sm font-extralight text-gray-300">Prizepool</p>
               <p className="text-xl font-semibold">
-                {tournament?.prizePool || 'TBD'}
+                {tournament?.prize || 'TBD'}
               </p>
             </div>
 
@@ -57,11 +57,13 @@ const EventDetails: React.FC<{ tournament: any }> = ({ tournament }) => {
 
             {/* Team Name Details Section */}
           </div>
-          <div className="ml-44">
-            <h2 className="text-sm font-extralight text-gray-30">Winner</h2>
-            <p className="text-xl font-semibold uppercase">
-              {tournament?.winner || 'TBD'}
-            </p>
+          <div className="ml-0 md:ml-32">
+            <div>
+              <h2 className="text-sm font-extralight text-gray-30">Winner</h2>
+              <p className="text-xl font-semibold uppercase">
+                {tournament?.winner || 'TBD'}
+              </p>
+            </div>
           </div>
         </div>
       </CardBody>

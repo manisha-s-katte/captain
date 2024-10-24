@@ -53,8 +53,6 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    console.log('existingMember', existingMember);
-
     if (existingMember) {
       return NextResponse.json(
         {

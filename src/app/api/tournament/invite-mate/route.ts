@@ -12,12 +12,6 @@ export async function POST(req: NextRequest) {
   }
 
   const { teamId, name, email, gender, phoneNumber, age } = await req.json();
-  console.log('teamId', teamId);
-  console.log('name', name);
-  console.log('email', email);
-  console.log('gender', gender);
-  console.log('phoneNumber', phoneNumber);
-  console.log('age', age);
 
   try {
     const team = await prisma.team.findUnique({
@@ -29,13 +23,27 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: 'Team not found' }, { status: 404 });
     }
 
-    // handle on the front end
-    // if (team.captainId !== session.user?.id) {
-    //   return NextResponse.json(
-    //     { message: 'Only the team captain can invite members' },
-    //     { status: 403 }
-    //   );
-    // }
+    // Check if the user is captain of another team in the same tournament
+    const userAsCaptain = await prisma.user.findFirst({
+      where: {
+        email: email,
+        captainedTeams: {
+          some: {
+            tournamentId: team.tournament.id, // Check if the user is a captain in the same tournament
+          },
+        },
+      },
+    });
+
+    if (userAsCaptain) {
+      return NextResponse.json(
+        {
+          message:
+            'The user is already a captain of another team in the same tournament',
+        },
+        { status: 403 }
+      );
+    }
 
     // Check if the user is already a member of the team
     const existingMember = await prisma.teamMember.findFirst({

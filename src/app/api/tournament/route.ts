@@ -6,8 +6,6 @@ export async function GET(req: NextRequest) {
   const filterType = searchParams.get('type'); // Get the filter type from query string
   const today = new Date();
 
-  console.log('searchParams', searchParams);
-
   let whereClause = {
     status: 'active',
     startDate: {},
@@ -46,6 +44,7 @@ export async function GET(req: NextRequest) {
       gamePass: true,
       teams: true,
     },
+    orderBy: { startDate: filterType === 'ongoing' ? 'desc' : 'asc' }, // Ensure startDate is of type SortOrder
   });
 
   return NextResponse.json(tournaments, { status: 200 });

@@ -37,6 +37,9 @@ import { useRouter } from 'next/navigation';
 import UserTeamTable from './UserTeamTable';
 import { useSession } from 'next-auth/react';
 import { SingleElimination } from './SingleElimination';
+import { Input } from '../ui/input';
+import { FaGamepad } from 'react-icons/fa6';
+import { Button } from '../ui/button';
 
 export default function TournamentDetailsPage({
   tournamentId,
@@ -46,6 +49,7 @@ export default function TournamentDetailsPage({
   const router = useRouter();
   const session = useSession();
   const queryClient = useQueryClient();
+  const [searchTerm, setSearchTerm] = useState('');
   const [isCreateTeamModalOpen, setIsCreateTeamModalOpen] = useState(false);
   const [isInviteMateModalOpen, setIsInviteMateModalOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -74,9 +78,6 @@ export default function TournamentDetailsPage({
     queryKey: ['getUserTeam'],
     queryFn: async () => getUserTeam(tournamentId),
   });
-
-  console.log('userTeamData', userTeamData);
-  console.log('session', session);
 
   const { mutate: createTeamMutate, isPending: isCreateTeamMutatePending } =
     useMutation({
@@ -137,12 +138,27 @@ export default function TournamentDetailsPage({
     },
   });
 
+  // Filtered teams based on search term
+  const filteredTeams =
+    tournamentsData &&
+    tournamentsData?.teams?.filter((team: any) =>
+      team.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+  const bracket =
+    tournamentsData &&
+    tournamentsData?.bracket &&
+    JSON.parse(tournamentsData?.bracket);
+
   if (isError) {
     if (error) {
       toast.error((error as any)?.response?.data?.message || error.message);
     }
     if ((error as any)?.response?.status === 401) {
       router.push('/login');
+    }
+    if ((error as any)?.response?.status === 404) {
+      router.push('/events');
     }
     return;
   }
@@ -167,7 +183,6 @@ export default function TournamentDetailsPage({
     tournamentId: string
   ) => {
     e.preventDefault();
-    console.log('Form submitted:', formData, tournamentId);
     createTeamMutate({ ...formData, tournamentId });
   };
 
@@ -176,7 +191,6 @@ export default function TournamentDetailsPage({
     teamId: string
   ) => {
     e.preventDefault();
-    console.log('Form submitted:', formData, teamId);
     inviteTeamMateMutate({ ...formData, teamId });
   };
 
@@ -243,11 +257,17 @@ export default function TournamentDetailsPage({
                   </p>
                 </div>
                 <div className="col-span-2 sm:col-span-1 flex items-center">
-                  <FaTrophy className="text-yellow-600 mr-3 text-xl" />
+                  <FaGamepad className="text-pink-500 mr-3 text-xl" />
                   <p className="text-white">
                     Mode:{' '}
                     {tournamentsData?.tournamentType &&
                       toCapitalize(tournamentsData?.tournamentType)}
+                  </p>
+                </div>
+                <div className="col-span-2 sm:col-span-1 flex items-center">
+                  <FaTrophy className="text-yellow-500 mr-3 text-xl" />
+                  <p className="text-white">
+                    Winner: {tournamentsData?.winner || 'TBD'}
                   </p>
                 </div>
               </div>
@@ -260,12 +280,16 @@ export default function TournamentDetailsPage({
                   </h2>
                   {session?.data?.user?.email ===
                     userTeamData?.captain?.email && (
-                    <button
+                    <Button
                       onClick={() => setIsInviteMateModalOpen(true)}
+                      disabled={
+                        userTeamData?.members?.length ===
+                        tournamentsData?.maxNofPlayersPerTeam
+                      }
                       className="bg-[#D600E1] text-white px-4 py-2 rounded-lg hover:bg-[#A800B3]"
                     >
                       Invite Mates
-                    </button>
+                    </Button>
                   )}
                 </div>
                 <UserTeamTable userTeamData={userTeamData} />
@@ -274,24 +298,121 @@ export default function TournamentDetailsPage({
 
             <div className="mb-8">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl md:text-2xl font-semibold mb-2">
+                <h2 className="text-xl md:text-2xl font-semibold mb-2 flex justify-between items-start">
                   Participating Teams
                 </h2>
-                <button
-                  onClick={() => setIsCreateTeamModalOpen(true)}
-                  className="bg-[#D600E1] text-white px-4 py-2 rounded-lg hover:bg-[#A800B3]"
+                <div
+                  className="flex flex-col
+                 sm:flex-row justify-end items-end gap-4"
                 >
-                  Create Team
-                </button>
+                  <Input
+                    type="text"
+                    placeholder="Search Team"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full px-3 py-2 bg-[#350949] text-white placeholder-gray-400 rounded-lg  border border-[#60078C] focus:outline-none focus:ring-2 focus:ring-[#D600E1]"
+                  />
+                  <Button
+                    disabled={
+                      tournamentsData?.teams?.length ===
+                      tournamentsData?.maxNofTeams
+                    }
+                    onClick={() => setIsCreateTeamModalOpen(true)}
+                    className="bg-[#D600E1] text-white px-4 py-2 rounded-lg hover:bg-[#A800B3]"
+                  >
+                    Create Team
+                  </Button>
+                </div>
               </div>
-              <TeamsTable teamsData={tournamentsData?.teams} />
+              <TeamsTable
+                filteredTeamsData={filteredTeams}
+                originalTeamsData={tournamentsData?.teams}
+              />
             </div>
 
-            <div className="my-8  lg:flex justify-center items-center">
-              {tournamentsData?.tournamentType === 'single elimination' && (
-                <SingleElimination matches={tournamentsData?.upperMatches} />
-              )}
-            </div>
+            {bracket && (
+              <div className="my-8 lg:flex justify-center items-center">
+                {tournamentsData?.tournamentType === 'single elimination' && (
+                  <div className="flex flex-col justify-center items-center gap-6">
+                    <SingleElimination matches={bracket} />
+                    <div className="bg-gradient-to-tr from-[#60078C] to-[#1A0226] p-6 rounded-lg shadow-lg border border-[#60078C]">
+                      <h2 className="text-2xl md:text-3xl font-semibold mb-2 view_all">
+                        <span className="bg-gradient-to-r from-[#FF41B3] to-[#379FFF] bg-clip-text text-transparent">
+                          {' '}
+                          Final Match
+                        </span>
+                      </h2>
+                      <div className="flex items-center justify-center">
+                        <p className="text-white text-xl view_all">
+                          {bracket?.[bracket?.length - 3].participants?.find(
+                            (participant: any) =>
+                              participant.resultText === 'WON'
+                          )?.name || 'TBD'}
+                        </p>
+                        <span className="mx-4 text-3xl text-white font-bold shadow-lg view_all">
+                          <span className="bg-gradient-to-r from-[#FF41B3] to-[#379FFF] bg-clip-text text-transparent ">
+                            V/S
+                          </span>
+                        </span>
+                        <p className="text-white text-xl view_all">
+                          {bracket?.[bracket?.length - 2].participants?.find(
+                            (participant: any) =>
+                              participant.resultText === 'WON'
+                          )?.name || 'TBD'}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {tournamentsData?.tournamentType === 'double elimination' && (
+                  <div className="flex flex-col justify-center items-center gap-6">
+                    <div>
+                      <h2 className="text-xl md:text-2xl font-semibold mb-2">
+                        Winner Brackets
+                      </h2>
+                      <SingleElimination matches={bracket?.upper} />
+                    </div>
+                    <div>
+                      <h2 className="text-xl md:text-2xl font-semibold mb-2">
+                        Loser Brackets
+                      </h2>
+                      <SingleElimination matches={bracket?.lower} />
+                    </div>
+                    <div className="bg-gradient-to-tr from-[#60078C] to-[#1A0226] p-6 rounded-lg shadow-lg border border-[#60078C]">
+                      <h2 className="text-2xl md:text-3xl font-semibold mb-2 view_all">
+                        <span className="bg-gradient-to-r from-[#FF41B3] to-[#379FFF] bg-clip-text text-transparent">
+                          {' '}
+                          Grand Final Match
+                        </span>
+                      </h2>
+                      <div className="flex items-center justify-center">
+                        <p className="text-white text-xl view_all">
+                          {bracket?.upper[
+                            bracket?.upper.length - 1
+                          ].participants.find(
+                            (participant: any) =>
+                              participant.resultText === 'WON'
+                          )?.name || 'TBD'}
+                        </p>
+                        <span className="mx-4 text-3xl text-white font-bold shadow-lg view_all">
+                          <span className="bg-gradient-to-r from-[#FF41B3] to-[#379FFF] bg-clip-text text-transparent ">
+                            V/S
+                          </span>
+                        </span>
+                        <p className="text-white text-xl view_all">
+                          {bracket?.lower[
+                            bracket?.lower.length - 1
+                          ].participants.find(
+                            (participant: any) =>
+                              participant.resultText === 'WON'
+                          )?.name || 'TBD'}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
 
             <Transition appear show={isCreateTeamModalOpen} as={Fragment}>
               <Dialog

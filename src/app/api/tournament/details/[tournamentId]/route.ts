@@ -24,46 +24,18 @@ export async function GET(
             captain: true,
           },
         },
-        brackets: {
-          include: {
-            upperMatches: {
-              include: {
-                participants: true,
-              },
-            },
-            lowerMatches: {
-              include: {
-                participants: true,
-              },
-            },
-          },
-        },
       },
     });
 
-    // Transforming tournament data to extract brackets in a custom format
-    // const customBrackets =
-    //   tournament?.brackets.map((bracket) => ({
-    //     id: bracket.id,
-    //     upperMatches: bracket.upperMatches.map((match) => ({
-    //       id: match.id,
-    //       participants: match.participants,
-    //     })),
-    //     lowerMatches: bracket.lowerMatches.map((match) => ({
-    //       id: match.id,
-    //       participants: match.participants,
-    //     })),
-    //   })) || [];
-
-    // console.log(customBrackets);
-    const allUpperMatches =
-      tournament?.brackets.flatMap((bracket) => bracket.upperMatches) || [];
-    console.log(allUpperMatches);
-
-    return NextResponse.json(
-      { ...tournament, upperMatches: allUpperMatches, brackets: undefined },
-      { status: 200 }
-    );
+    if (!tournament) {
+      return NextResponse.json(
+        { message: 'Tournament not found' },
+        {
+          status: 404,
+        }
+      );
+    }
+    return NextResponse.json(tournament, { status: 200 });
   } catch (error: any) {
     const errorMessage = error.message || 'Internal server error';
     console.error('Error fetching tournament details', error);

@@ -7,7 +7,9 @@ import { respondToInvitation } from '@/http/api';
 import { toast } from 'sonner';
 import { Loader2Icon } from 'lucide-react';
 import { useState } from 'react';
+import { useSession } from 'next-auth/react';
 export default function UserTeamTable({ userTeamData }: { userTeamData: any }) {
+  const { data: session } = useSession();
   const queryClient = useQueryClient();
   const [isSelectedMemberId, setIsSelectedMemberId] = useState('');
   const [action, setAction] = useState('');
@@ -28,14 +30,12 @@ export default function UserTeamTable({ userTeamData }: { userTeamData: any }) {
   });
 
   const handleAccept = (memberId: string) => {
-    console.log(`Accepted member with ID: ${memberId}`);
     respondToInvitationMutate({ memberId, action: 'accept' });
     setAction('accept');
     setIsSelectedMemberId(memberId);
   };
 
   const handleReject = (memberId: string) => {
-    console.log(`Rejected member with ID: ${memberId}`);
     respondToInvitationMutate({ memberId, action: 'reject' });
     setAction('reject');
     setIsSelectedMemberId(memberId);
@@ -75,7 +75,10 @@ export default function UserTeamTable({ userTeamData }: { userTeamData: any }) {
                 <Button
                   type="button"
                   onClick={() => handleAccept(member.id)}
-                  disabled={member?.status !== 'pending'}
+                  disabled={
+                    member?.status !== 'pending' ||
+                    member?.user?.email !== session?.user?.email
+                  }
                   className="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-2 rounded mr-2 cursor-pointer"
                 >
                   {isRespondToInvitationMutatePending &&
@@ -92,7 +95,10 @@ export default function UserTeamTable({ userTeamData }: { userTeamData: any }) {
                 <Button
                   type="button"
                   onClick={() => handleReject(member.id)}
-                  disabled={member?.status !== 'pending'}
+                  disabled={
+                    member?.status !== 'pending' ||
+                    member?.user?.email !== session?.user?.email
+                  }
                   className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded cursor-pointer"
                 >
                   {isRespondToInvitationMutatePending &&

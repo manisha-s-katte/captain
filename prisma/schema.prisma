@@ -8,25 +8,23 @@ datasource db {
 }
 
 model User {
-    id                      Int                      @id @default(autoincrement())
-    name                    String
-    email                   String                   @unique
-    password                String?
-    resetToken              String?
-    googleId                String?                  @unique
-    resetTokenExpiry        DateTime?
-    role                    String                   @default("user")
-    gender                  String?
-    age                     Int?
-    phoneNumber             String?
-    createdAt               DateTime                 @default(now())
-    updatedAt               DateTime                 @updatedAt
-    tournaments             Tournament[]
-    tournamentRegistrations TournamentRegistration[]
-    captainedTeams          Team[]                   @relation("TeamCaptain")
-    teamMembers             TeamMember[]
-    // teams                   Team[]
-    notifications           Notification[]
+    id               Int            @id @default(autoincrement())
+    name             String
+    email            String         @unique
+    password         String?
+    resetToken       String?
+    googleId         String?        @unique
+    resetTokenExpiry DateTime?
+    role             String         @default("user")
+    gender           String?
+    age              Int?
+    phoneNumber      String?
+    createdAt        DateTime       @default(now())
+    updatedAt        DateTime       @updatedAt
+    tournaments      Tournament[]
+    captainedTeams   Team[]         @relation("TeamCaptain")
+    teamMembers      TeamMember[]
+    notifications    Notification[]
 }
 
 model GamePass {
@@ -52,8 +50,6 @@ model Team {
     members      TeamMember[]
     createdAt    DateTime     @default(now())
     updatedAt    DateTime     @updatedAt
-    // User         User         @relation(fields: [userId], references: [id])
-    // userId       Int
     heardFrom    String
 }
 
@@ -69,79 +65,28 @@ model TeamMember {
 }
 
 model Tournament {
-    id                   Int                      @id @default(autoincrement())
+    id                   Int            @id @default(autoincrement())
     tournamentType       String
     entryFee             Float
     title                String
     description          String
     status               String
+    winner               String?
+    prize                Int
     fileUrl              String
     maxNofTeams          Int
     maxNofPlayersPerTeam Int
     startDate            DateTime
     endDate              DateTime
     gamePassId           Int
-    gamePass             GamePass                 @relation(fields: [gamePassId], references: [id])
+    gamePass             GamePass       @relation(fields: [gamePassId], references: [id])
     userId               Int?
-    user                 User?                    @relation(fields: [userId], references: [id])
-    createdAt            DateTime                 @default(now())
-    updatedAt            DateTime                 @updatedAt
-    registrations        TournamentRegistration[]
+    user                 User?          @relation(fields: [userId], references: [id])
+    bracket              Json?
+    createdAt            DateTime       @default(now())
+    updatedAt            DateTime       @updatedAt
     teams                Team[]
     notifications        Notification[]
-    brackets             Bracket[]
-}
-
-model Match {
-    id                  Int                @id @default(autoincrement())
-    name                String
-    startTime           DateTime // ISO date string
-    state               String
-    tournamentRoundText String
-    nextMatchId         String
-    participants        MatchParticipant[]
-    upperBracketId      Int?
-    lowerBracketId      Int?
-    upperBrackets       Bracket?           @relation("UpperBracket", fields: [upperBracketId], references: [id])
-    lowerBrackets       Bracket?           @relation("LowerBracket", fields: [lowerBracketId], references: [id])
-    createdAt           DateTime           @default(now())
-    updatedAt           DateTime           @updatedAt
-}
-
-model MatchParticipant {
-    id         Int      @id @default(autoincrement())
-    matchId    Int
-    Match      Match    @relation(fields: [matchId], references: [id])
-    name       String
-    resultText String?
-    isWinner   Boolean? @default(false)
-    createdAt  DateTime @default(now())
-    updatedAt  DateTime @updatedAt
-}
-
-model Bracket {
-    id           Int        @id @default(autoincrement())
-    tournamentId Int
-    tournament   Tournament @relation(fields: [tournamentId], references: [id])
-    upperMatches Match[]    @relation("UpperBracket")
-    lowerMatches Match[]    @relation("LowerBracket")
-    createdAt    DateTime   @default(now())
-    updatedAt    DateTime   @updatedAt
-}
-
-model TournamentRegistration {
-    id           Int        @id @default(autoincrement())
-    name         String
-    gender       String
-    age          Int
-    teamName     String
-    heardFrom    String
-    tournament   Tournament @relation(fields: [tournamentId], references: [id])
-    tournamentId Int
-    user         User       @relation(fields: [userId], references: [id])
-    userId       Int
-    createdAt    DateTime   @default(now())
-    updatedAt    DateTime   @updatedAt
 }
 
 model SocialMediaPost {
