@@ -29,9 +29,9 @@ const Subscribe = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8 p-8">
         {socialMediaPosts
           ?.filter((post: any) => post.platform === 'Twitter')
-          .map((post: any, index: number) => (
+          .map((post: any) => (
             <div
-              key={index}
+              key={post.id}
               className="w-full"
               style={{ padding: '0', margin: '0' }}
             >

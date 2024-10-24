@@ -1,4 +1,5 @@
-import { auth } from '@/auth';
+export const revalidate = 10;
+
 import prisma from '@/lib/prisma';
 import { NextResponse, type NextRequest } from 'next/server';
 
