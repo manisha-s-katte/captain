@@ -1,6 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
-import TeamImg from '@/assets/Images/AboutUs/Team/44cb4eae4efee1d1dc3113dc7d8ddaf2.png'
+import TeamImg1 from '@/assets/Images/AboutUs/Team/ABHIJEET.webp'
+import TeamImg2 from '@/assets/Images/AboutUs/Team/AUMRITASH.webp'
+import TeamImg3 from '@/assets/Images/AboutUs/Team/Sumit.webp'
+import TeamImg4 from '@/assets/Images/AboutUs/Team/TRISHA.webp'
 
 // Define the props for the TeamMember component
 interface TeamMemberProps {
@@ -29,27 +32,27 @@ const Team: React.FC = () => {
   return (
     <div className="flex flex-col items-center py-10 bg-gradient-to-b from-[#220330] to-[#3C0156]">
       <h1 className="text-2xl font-bold text-white mb-10">Meet our team</h1>
-      <div className="flex flex-row gap-12"> {/* Using flex layout for alignment */}
+      <div className="grid grid-cols-2 sm:grid-cols-4"> {/* Using flex layout for alignment */}
         <TeamMember
-          src={TeamImg.src}
+          src={TeamImg3.src}
           alt="Sumit Dubey"
           name="Sumit Dubey"
           role="CEO"
         />
         <TeamMember
-          src={TeamImg.src}
+          src={TeamImg1.src}
           alt="Abhijeet Gupta"
           name="Abhijeet Gupta"
           role="CFO & Co-Founder"
         />
         <TeamMember
-          src={TeamImg.src}
+          src={TeamImg4.src}
           alt="Trisha"
           name="Trisha"
           role="COO"
         />
         <TeamMember
-          src={TeamImg.src}
+          src={TeamImg2.src}
           alt="Aumritash Maitra"
           name="Aumritash Maitra"
           role="Project Head"

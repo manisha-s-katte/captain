@@ -755,7 +755,7 @@ const theme = createTheme({
   svgBackground: '#1A0024', // Dark purple background
 });
 
-export const SingleElimination = () => {
+export const SingleElimination = ({matches}:{matches:any}) => {
   const [updatedMatches, setUpdatedMatches] = useState(matchesMockData);
   const size = useWindowSize();
   const finalWidth = size?.width && size.width * 0.9;

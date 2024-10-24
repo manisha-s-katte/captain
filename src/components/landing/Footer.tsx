@@ -101,6 +101,9 @@ const Footer = () => {
               <a href="/" className="hover:underline">
                 Help & Support
               </a>
+              <a href="/" className="hover:underline">
+                Terms & Conditions
+              </a>
             </div>
 
             {/* Divider */}
@@ -146,9 +149,7 @@ const Footer = () => {
               <a href="/" className="hover:underline">
                 Privacy Policy
               </a>
-              <a href="/" className="hover:underline">
-                Terms & Conditions
-              </a>
+              
             </div>
           </div>
         </div>
