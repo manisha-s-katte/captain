@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getTournaments } from '@/http/api';
 
 const PreviousPage = () => {
-  const [selectedSort, setSelectedSort] = useState('Short');
+  const [selectedSort, setSelectedSort] = useState('Ascending');
   const [searchTerm, setSearchTerm] = useState('');
 
   const { data: tournaments, isLoading } = useQuery({
@@ -30,10 +30,9 @@ const PreviousPage = () => {
 
     // Sort tournaments based on selected sort option
     return filtered.sort((a: any, b: any) => {
-      const dateA = new Date(a.startDate).getTime(); // Ensure date is in timestamp format
-      const dateB = new Date(b.endDate).getTime(); // Ensure date is in timestamp format
-
-      return selectedSort === 'Short' ? dateA - dateB : dateB - dateA;
+      const dateA = new Date(a.endDate).getTime();
+      const dateB = new Date(b.endDate).getTime();
+      return selectedSort === 'Ascending' ? dateA - dateB : dateB - dateA;
     });
   }, [tournaments, searchTerm, selectedSort]);
 
@@ -48,7 +47,7 @@ const PreviousPage = () => {
           {/* Left: Sort Options */}
           <div className="flex items-center space-x-4">
             <CustomDropdown
-              options={['Short', 'Long']}
+              options={['Ascending', 'Descending']}
               selected={selectedSort}
               onSelect={(option) => setSelectedSort(option)}
             />
