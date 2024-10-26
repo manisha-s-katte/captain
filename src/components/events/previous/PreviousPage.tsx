@@ -73,9 +73,10 @@ const PreviousPage = () => {
             <Spinner />
           ) : (
             <>
-              {tournaments?.length === 0 || filteredTournaments.length === 0 ? (
+              {tournaments?.length === 0 ||
+              filteredTournaments?.length === 0 ? (
                 <p className="text-white text-center mt-32">
-                  {tournaments.length === 0
+                  {tournaments?.length === 0
                     ? 'No previous tournaments'
                     : 'No previous tournament found'}
                 </p>
