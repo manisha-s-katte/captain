@@ -14,6 +14,7 @@ const GamePass = () => {
   const { data: gamePasses, isLoading } = useQuery({
     queryKey: ['gamePasses'],
     queryFn: async () => await getGamePasses(),
+    staleTime: 0,
   });
   return (
     <main className="flex flex-col bg-gradient-to-tl from-[#110219] to-[#37024F] text-white min-h-screen">

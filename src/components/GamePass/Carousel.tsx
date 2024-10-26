@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { Card, CardContent } from '../ui/card';
 import {
@@ -8,7 +9,6 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import Image from 'next/image';
-import GP1 from '@/assets/Images/GamePass/GP1.jpeg';
 import { Button } from '../ui/button';
 
 const GamePassCarousel = ({ gamePasses }: { gamePasses: any }) => {
@@ -16,7 +16,7 @@ const GamePassCarousel = ({ gamePasses }: { gamePasses: any }) => {
     <Carousel className="w-full p-0 md:p-8 md:max-w-[50%]">
       <CarouselContent>
         {gamePasses?.map((gamePass: any, index: number) => (
-          <CarouselItem key={index}>
+          <CarouselItem key={gamePass.id}>
             <div className="p-1 bg-transparent">
               <Card className="bg-transparent border-none max-w-[1290px] h-[450px] flex justify-center items-center">
                 <CardContent className="flex aspect-video p-0 justify-center items-center gap-4 ">
