@@ -12,6 +12,7 @@ import {
   Section,
   Text,
 } from '@react-email/components';
+import Image from 'next/image';
 import * as React from 'react';
 
 export default function Invite(
@@ -25,14 +26,14 @@ export default function Invite(
       <Preview>Welcome to captain-side.</Preview>
       <Body style={main}>
         <Container style={container}>
-          <Img
-            src={
-              'https://wteevsttakocypgyobcb.supabase.co/storage/v1/object/public/images/logo.png'
-            }
-            width={100}
-            height={50}
-            alt="captain-side"
+          <img
+            src="https://wteevsttakocypgyobcb.supabase.co/storage/v1/object/public/images/logo.png"
+            width="200"
+            height="100"
+            alt="Captain Side Logo"
+            style={{ display: 'block', maxWidth: '100%', height: 'auto' }}
           />
+
           <Heading style={heading}>Invitation</Heading>
           <Section style={body}>
             <Text style={paragraph}>
@@ -57,15 +58,12 @@ export default function Invite(
             <br />- captainside gaming Team
           </Text>
           <Hr style={hr} />
-          <Img
-            src={`https://wteevsttakocypgyobcb.supabase.co/storage/v1/object/public/images/logo.png`}
-            width={50}
-            height={50}
-            style={{
-              WebkitFilter: 'grayscale(100%)',
-              filter: 'grayscale(100%)',
-              margin: '20px 0',
-            }}
+          <img
+            src="https://wteevsttakocypgyobcb.supabase.co/storage/v1/object/public/images/logo.png"
+            width="100"
+            height="50"
+            alt="Captain Side Logo"
+            style={{ display: 'block', maxWidth: '100%', height: 'auto' }}
           />
           <Text style={footer}>captainside gaming</Text>
         </Container>
@@ -104,7 +102,7 @@ const paragraph = {
 };
 
 const link = {
-  color: '#FF6363',
+  color: '##D600E1',
 };
 
 const hr = {
@@ -119,7 +117,7 @@ const footer = {
 };
 
 const button = {
-  backgroundColor: '#FF6363',
+  backgroundColor: '#D600E1',
   color: '#ffffff',
   fontSize: '16px',
   fontWeight: 'bold',
