@@ -250,12 +250,14 @@ export default function TournamentDetailsPage({
                     Prize Pool: {tournamentsData?.prize || 'TBD'}
                   </p>
                 </div>
-                <div className="col-span-2 sm:col-span-1 flex items-center">
-                  <FaFlag className="text-blue-500 mr-3 text-xl" />
-                  <p className="text-white">
-                    Game Pass: {tournamentsData?.gamePass?.title}
-                  </p>
-                </div>
+                {tournamentsData?.gamePass?.title && (
+                  <div className="col-span-2 sm:col-span-1 flex items-center">
+                    <FaFlag className="text-blue-500 mr-3 text-xl" />
+                    <p className="text-white">
+                      Game Pass: {tournamentsData?.gamePass?.title}
+                    </p>
+                  </div>
+                )}
                 <div className="col-span-2 sm:col-span-1 flex items-center">
                   <FaGamepad className="text-pink-500 mr-3 text-xl" />
                   <p className="text-white">
