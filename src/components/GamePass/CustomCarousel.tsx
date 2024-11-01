@@ -139,8 +139,9 @@ const CustomCarousel: React.FC<CustomCarouselProps> = ({
               <img
                 src={item.fileUrl}
                 alt={item.title}
-                className="w-full object-cover h-[400px]"
+                className="w-full object-cover h-[400px] hover:scale-110"
                 draggable={false}
+
              />
             
               <div className=' backdrop-blur-2xl absolute bottom-0 h-[100px] w-full z-10 px-8 py-2'>
