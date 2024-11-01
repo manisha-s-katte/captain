@@ -5,7 +5,7 @@ import HeroSectionImage2 from '@/assets/Images/hero_section/wallpapersden.com_is
 import HeroSectionImage3 from '@/assets/Images/hero_section/valorant-game-clove-4k-wallpaper-uhdpaper.com-361@3@a.jpg'; // Image 3
 import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
-import { getGamePasses, getHeroImages } from '@/http/api';
+import {  getHeroImages } from '@/http/api';
 
 
 interface FileObject {
