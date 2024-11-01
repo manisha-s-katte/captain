@@ -49,7 +49,7 @@ const EventPage = () => {
   return (
     <main>
       <section className="block mt-8 mx-4 lg:mx-16">
-        <h1 className="text-3xl font-semibold"> Events & Tournaments</h1>
+        <h1 className="text-3xl font-semibold my-6"> Events & Tournaments</h1>
         {isLoading ? (
           <Spinner />
         ) : (

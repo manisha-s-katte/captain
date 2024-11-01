@@ -1,22 +1,26 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Navbar from '@/components/landing/Navbar';
-import GamePassCarousel from '@/components/GamePass/Carousel';
-import CategoryGamePass from '@/components/GamePass/CategoryGamePass';
-import GamePassFooter from '@/components/GamePass/GamePassFooter';
-import { createClient } from '@/lib/supabase/client';
-import Spinner from '@/components/Spinner/spinner';
+import CustomCarousel from '@/components/GamePass/CustomCarousel'; 
 import Nft from '@/components/GamePass/Nft';
 import { useQuery } from '@tanstack/react-query';
-import { getGamePasses } from '@/http/api';
+import { getAllGamePasses, getTrendingGamePasses,getTopFreeGamePasses } from '@/http/api';
+import Spinner from '@/components/Spinner/spinner';
 import Footer from '@/components/landing/Footer';
 
 const GamePass = () => {
-  const { data: gamePasses, isLoading } = useQuery({
+  const { data: allGamePasses, isLoading } = useQuery({
     queryKey: ['gamePasses'],
-    queryFn: async () => await getGamePasses(),
+    queryFn: async () => await getAllGamePasses(),
     staleTime: 0,
   });
+  const { data: trendingGamePasses } = useQuery({
+    queryKey: ['trendingGamePasses'],
+    queryFn: async () => await getTrendingGamePasses(),
+    staleTime: 0,
+  });
+
+
   return (
     <main className="flex flex-col bg-gradient-to-tl from-[#110219] to-[#37024F] text-white">
       <Navbar bgColor="transparent" />
@@ -24,7 +28,7 @@ const GamePass = () => {
         <Spinner />
       ) : (
         <>
-          {gamePasses?.length === 0 ? (
+          {allGamePasses?.length === 0 ? (
             <p className="text-white text-center mt-32">No game passes</p>
           ) : (
             <div className="space-y-8">
@@ -32,14 +36,16 @@ const GamePass = () => {
                 Game Passes
               </h1>
               <div className="flex justify-center items-center m-4">
-                <GamePassCarousel gamePasses={gamePasses} />
+                <CustomCarousel items={allGamePasses} />
               </div>
-              <CategoryGamePass />
-              <div className='mt-32'>
-              <Nft />
-              </div>
+              {/* <div className='mt-32'>
+              <h1 className="text-3xl font-semibold mt-8 mx-4 lg:mx-16 mb-16">
+                Top trending
+              </h1>
+                <CustomCarousel items={trendingGamePasses}></CustomCarousel>
+                <Nft />
+              </div> */}
               <Footer />
-
             </div>
           )}
         </>

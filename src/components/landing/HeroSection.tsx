@@ -61,10 +61,6 @@ export default function HeroSection() {
   }, [isPlaying, nextSlide]);
 
   
-  const togglePlayPause = () => {
-    setIsPlaying(!isPlaying);
-  };
-
   return (
     <main 
       className="relative w-screen h-screen bg-cover bg-center transition-all duration-500"

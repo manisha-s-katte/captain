@@ -73,9 +73,19 @@ export const markNotificationsAsRead = async (notificationIds: number[]) => {
   return response.data;
 };
 
-export const getGamePasses = async () => {
+export const getAllGamePasses = async () => {
   setJSONDataHeaders();
   const response = await api.get('/game-pass/get-all');
+  return response.data;
+};
+export const getTrendingGamePasses = async () => {
+  setJSONDataHeaders();
+  const response = await api.get('/game-pass/get-trending');
+  return response.data;
+};
+export const getTopFreeGamePasses = async () => {
+  setJSONDataHeaders();
+  const response = await api.get('/game-pass/get-top-free');
   return response.data;
 };
 export const getHeroImages = async () => {

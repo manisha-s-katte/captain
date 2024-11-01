@@ -54,7 +54,7 @@ const Login = () => {
         signIn('google', { redirectTo: '/' });
         break;
       case 'discord':
-        // Add Discord login logic here
+        signIn('discord',{redirectTo:'/'})
         break;
       case 'email':
         loginUserMutate({ email, password });
@@ -85,7 +85,10 @@ const Login = () => {
           
           <div className="space-y-2">
             {/* Login with Discord */}
-            <button className="w-full py-2 text-xl font-semibold bg-[#5865F2] text-white rounded-xl flex items-center justify-center">
+            <button
+             type="button"
+             onClick={() => handleSubmit(new Event('submit') as any, 'discord')}
+             className="w-full py-2 text-xl font-semibold bg-[#5865F2] text-white rounded-xl flex items-center justify-center">
               Login with Discord <FaDiscord className="ml-2 w-7 h-7" />
             </button>
           </div>
