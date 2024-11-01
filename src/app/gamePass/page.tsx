@@ -38,12 +38,13 @@ const GamePass = () => {
               <div className="flex justify-center items-center m-4">
                 <CustomCarousel items={allGamePasses} />
               </div>
+              <Nft />
               {/* <div className='mt-32'>
               <h1 className="text-3xl font-semibold mt-8 mx-4 lg:mx-16 mb-16">
                 Top trending
               </h1>
                 <CustomCarousel items={trendingGamePasses}></CustomCarousel>
-                <Nft />
+                
               </div> */}
               <Footer />
             </div>
