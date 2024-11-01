@@ -95,9 +95,6 @@ const Footer = () => {
               <a href="/aboutus" className="hover:underline">
                 About Us
               </a>
-              <a href="/login" className="hover:underline">
-                Log in
-              </a>
               <a href="/" className="hover:underline">
                 Help & Support
               </a>

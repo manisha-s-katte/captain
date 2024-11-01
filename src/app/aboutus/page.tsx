@@ -7,6 +7,7 @@ import Team from '@/components/About Us/Team';
 import Achievement from '@/components/About Us/Achivement';
 import Subscribe from '@/components/About Us/Subscribe';
 import AboutUsFooter from '@/components/About Us/AboutUsFooter';
+import Footer from '@/components/landing/Footer';
 
 const AboutUs = () => {
   return (
@@ -18,7 +19,7 @@ const AboutUs = () => {
       <Team />
       <Achievement />
       <Subscribe />
-      <AboutUsFooter />
+      <Footer />
     </main>
   );
 };

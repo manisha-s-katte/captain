@@ -1,4 +1,4 @@
-'use client';
+"use client"
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,7 +10,7 @@ import EventCard2 from '@/assets/Images/Event Card/162cd1e7d132a7cd3d3faca93effd
 import EventCard3 from '@/assets/Images/Event Card/6fc85454b8182288d6abdef5c0e65121.jpeg';
 import EventCard4 from '@/assets/Images/Event Card/be8d1b473c9bc73dce8397acace05dd2.jpeg';
 import { useQuery } from '@tanstack/react-query';
-import { getTournaments, joinTournament } from '@/http/api';
+import { getTournaments} from '@/http/api';
 import { useSession } from 'next-auth/react';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
@@ -60,7 +60,7 @@ const EventPage = () => {
                 No live events & tournaments
               </p>
             ) : (
-              <div className="flex flex-col lg:flex-row items-center justify-start">
+              <div className="flex flex-col lg:flex-row items-center justify-start p-4 bg-purple-950 pentagon">
                 {/* Left Image */}
                 <div className="lg:w-2/5 mt-8">
                   <Image

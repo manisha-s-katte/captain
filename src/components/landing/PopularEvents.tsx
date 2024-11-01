@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import Image from 'next/image';
 import EventCard1 from '@/assets/Images/Event Card/048dcaf894496b7e214e4d9ac34831de.jpeg';
@@ -6,10 +7,34 @@ import EventCard3 from '@/assets/Images/Event Card/6fc85454b8182288d6abdef5c0e65
 import EventCard4 from '@/assets/Images/Event Card/be8d1b473c9bc73dce8397acace05dd2.jpeg';
 import GamePass from '@/assets/Resources/GamePass.webp';
 import Link from 'next/link';
+import { getTournaments } from '@/http/api';
+import { useQuery } from "@tanstack/react-query";
 
-const EventCard = [EventCard1, EventCard2, EventCard3, EventCard4];
+
+
+
+interface FileObject {
+  id: number;
+  fileUrl: string;
+}
+
+const getFileUrls = (array?: FileObject[]): string[] => {
+  if (!array || !Array.isArray(array)) {
+    return [];
+  }
+  return array.map(item => item.fileUrl);
+};
+
 
 const PopularEvents = () => {
+
+  const { data: tournaments } = useQuery({
+    queryKey: ['tournaments'],
+    queryFn: async () => await getTournaments('ongoing'),
+    refetchInterval: 60000,
+  });
+  const EventCard = getFileUrls(tournaments)
+
   return (
     <section className="overflow-y-hidden">
       {/* Header Section */}

@@ -9,6 +9,7 @@ import Spinner from '@/components/Spinner/spinner';
 import Nft from '@/components/GamePass/Nft';
 import { useQuery } from '@tanstack/react-query';
 import { getGamePasses } from '@/http/api';
+import Footer from '@/components/landing/Footer';
 
 const GamePass = () => {
   const { data: gamePasses, isLoading } = useQuery({
@@ -17,7 +18,7 @@ const GamePass = () => {
     staleTime: 0,
   });
   return (
-    <main className="flex flex-col bg-gradient-to-tl from-[#110219] to-[#37024F] text-white min-h-screen">
+    <main className="flex flex-col bg-gradient-to-tl from-[#110219] to-[#37024F] text-white">
       <Navbar bgColor="transparent" />
       {isLoading ? (
         <Spinner />
@@ -34,8 +35,11 @@ const GamePass = () => {
                 <GamePassCarousel gamePasses={gamePasses} />
               </div>
               <CategoryGamePass />
+              <div className='mt-32'>
               <Nft />
-              <GamePassFooter />
+              </div>
+              <Footer />
+
             </div>
           )}
         </>

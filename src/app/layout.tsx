@@ -7,6 +7,7 @@ import TanStackProvider from '@/providers/tan-stack-provider';
 import { Toaster } from 'sonner';
 import { auth } from '@/auth';
 import type { CustomUser } from '@/types';
+import Footer from '@/components/landing/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 

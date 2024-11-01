@@ -4,7 +4,7 @@
 }
 
 .pentagon {
-     clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 59%, 80% 0);
+     clip-path: polygon(83% 0, 100% 19%, 100% 99%, 0 100%, 0 0);
      height: 100%;
      width: 100%;
    }

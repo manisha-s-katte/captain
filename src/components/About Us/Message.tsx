@@ -5,7 +5,7 @@ import { IconType } from 'react-icons';
 import { PiDiamondsFour } from "react-icons/pi";
 import { BsRocket } from 'react-icons/bs';
 import { FaRegEye } from 'react-icons/fa';
-import MessageImg from '@/assets/Images/AboutUs/14e554e68ad812281d82a537f10b5475.png';
+import MessageImg from '@/assets/Images/AboutUs/Team/Sumit.webp';
 
 interface InfoBlockProps {
   icon: IconType;

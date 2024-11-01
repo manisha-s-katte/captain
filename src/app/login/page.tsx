@@ -82,6 +82,14 @@ const Login = () => {
             Login with Google <FcGoogle className="ml-2 w-7 h-7" />
           </button>
 
+          
+          <div className="space-y-2">
+            {/* Login with Discord */}
+            <button className="w-full py-2 text-xl font-semibold bg-[#5865F2] text-white rounded-xl flex items-center justify-center">
+              Login with Discord <FaDiscord className="ml-2 w-7 h-7" />
+            </button>
+          </div>
+
           <div className="space-y-4">
             <p className="text-center text-xl">or</p>
             <button

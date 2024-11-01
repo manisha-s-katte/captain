@@ -13,7 +13,11 @@ import { Button } from '../ui/button';
 
 const GamePassCarousel = ({ gamePasses }: { gamePasses: any }) => {
   return (
-    <Carousel className="w-full p-0 md:p-8 md:max-w-[50%]">
+    <Carousel className="w-full p-0 md:p-8 md:max-w-[50%]" 
+      opts={{
+        loop:true,
+      }}
+    >
       <CarouselContent>
         {gamePasses?.map((gamePass: any, index: number) => (
           <CarouselItem key={gamePass.id}>

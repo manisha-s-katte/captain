@@ -78,3 +78,8 @@ export const getGamePasses = async () => {
   const response = await api.get('/game-pass/get-all');
   return response.data;
 };
+export const getHeroImages = async () => {
+  setJSONDataHeaders();
+  const response = await api.get('/hero');
+  return response.data;
+};

@@ -1,44 +1,12 @@
 'use client';
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { getSocialMediaPosts } from '@/http/api';
-import { InstagramEmbed } from 'react-social-media-embed';
-import { XEmbed } from 'react-social-media-embed';
+
 
 const Subscribe = () => {
-  const { data: socialMediaPosts } = useQuery({
-    queryKey: ['getSocialMediaPosts'],
-    queryFn: () => getSocialMediaPosts(),
-    staleTime: 0, // Data is considered stale immediately
-  });
+ 
   return (
     <div className="bg-gradient-to-b from-[#14021D] to-[#60078C]">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8 p-8">
-        {socialMediaPosts
-          ?.filter((post: any) => post.platform === 'Instagram')
-          .map((post: any, index: number) => (
-            <div
-              key={index}
-              className="w-full"
-              style={{ padding: '0', margin: '0' }}
-            >
-              <InstagramEmbed url={post.url} />
-            </div>
-          ))}
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8 p-8">
-        {socialMediaPosts
-          ?.filter((post: any) => post.platform === 'Twitter')
-          .map((post: any) => (
-            <div
-              key={post.id}
-              className="w-full"
-              style={{ padding: '0', margin: '0' }}
-            >
-              <XEmbed url={post.url} />
-            </div>
-          ))}
-      </div>
+
       <div className=" pt-[100px] pb-[100px] flex flex-col items-center">
         <h1 className="text-white view_all text-4xl sm:text-5xl md:text-6xl font-semibold mb-16 text-center tracking-tighter">
           Subscribe for More Updates
