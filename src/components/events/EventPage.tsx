@@ -30,7 +30,6 @@ const EventPage = () => {
   const { data: tournaments, isLoading } = useQuery({
     queryKey: ['tournaments'],
     queryFn: async () => await getTournaments('ongoing'),
-    refetchInterval: 60000,
   });
 
   const handleJoin = (tournamentId: string) => {

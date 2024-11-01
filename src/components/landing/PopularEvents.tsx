@@ -31,7 +31,6 @@ const PopularEvents = () => {
   const { data: tournaments } = useQuery({
     queryKey: ['tournaments'],
     queryFn: async () => await getTournaments('ongoing'),
-    refetchInterval: 60000,
   });
   const EventCard = getFileUrls(tournaments)
 
