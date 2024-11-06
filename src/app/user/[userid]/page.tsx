@@ -1,12 +1,12 @@
 "use client"
-import React, { use } from 'react'
+import React from 'react'
 import Dashboard from './dashboard/page'
 import { useSearchParams } from 'next/navigation'
 import Settings from './settings/page'
 
 
 
-const page = () => {
+const Page = () => {
     const searchParam = useSearchParams()
     const option = searchParam.get('opt')
    return (
@@ -16,4 +16,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

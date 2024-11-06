@@ -42,8 +42,8 @@ import {
           </Heading>
   
           <Text style={paragraph}>
-            You're now part of an epic gaming community where tournaments come to life. 
-            By joining our newsletter, you'll get exclusive updates on everything happening 
+            You&apos;re now part of an epic gaming community where tournaments come to life. 
+            By joining our newsletter, you&apos;ll get exclusive updates on everything happening 
             in the competitive gaming scene.
           </Text>
   
@@ -97,7 +97,7 @@ import {
           <Hr style={hr} />
   
           <Text style={footer}>
-            Don't want to receive these updates?{' '}
+            Don&apos;t want to receive these updates?{" "}
             <Link style={footerLink} href="#">Unsubscribe</Link>
           </Text>
         </Container>

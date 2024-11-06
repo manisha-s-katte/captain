@@ -1,14 +1,11 @@
 "use client"
 import React from 'react';
 import Image from 'next/image';
-import EventCard1 from '@/assets/Images/Event Card/048dcaf894496b7e214e4d9ac34831de.jpeg';
-import EventCard2 from '@/assets/Images/Event Card/162cd1e7d132a7cd3d3faca93effdef4.jpeg';
-import EventCard3 from '@/assets/Images/Event Card/6fc85454b8182288d6abdef5c0e65121.jpeg';
-import EventCard4 from '@/assets/Images/Event Card/be8d1b473c9bc73dce8397acace05dd2.jpeg';
 import GamePass from '@/assets/Resources/GamePass.webp';
 import Link from 'next/link';
 import { getTournaments } from '@/http/api';
 import { useQuery } from "@tanstack/react-query";
+import { toCapitalize } from '@/lib/utils';
 
 
 
@@ -28,7 +25,7 @@ const getFileUrls = (array?: FileObject[]): string[] => {
 
 const PopularEvents = () => {
 
-  const { data: tournaments } = useQuery({
+  const { data: tournaments, isLoading } = useQuery({
     queryKey: ['tournaments'],
     queryFn: async () => await getTournaments('ongoing'),
   });
@@ -48,20 +45,34 @@ const PopularEvents = () => {
 
       {/* Event Cards Section */}
       <div className="bg-gradient-to-r from-[#3C0056] to-[#14021D] grid grid-cols-2 gap-8 p-8 sm:flex">
-        {EventCard.map((image, index) => (
+        {tournaments?.map((tournament:any, index:number) => (
           <div
             key={index}
-            className="w-full sm:w-1/2 md:w-1/4"
+            className="w-full sm:w-1/2 md:w-1/4 relative"
             style={{ padding: '0', margin: '0' }}
           >
             <Image
-              src={image}
+              src={tournament.fileUrl}
               alt={`Event Card ${index + 1}`}
               layout="responsive"
               width={100}
               height={100}
               objectFit="contain"
             />
+            <div className="absolute bottom-0 left-0 right-0 p-4 backdrop-blur-sm text-white z-20">
+                    <div className="flex justify-between gap-2 text-base">
+                      <div>
+                        <div className='text-xs font-bold'>ENTRY</div> {tournament.entryFee} INR
+                      </div>
+                      <div>
+                        <div  className='text-xs font-bold'>MODE</div>{' '}
+                        {toCapitalize(tournament.tournamentType)}
+                      </div>
+                      <div>
+                        <div  className='text-xs font-bold'>PRIZE</div> {tournament.prize || 'TBD'} INR
+                      </div>
+                    </div>
+                  </div>
           </div>
         ))}
       </div>
