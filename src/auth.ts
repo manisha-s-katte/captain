@@ -5,6 +5,7 @@ import prisma from './lib/prisma';
 import Discord from 'next-auth/providers/discord'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+
   providers: [
     Credentials({
       name: 'Credentials',
@@ -15,6 +16,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Discord({
       clientId:process.env.AUTH_DISCORD_ID,
       clientSecret:process.env.AUTH_DISCORD_SECRET,
+      authorization: {
+        params: {
+          scope: 'identify email',
+        },
+      },
     }),
     
     Google({
@@ -37,6 +43,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const existingUser = await prisma.user.findUnique({
           where: { email: user.email as string },
         });
+        
 
         if (existingUser) {
           // User exists, but hasn't used Google to sign in before

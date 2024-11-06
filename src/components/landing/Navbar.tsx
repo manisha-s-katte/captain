@@ -11,6 +11,7 @@ import { Loader2Icon } from 'lucide-react';
 import Link from 'next/link';
 import Notification from './Notification';
 
+
 interface NavbarProps {
   bgColor?: string;
 }
@@ -31,6 +32,7 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
   }, []);
 
   const user = (session?.user as CustomUser) || null;
+  console.log(session)
 
   async function getSessionData() {
     const sessionData = await getSession();
@@ -67,7 +69,7 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
           <div className="hidden ml-5 md:flex md:items-center md:space-x-4">
             <Link
               href="/events"
-              className={`text-lg ${
+              className={`text-md ${
                 activeLink === 'events'
                   ? 'text-fuchsia-600'
                   : 'hover:text-fuchsia-600'
@@ -78,7 +80,7 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
             </Link>
             <Link
               href="gamePass"
-              className={`text-lg ${
+              className={`text-md ${
                 activeLink === 'gamePass'
                   ? 'text-fuchsia-600'
                   : 'hover:text-fuchsia-600'
@@ -89,7 +91,7 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
             </Link>
             <Link
               href="/aboutus"
-              className={`text-lg ${
+              className={`text-md ${
                 activeLink === 'aboutUs'
                   ? 'text-fuchsia-600'
                   : 'hover:text-fuchsia-600'
@@ -98,6 +100,19 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
             >
               About Us
             </Link>
+            { session &&
+            <Link
+              href={`/user/${encodeURI(session.user.name)}`}
+              className={`text-md ${
+                activeLink === 'aboutUs'
+                  ? 'text-fuchsia-600'
+                  : 'hover:text-fuchsia-600'
+              }`}
+              onClick={() => handleLinkClick('user/${userid}')}
+            >
+              My Account
+            </Link>
+           }
           </div>
           <div className="hidden md:flex ml-20 md:items-center">
             <div className="relative flex items-center">
@@ -185,11 +200,23 @@ export default function Navbar({ bgColor = '#110219' }: NavbarProps) {
             >
               About Us
             </Link>
+            { session &&
+            <Link
+              href={`/user/${encodeURI(session.user.name)}`}
+              className={`block px-3 py-2 rounded-md text-base font-medium ${
+                activeLink === 'aboutUs' ? 'bg-gray-700' : 'hover:bg-gray-700'
+              }`}
+              onClick={() => handleLinkClick('user/${userid}')}
+            >
+              My Account
+            </Link>
+               }
+
             {session ? (
               <div className="flex items-center gap-2">
                 <Notification />
                 <div className="flex items-center px-3 py-2">
-                  <Image
+                    <Image
                     src={session.user?.image || User}
                     alt="User Avatar"
                     width={32}

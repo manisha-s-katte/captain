@@ -8,6 +8,9 @@ import EventCard1 from "@/assets/Images/Event Card/be8d1b473c9bc73dce8397acace05
 import EventCard2 from "@/assets/Images/Event Card/162cd1e7d132a7cd3d3faca93effdef4.jpeg";
 import EventCard3 from "@/assets/Images/Event Card/6fc85454b8182288d6abdef5c0e65121.jpeg";
 import { StaticImageData } from 'next/image';
+import { useSession } from 'next-auth/react'
+import Link from 'next/link';
+import { ChevronLeft } from 'lucide-react';
 // Local component to display an SVG with an optional heading
 
 interface SvgWithHeadingProps {
@@ -23,6 +26,8 @@ const SvgWithHeading: React.FC<SvgWithHeadingProps> = ({ imgSrc, heading }) => (
 );
 
 const Dashboard = () => {
+
+  const user = useSession().data?.user
   const events = [
     { SvgComponent: Event1, heading: "00 Days 00 Hrs" },
     { SvgComponent: Event2, heading: "00 Days 00 Hrs" },
@@ -36,17 +41,18 @@ const Dashboard = () => {
   ];
 
   return (
-    <main className="flex h-auto bg-gradient-to-tr from-[#3A0153] to-[#1D022A]">
-      {/* <SlideBar /> */}
-
+    <main className="flex w-full h-auto bg-gradient-to-tr from-[#3A0153] to-[#1D022A] py-16">
       {/* Main Content */}
-      <section className="flex-grow p-8 pt-0 text-white md:ml-64 flex flex-col items-center">
+      <Link href={"/"}>
+      <div className='flex gap-2 text-white'><ChevronLeft></ChevronLeft> Back</div>
+      </Link>
+      <section className="flex-grow p-8 pt-0 text-white flex flex-col items-center">
         {/* Photos with Headings in One Line */}
-        <div className="flex flex-wrap justify-center items-center mb-8">
+        {/* <div className="flex flex-wrap justify-center items-center mb-8">
           {events.map((event, index) => (
             <SvgWithHeading key={index} imgSrc={event.SvgComponent} heading={event.heading} />
           ))}
-        </div>
+        </div> */}
 
         {/* Combined Box for Tournaments and Headings */}
         <div className="w-full max-w-screen-lg px-12 py-8 rounded-3xl border-2 border-[#D700E1]">
@@ -72,7 +78,7 @@ const Dashboard = () => {
           {/* Additional Headings */}
           <div className="flex flex-col items-start mb-8">
             <h2 className="text-3xl font-semibold mb-2">Total Earnings</h2>
-            <p className='view_all text-5xl tracking-tighter font-semibold'>1000 INR</p>
+            <p className='view_all text-5xl tracking-tighter font-semibold'>0 INR</p>
           </div>
         </div>
       </section>

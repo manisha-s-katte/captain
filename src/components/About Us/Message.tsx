@@ -26,15 +26,15 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ icon: Icon, heading, text }) => (
 const Message: React.FC = () => {
   return (
     <div className="bg-gradient-to-tr from-[#3C0056] to-[#14021D] py-10 flex flex-col items-center">
-      <div className="flex flex-col md:flex-row items-center justify-center mt-20 mb-12 w-full max-w-5xl px-4">
-        <div className="flex-shrink-0 mb-6 md:mb-0">
+      <div className="flex flex-col md:flex-row items-center justify-center mt-20 mb-12 w-full max-w-5xl px-4 gap-8">
+        <div className="flex-shrink-0 mb-6 md:mb-0 rounded-full overflow-clip">
           <Image
             src={MessageImg}
             alt="Logo"
             width={350}
             height={350}
             quality={100}
-            className="mr-6"
+            className="mr-6 scale-110 translate-x-5"
           />
         </div>
         <div className="text-center md:text-left max-w-xl">

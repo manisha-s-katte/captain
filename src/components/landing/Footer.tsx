@@ -6,7 +6,7 @@ import { FaXTwitter } from 'react-icons/fa6';
 const Footer = () => {
   return (
     <div className="p-8 pb-0 bg-gradient-to-tr from-[#370450] to-[#1A0226]  text-gray-300">
-      <div className="flex flex-col md:flex-row mx-4 md:mx-12 my-12 md:my-20 justify-between">
+      <div className="flex flex-col md:flex-row mx-4 md:mx-12 my-12 md:my-20 justify-between columns-[400px] gap-8">
         <div className="w-full md:w-1/2 flex flex-col justify-between">
           <div>
             <div className="flex items-center">
@@ -17,7 +17,7 @@ const Footer = () => {
             <p className="mt-8 text-gray-300 text-base">
             All chains, all games—single destination. Captain Side, where Web3 gaming connects.
             </p>
-            <div className="mt-8 md:mt-24">
+            {/* <div className="mt-8 md:mt-24">
               <h1 className="text-xl md:text-2xl font-medium">
                 Languages and Location
               </h1>
@@ -72,7 +72,7 @@ const Footer = () => {
                   </option>
                 </select>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="mt-12 md:mt-52">
             <p className="text-gray-500 text-sm">
@@ -81,8 +81,8 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="w-full md:w-1/2 flex justify-center md:justify-end mt-12 md:mt-0">
-          <div className="pentagon1 p-8 md:p-16 pl-8 md:pl-20 shadow-lg bg-[#310F43] flex flex-col md:flex-row justify-center items-stretch w-full h-auto md:h-full">
+        <div className="w-full ">
+          <div className="pentagon1 p-8 md:p-16 md:pl-20 shadow-lg bg-[#310F43] flex flex-col md:flex-row justify-center items-stretch w-full h-auto md:h-full">
             {/* Left Partition */}
             <div className="w-full md:w-1/2 flex flex-col space-y-6 md:space-y-12 mb-6 md:mb-0 text-white">
               <a href="/events" className="hover:underline">
