@@ -59,7 +59,7 @@ export default function Slidebar({ username = 'username', fullName = 'Full Name'
             { user?.image &&
             <AvatarImage src={user?.image} alt="Logo" />
               }
-            <AvatarFallback>
+            <AvatarFallback className='bg-purple-600'>
               <User></User>
             </AvatarFallback>
           </Avatar>
