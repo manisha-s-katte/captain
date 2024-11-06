@@ -85,8 +85,8 @@ const News = () => {
           </button>
         </div>
       </nav>
-      <main className="p-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 p-8">
+      <main className="sm:p-8 p-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:p-8 p-0">
         {socialMediaPosts
           ?.filter((post: any) => post.platform === 'Instagram')
           .map((post: any, index: number) => (
@@ -95,7 +95,10 @@ const News = () => {
               className="w-full"
               style={{ padding: '0', margin: '0' }}
             >
-              <InstagramEmbed url={post.url} width={"100%"}  />
+              <InstagramEmbed url={post.url} width={"100%"} onLoad={()=>{
+                let header = document.getElementsByClassName('Header')
+                console.log(header)
+              }}/>
             </div>
           ))}
       </div>
@@ -112,7 +115,7 @@ const News = () => {
             </div>
           ))}
       </div>
-        <div className="flex ml-20 mt-12 mb-[8em] justify-center">
+        <div className="flex mt-12 mb-[8em] justify-center">
           <button className="relative view_all text-white pl-5 pr-9 py-3 text-[1.2em] font-semibold overflow-hidden">
             <div className="pentagon bg-yellow-500 absolute inset-0"></div>
             <span className="relative text-black z-10">Load more</span>

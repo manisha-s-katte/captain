@@ -1,12 +1,9 @@
 "use client";
 import { useState, useEffect, useCallback } from 'react';
-import HeroSectionImage1 from '@/assets/Images/hero_section/1347662.jpeg'; // Image 1
-import HeroSectionImage2 from '@/assets/Images/hero_section/wallpapersden.com_iso-valorant-x-overwatch-2-style_3840x2160.jpg'; // Image 2
-import HeroSectionImage3 from '@/assets/Images/hero_section/valorant-game-clove-4k-wallpaper-uhdpaper.com-361@3@a.jpg'; // Image 3
 import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 import {  getHeroImages } from '@/http/api';
-
+import Link from 'next/link';
 
 interface FileObject {
   id: number;
@@ -63,7 +60,7 @@ export default function HeroSection() {
   
   return (
     <main 
-      className="relative w-screen h-screen bg-cover bg-center transition-all duration-500"
+      className="relative w-screen aspect-video bg-cover bg-center transition-all duration-500"
       style={{ 
         backgroundImage: `url(${images[activeIndex]})`
       }}
@@ -76,6 +73,7 @@ export default function HeroSection() {
               ${activeIndex === index ? 'opacity-100 z-10' : 'opacity-0 z-0'}
               ${isTransitioning && activeIndex === index ? 'opacity-50' : ''}`}
           >
+            <Link href=''>
             <Image
               src={image}
               alt={`Hero slide ${index + 1}`}
@@ -85,6 +83,7 @@ export default function HeroSection() {
               
               className="object-cover object-center"
             />
+            </Link>
           </div>
         ))}
       </div>

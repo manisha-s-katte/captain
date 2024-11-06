@@ -5,7 +5,7 @@ const Settings = () => {
   return (
     <main className="flex h-screen bg-gradient-to-tr from-[#3A0153] to-[#1D022A]">
       {/* Sidebar */}
-      <SlideBar />
+      {/* <SlideBar /> */}
 
       {/* Main Content */}
       <section className="flex-grow p-8 text-white flex justify-center items-center md:ml-64">

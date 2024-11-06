@@ -28,7 +28,7 @@ import {
   DialogPanel,
   DialogTitle,
 } from '@headlessui/react';
-import { Loader2Icon } from 'lucide-react';
+import { ChevronDown, Loader2Icon } from 'lucide-react';
 import { Fragment } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useMutation } from '@tanstack/react-query';
@@ -58,11 +58,29 @@ export default function TournamentDetailsPage({
     age: '',
     email: '',
     teamName: '',
+    country:'',
     phoneNumber: '',
     heardFrom: '',
     tournamentId: '',
     teamId: '',
   });
+  const countries = [
+    { code: 'IN', name: 'India', dialCode: '+91' },
+    { code: 'US', name: 'United States', dialCode: '+1' },
+    { code: 'GB', name: 'United Kingdom', dialCode: '+44' },
+    { code: 'CA', name: 'Canada', dialCode: '+1' },
+    { code: 'AU', name: 'Australia', dialCode: '+61' },
+    { code: 'DE', name: 'Germany', dialCode: '+49' },
+    { code: 'FR', name: 'France', dialCode: '+33' },
+    { code: 'IT', name: 'Italy', dialCode: '+39' },
+    { code: 'JP', name: 'Japan', dialCode: '+81' },
+    { code: 'BR', name: 'Brazil', dialCode: '+55' },
+    { code: 'RU', name: 'Russia', dialCode: '+7' },
+    { code: 'CN', name: 'China', dialCode: '+86' },
+    { code: 'SG', name: 'Singapore', dialCode: '+65' },
+    { code: 'AE', name: 'UAE', dialCode: '+971' },
+    { code: 'SA', name: 'Saudi Arabia', dialCode: '+966' }
+  ]
 
   const {
     data: tournamentsData,
@@ -93,6 +111,7 @@ export default function TournamentDetailsPage({
           age: '',
           email: '',
           teamName: '',
+          country:'',
           phoneNumber: '',
           heardFrom: '',
           tournamentId: '',
@@ -123,6 +142,7 @@ export default function TournamentDetailsPage({
         age: '',
         email: '',
         teamName: '',
+        country: '',
         phoneNumber: '',
         heardFrom: '',
         tournamentId: '',
@@ -470,7 +490,7 @@ export default function TournamentDetailsPage({
                             name="teamName"
                             value={formData.teamName}
                             onChange={handleInputChange}
-                            placeholder="Team Name"
+                            placeholder="Team Name*"
                             className="w-full px-3 py-2 bg-[#350949] text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D600E1]"
                             required
                           />
@@ -482,7 +502,7 @@ export default function TournamentDetailsPage({
                             required
                           >
                             <option value="" disabled>
-                              Select Gender
+                              Select Gender*
                             </option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
@@ -493,10 +513,23 @@ export default function TournamentDetailsPage({
                             name="age"
                             value={formData.age}
                             onChange={handleInputChange}
-                            placeholder="Age"
+                            placeholder="Age*"
                             className="w-full px-3 py-2 bg-[#350949] text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D600E1]"
                             required
                           />
+                          <div className=' inline-flex gap-2'>
+                          <select
+                      value={formData.country}
+                      onChange={handleInputChange}
+                      className="appearance-none w-24 px-3 py-2 bg-[#350949] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D600E1] pr-8"
+                    >
+                      {countries.map((country) => (
+                        <option key={country.code} value={country.dialCode}>
+                          {country.dialCode} 
+                        </option>
+                      ))}
+                    <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white pointer-events-none w-4 h-4" />
+                    </select>
                           <input
                             type="tel"
                             name="phoneNumber"
@@ -504,8 +537,11 @@ export default function TournamentDetailsPage({
                             onChange={handleInputChange}
                             placeholder="Phone Number"
                             className="w-full px-3 py-2 bg-[#350949] text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D600E1]"
-                            required
+                            maxLength={12}
+                            minLength={10}
+                            pattern="^[0-9]{1,12}$"
                           />
+                          </div>
                           <select
                             name="heardFrom"
                             value={formData.heardFrom}
@@ -520,7 +556,6 @@ export default function TournamentDetailsPage({
                             <option value="instagram">Instagram</option>
                             <option value="facebook">Facebook</option>
                             <option value="x">X</option>
-                            <option value="other">Other</option>
                           </select>
                           <div className="mt-6">
                             <button
@@ -636,6 +671,19 @@ export default function TournamentDetailsPage({
                             className="w-full px-3 py-2 bg-[#350949] text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D600E1]"
                             required
                           />
+                         <div className=' inline-flex gap-2 w-full'>
+                          <select
+                      value={formData.country}
+                      onChange={handleInputChange}
+                      className="appearance-none w-24 px-3 py-2 bg-[#350949] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D600E1] pr-8"
+                    >
+                      {countries.map((country) => (
+                        <option key={country.code} value={country.dialCode}>
+                          {country.dialCode} 
+                        </option>
+                      ))}
+                    <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white pointer-events-none w-4 h-4" />
+                    </select>
                           <input
                             type="tel"
                             name="phoneNumber"
@@ -643,8 +691,11 @@ export default function TournamentDetailsPage({
                             onChange={handleInputChange}
                             placeholder="Phone Number"
                             className="w-full px-3 py-2 bg-[#350949] text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D600E1]"
-                            required
+                            maxLength={12}
+                            minLength={10}
+                            pattern="^[0-9]{1,12}$"
                           />
+                          </div>
                           <div className="mt-6">
                             <button
                               type="submit"

@@ -2,6 +2,7 @@ import { render } from '@react-email/render';
 import nodemailer from 'nodemailer';
 import RegisterTournamentEmail from './templates';
 import Invite from './Invite';
+import CaptainsideWelcomeEmail from './Subscribe';
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
@@ -13,13 +14,26 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+export async function sendWelcomeEmail(email: string) {
+  const emailHtml = await render(CaptainsideWelcomeEmail());
+
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: 'Welcome to Captain Side Gaming!',
+    html: emailHtml,
+  };
+
+  await transporter.sendMail(mailOptions);
+
+}
 export async function sendRegisterTournamentEmail(email: string) {
   const emailHtml = await render(RegisterTournamentEmail());
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
-    subject: 'Successfully registered',
+    subject: 'Successfully Registered',
     html: emailHtml,
   };
 
@@ -36,7 +50,7 @@ export async function sendInvitationEmail(
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
-    subject: 'Successfully invited',
+    subject: 'Successfully Invited',
     html: emailHtml,
   };
 

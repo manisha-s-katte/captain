@@ -37,7 +37,7 @@ const Dashboard = () => {
 
   return (
     <main className="flex h-auto bg-gradient-to-tr from-[#3A0153] to-[#1D022A]">
-      <SlideBar />
+      {/* <SlideBar /> */}
 
       {/* Main Content */}
       <section className="flex-grow p-8 pt-0 text-white md:ml-64 flex flex-col items-center">
