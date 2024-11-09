@@ -1,11 +1,11 @@
 // app/api/discord/redirect/route.ts
 import { NextRequest, NextResponse } from "next/server";
+import prisma from "@/lib/prisma";
 
 export async function GET(request: NextRequest) {
   try {
     // Get the URL from the request to extract the code
-
-    const searchParams = new URLSearchParams(request.url.split('?')[1]);
+    const searchParams = new URL(request.url).searchParams;
     const code = searchParams.get('code');
 
     if (!code) {
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
       client_id: process.env.AUTH_DISCORD_ID!,
       client_secret: process.env.AUTH_DISCORD_SECRET!,
       grant_type: 'authorization_code',
-      code: code,
+      code,
       redirect_uri: 'https://www.captainside.com/api/discord/redirect',
     });
 
@@ -59,11 +59,34 @@ export async function GET(request: NextRequest) {
     }
 
     const userData = await userResponse.json();
-    
-    return NextResponse.json({
-      success: true,
-      user: userData,
+
+    // Check for existing user and update or create
+    const existingUser = await prisma.user.findUnique({
+      where: { email: userData.email },
     });
+
+    if (existingUser) {
+      await prisma.user.update({
+        where: { id: existingUser.id },
+        data: {
+          email: userData.email,
+          discordId: userData.id,
+          name: userData.username,
+          role: 'user',
+        },
+      });
+    } else {
+      await prisma.user.create({
+        data: {
+          email: userData.email,
+          name: userData.username,
+          discordId: userData.id,
+        },
+      });
+    }
+
+    // Redirect after successful login
+    return NextResponse.redirect(new URL('/', request.url));
 
   } catch (error) {
     console.error('Discord OAuth error:', error);
