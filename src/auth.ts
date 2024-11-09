@@ -21,6 +21,28 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           scope: 'identify email',
         },
       },
+      token: "https://discord.com/api/oauth2/token",
+      userinfo: "https://discord.com/api/users/@me",
+      profile(profile) {
+        if (profile.avatar === null) {
+          const defaultAvatarNumber =
+            profile.discriminator === "0"
+              ? Number(BigInt(profile.id) >> BigInt(22)) % 6
+              : parseInt(profile.discriminator) % 5
+          profile.image_url = `https://cdn.discordapp.com/embed/avatars/${defaultAvatarNumber}.png`
+        } else {
+          const format = profile.avatar.startsWith("a_") ? "gif" : "png"
+          profile.image_url = `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.${format}`
+        }
+        
+        return {
+          id: profile.id,
+          name: profile.global_name ?? profile.username,
+          email: profile.email,
+          image: profile.image_url,
+        }
+      },
+      
       
     }),
     
@@ -40,31 +62,44 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   debug: process.env.NODE_ENV === 'development',
   callbacks: {
     async signIn({ user, account }) {
-      if (account?.provider === 'google') {
-        const existingUser = await prisma.user.findUnique({
-          where: { email: user.email as string },
-        });
-        
+      console.log('Sign in attempt:', { user, account });
+      
+      if (account?.provider === 'google' || account?.provider === 'discord') {
+        try {
+          const existingUser = await prisma.user.findUnique({
+            where: { email: user.email as string },
+          });
 
-        if (existingUser) {
-          // User exists, but hasn't used Google to sign in before
-          if (!existingUser.googleId) {
-            await prisma.user.update({
-              where: { id: existingUser.id },
-              data: { googleId: user.id, role: 'user' },
+          if (existingUser) {
+            // User exists, but hasn't used this provider to sign in before
+            if (
+              (account.provider === 'google' && !existingUser.googleId) ||
+              (account.provider === 'discord' && !existingUser.discordId)
+            ) {
+              await prisma.user.update({
+                where: { id: existingUser.id },
+                data: {
+                  ...(account.provider === 'google' && { googleId: user.id }),
+                  ...(account.provider === 'discord' && { discordId: user.id }),
+                  role: 'user',
+                },
+              });
+            }
+          } else {
+            // New user, create an account
+            await prisma.user.create({
+              data: {
+                email: user.email as string,
+                name: user.name as string,
+                ...(account.provider === 'google' && { googleId: user.id }),
+                ...(account.provider === 'discord' && { discordId: user.id }),
+              },
             });
           }
           return true; // Allow sign in
-        } else {
-          // New user, create an account
-          await prisma.user.create({
-            data: {
-              email: user.email as string,
-              name: user.name as string,
-              googleId: user.id as string,
-            },
-          });
-          return true; // Allow sign in
+        } catch (error) {
+          console.error('Error in signIn callback:', error);
+          return false; // Prevent sign in on error
         }
       }
       return true; // Allow sign in for other providers
@@ -95,7 +130,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   jwt: {
     maxAge: 60 * 60 * 24 * 10,
   },
-
   pages: {
     signIn: '/login',
   },
