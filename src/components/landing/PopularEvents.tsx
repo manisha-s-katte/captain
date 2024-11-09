@@ -1,14 +1,12 @@
 "use client"
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 import GamePass from '@/assets/Resources/GamePass.webp';
 import Link from 'next/link';
 import { getTournaments } from '@/http/api';
 import { useQuery } from "@tanstack/react-query";
 import { toCapitalize } from '@/lib/utils';
-
-
-
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface FileObject {
   id: number;
@@ -22,14 +20,55 @@ const getFileUrls = (array?: FileObject[]): string[] => {
   return array.map(item => item.fileUrl);
 };
 
-
 const PopularEvents = () => {
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
   const { data: tournaments, isLoading } = useQuery({
     queryKey: ['tournaments'],
     queryFn: async () => await getTournaments('ongoing'),
   });
-  const EventCard = getFileUrls(tournaments)
+
+  const scrollToNext = () => {
+    if (carouselRef.current && tournaments) {
+      const newIndex = (currentIndex + 1) % tournaments.length;
+      const cardWidth = 320; // Show 4 cards at a time
+      carouselRef.current.scrollTo({
+        left: cardWidth * newIndex,
+        behavior: 'smooth'
+      });
+      setCurrentIndex(newIndex);
+    }
+  };
+
+  const scrollToPrev = () => {
+    if (carouselRef.current && tournaments) {
+      const newIndex = currentIndex === 0 ? tournaments.length - 1 : currentIndex - 1;
+      const cardWidth = carouselRef.current.offsetWidth / 4; // Show 4 cards at a time
+      carouselRef.current.scrollTo({
+        left: cardWidth * newIndex,
+        behavior: 'smooth'
+      });
+      setCurrentIndex(newIndex);
+    }
+  };
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    
+    if (!isHovered && tournaments?.length) {
+      interval = setInterval(() => {
+        scrollToNext();
+      }, 3000); // Autoplay every 3 seconds
+    }
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [currentIndex, isHovered, tournaments]);
 
   return (
     <section className="overflow-y-hidden">
@@ -43,38 +82,60 @@ const PopularEvents = () => {
         </span>
       </div>
 
-      {/* Event Cards Section */}
-      <div className="bg-gradient-to-r from-[#3C0056] to-[#14021D] grid grid-cols-2 gap-8 p-8 sm:flex">
-        {tournaments?.map((tournament:any, index:number) => (
-          <div
-            key={index}
-            className="w-full sm:w-1/2 md:w-1/4 relative"
-            style={{ padding: '0', margin: '0' }}
-          >
-            <Image
-              src={tournament.fileUrl}
-              alt={`Event Card ${index + 1}`}
-              layout="responsive"
-              width={100}
-              height={100}
-              objectFit="contain"
-            />
-            <div className="absolute bottom-0 left-0 right-0 p-4 backdrop-blur-sm text-white z-20">
-                    <div className="flex justify-between gap-2 text-base">
-                      <div>
-                        <div className='text-xs font-bold'>ENTRY</div> {tournament.entryFee} INR
-                      </div>
-                      <div>
-                        <div  className='text-xs font-bold'>MODE</div>{' '}
-                        {toCapitalize(tournament.tournamentType)}
-                      </div>
-                      <div>
-                        <div  className='text-xs font-bold'>PRIZE</div> {tournament.prize || 'TBD'} INR
-                      </div>
+      {/* Carousel Section */}
+      <div className="bg-gradient-to-r from-[#3C0056] to-[#14021D] relative">
+        <div 
+          className="flex overflow-x-hidden scroll-smooth p-8 relative"
+          ref={carouselRef}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          {tournaments?.map((tournament: any, index: number) => (
+            <div
+              key={index}
+              className="min-w-[25%] px-4 flex-shrink-0"
+            >
+              <div className="relative">
+                <Image
+                  src={tournament.fileUrl}
+                  alt={`Event Card ${index + 1}`}
+                  width={300}
+                  height={300}
+                  className="w-full h-auto"
+                  objectFit="contain"
+                />
+                <div className="absolute bottom-0 left-0 right-0 p-4 backdrop-blur-sm text-white z-20">
+                  <div className="flex justify-between gap-2 text-base">
+                    <div>
+                      <div className='text-xs font-bold'>ENTRY</div> {tournament.entryFee} INR
+                    </div>
+                    <div>
+                      <div className='text-xs font-bold'>MODE</div>{' '}
+                      {toCapitalize(tournament.tournamentType)}
+                    </div>
+                    <div>
+                      <div className='text-xs font-bold'>PRIZE</div> {tournament.prize || 'TBD'} INR
                     </div>
                   </div>
-          </div>
-        ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Navigation Buttons */}
+        <button 
+          onClick={scrollToPrev}
+          className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 rounded-full p-2 text-white backdrop-blur-sm z-30"
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </button>
+        <button 
+          onClick={scrollToNext}
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 rounded-full p-2 text-white backdrop-blur-sm z-30"
+        >
+          <ChevronRight className="w-6 h-6" />
+        </button>
       </div>
 
       {/* Game Pass Section */}
@@ -91,7 +152,7 @@ const PopularEvents = () => {
               src={GamePass}
               alt="gamepass"
               className="w-full sm:w-[400px] md:w-[650px] lg:w-full"
-            ></Image>
+            />
           </div>
         </div>
         <div className="flex justify-center md:justify-start ml-0 md:ml-20 mt-8">
