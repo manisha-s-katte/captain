@@ -106,7 +106,6 @@ const Footer = () => {
             {/* Divider */}
             <div className="border-l border-[#D700E1] mx-0 md:mx-4 mb-6 md:mb-7"></div>
 
-            {/* Right Partition */}
             <div className="w-full md:w-1/2 pl-0 md:pl-12 flex flex-col space-y-6 md:space-y-12 text-white">
               <a
                 href="https://discord.com/invite/captain-side-710346966722281494"
