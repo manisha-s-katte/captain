@@ -1,6 +1,7 @@
 // app/api/discord/redirect/route.ts
-import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { NextRequest, NextResponse } from 'next/server';
+import prisma from '@/lib/prisma';
+import { signIn } from '@/auth';
 
 export async function GET(request: NextRequest) {
   try {
@@ -9,10 +10,7 @@ export async function GET(request: NextRequest) {
     const code = searchParams.get('code');
 
     if (!code) {
-      return NextResponse.json(
-        { error: 'No code provided' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'No code provided' }, { status: 400 });
     }
 
     // Construct form data for token request
@@ -21,17 +19,20 @@ export async function GET(request: NextRequest) {
       client_secret: process.env.AUTH_DISCORD_SECRET!,
       grant_type: 'authorization_code',
       code,
-      redirect_uri: 'https://www.captainside.com/api/discord/redirect',
+      redirect_uri: `${process.env.DISCORD_REDIRECT_URI}`,
     });
 
     // Exchange code for access token
-    const tokenResponse = await fetch('https://discord.com/api/v10/oauth2/token', {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
+    const tokenResponse = await fetch(
+      'https://discord.com/api/v10/oauth2/token',
+      {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }
+    );
 
     if (!tokenResponse.ok) {
       const error = await tokenResponse.text();
@@ -85,9 +86,18 @@ export async function GET(request: NextRequest) {
       });
     }
 
+    await signIn('credentials', {
+      redirect: false,
+      name: userData.username,
+      email: userData.email,
+      id: userData.id,
+      image: userData?.avatar
+        ? `https://cdn.discordapp.com/avatars/${userData?.id}/${userData?.avatar}.png`
+        : null,
+    });
+
     // Redirect after successful login
     return NextResponse.redirect(new URL('/', request.url));
-
   } catch (error) {
     console.error('Discord OAuth error:', error);
     return NextResponse.json(

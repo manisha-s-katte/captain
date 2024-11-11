@@ -34,7 +34,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const format = profile.avatar.startsWith("a_") ? "gif" : "png"
           profile.image_url = `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.${format}`
         }
-        
+
         return {
           id: profile.id,
           name: profile.global_name ?? profile.username,
@@ -42,10 +42,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           image: profile.image_url,
         }
       },
-      
-      
+
+
     }),
-    
+
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -62,8 +62,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   debug: process.env.NODE_ENV === 'development',
   callbacks: {
     async signIn({ user, account }) {
-      console.log('Sign in attempt:', { user, account });
-      
+
       if (account?.provider === 'google' || account?.provider === 'discord') {
         try {
           const existingUser = await prisma.user.findUnique({

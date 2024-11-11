@@ -53,7 +53,7 @@ const Login = () => {
         signIn('google', { redirectTo: '/' });
         break;
       case 'discord':
-        signIn('discord',{redirectTo:'/'})
+        signIn('discord', { redirectTo: '/' });
         break;
       case 'email':
         loginUserMutate({ email, password });
@@ -81,15 +81,15 @@ const Login = () => {
             Login with Google <FcGoogle className="ml-2 w-7 h-7" />
           </button>
 
-          
           <div className="space-y-2">
             {/* Login with Discord */}
             <Link href="https://discord.com/oauth2/authorize?client_id=1221868348015644804&response_type=code&redirect_uri=https%3A%2F%2Fwww.captainside.com%2Fapi%2Fdiscord%2Fredirect&scope=identify+email">
-            <button
-             type="button"
-             className="w-full py-2 text-xl font-semibold bg-[#5865F2] text-white rounded-xl flex items-center justify-center">
-              Login with Discord <FaDiscord className="ml-2 w-7 h-7" />
-            </button>
+              <button
+                type="button"
+                className="w-full py-2 text-xl font-semibold bg-[#5865F2] text-white rounded-xl flex items-center justify-center"
+              >
+                Login with Discord <FaDiscord className="ml-2 w-7 h-7" />
+              </button>
             </Link>
           </div>
 
