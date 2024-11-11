@@ -26,7 +26,7 @@ const Page = () => {
     const option = searchParam.get('opt')
    return (
     <>
-    {option === 'dashboard'? <Dashboard email={email} />:<Settings email={email}/>}
+    {option === 'dashboard'? <Dashboard />:<Settings email={email}/>}
     </>
   )
 }
