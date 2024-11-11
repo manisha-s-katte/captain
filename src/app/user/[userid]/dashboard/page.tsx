@@ -25,7 +25,7 @@ const SvgWithHeading: React.FC<SvgWithHeadingProps> = ({ imgSrc, heading }) => (
   </div>
 );
 
-const Dashboard = () => {
+const Dashboard = ({email}:{email:string}) => {
 
   const user = useSession().data?.user
   const events = [

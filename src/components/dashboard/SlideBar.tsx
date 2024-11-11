@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { useRouter, usePathname } from 'next/navigation'
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { Home, Settings, Menu, User, ChevronLeft } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -30,16 +30,17 @@ interface SidebarProps {
 
 export default function Slidebar({ username = 'username', fullName = 'Full Name' }: SidebarProps) {
   const router = useRouter()
-  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const option = searchParams.get('opt')
   const [selectedOption, setSelectedOption] = React.useState<string>('dashboard')
 
   React.useEffect(() => {
-    if (pathname.includes('dashboard')) {
+    if (option==='dashboard') {
       setSelectedOption('dashboard')
-    } else if (pathname.includes('settings')) {
+    } else if (option==='settings') {
       setSelectedOption('settings')
     }
-  }, [pathname])
+  }, [option])
 
   const handleOptionClick = (option: string) => {
     if (option === 'dashboard') {

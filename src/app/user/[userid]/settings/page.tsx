@@ -1,44 +1,150 @@
-import { ChevronLeft } from 'lucide-react';
-import Link from 'next/link';
-import React from 'react';
+'use client'
 
-const Settings = () => {
-  return (
-    <main className="flex h-screen bg-gradient-to-tr from-[#3A0153] to-[#1D022A] py-16">
-      <Link href={"/"}>
-      <div className='flex gap-2 text-white'><ChevronLeft></ChevronLeft> Back</div>
-      </Link>
-      <section className="flex-grow p-8 text-white flex justify-center items-center md:ml-64">
-        <div className="border-2 border-[#D700E1] w-full md:w-96 p-6 rounded-xl flex flex-col justify-between max-w-md">
-          <div className="mb-8 mt-5 flex flex-col items-center">
-            <label htmlFor="username" className="block text-3xl text-center font-medium mb-2">
-              Change Username
-            </label>
-            <input
-              id="username"
-              type="text"
-              placeholder="New Username"
-              className="p-2 bg-transparent mt-1 border text-center border-[#D700E1] rounded-3xl text-white"
-            />
-          </div>
+import { ChevronLeft } from 'lucide-react'
+import Link from 'next/link'
+import React from 'react'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
-          {/* Change Password */}
-          <div className="mb-8 flex flex-col items-center">
-            <label htmlFor="password" className="block text-3xl font-medium mb-2">Change Password</label>
-            <input
-              id="password"
-              type="password"
-              placeholder="New Password"
-              className="bg-transparent p-2 mt-1 text-center border border-[#D700E1] rounded-3xl text-white"
-            />
-          </div>
+import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
 
-          {/* Purchases */}
 
-        </div>
-      </section>
-    </main>
-  );
+type FormData = {
+  username: string
+  password: string
 }
 
-export default Settings;
+export default function Settings({email}:{email:string}) {
+  const form = useForm<FormData>({
+    defaultValues: {
+      username: '',
+      password: '',
+    },
+  })
+
+  const onSubmitUsername = async (data: FormData) => {
+    try {
+      fetch('/api/user/changeUser',{
+        method:"POST",
+        body:JSON.stringify({
+          "email": email,
+          "userName":data.username
+        })
+      })
+      console.log('Password changed:', data.password)
+      toast.success('Password updated successfully!')
+    } catch (error) {
+      console.error('Error updating username:', error)
+      toast.error('Failed to update username. Please try again.')
+    }
+  }
+
+  const onSubmitPassword = async (data: FormData) => {
+    
+    try {
+      fetch('/api/user/changePassword',{
+        method:"POST",
+        body:JSON.stringify({
+          "email": email,
+          "newPassword":data.password
+        })
+      })
+      console.log('Password changed:', data.password)
+      toast.success('Password updated successfully!')
+    } catch (error) {
+      console.error('Error updating password:', error)
+      toast.error('Failed to update password. Please try again.')
+    }
+  }
+
+  return (
+    <main className="flex min-h-screen bg-gradient-to-tr from-[#3A0153] to-[#1D022A] py-16">
+      <div className="container flex flex-col items-center">
+        <Link href="/" className="self-start">
+          <Button variant="ghost" className="text-white">
+            <ChevronLeft className="mr-2 h-4 w-4" /> Back
+          </Button>
+        </Link>
+        <Card className="mt-8 w-full max-w-md border-2 border-[#D700E1]">
+          <CardHeader>
+            <CardTitle>Settings</CardTitle>
+            <CardDescription>Update your account settings</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Form {...form}>
+              <form className="space-y-8">
+                <FormField
+                  control={form.control}
+                  name="username"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Username</FormLabel>
+                      <FormControl>
+                        <Input placeholder="New Username" {...field} />
+                      </FormControl>
+                      <FormDescription>
+                        Enter your new username here.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button
+                  type="button"
+                  onClick={form.handleSubmit(onSubmitUsername)}
+                >
+                  Update Username
+                </Button>
+
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="password"
+                          placeholder="New Password"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        Enter your new password here.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button
+                  type="button"
+                  onClick={form.handleSubmit(onSubmitPassword)}
+                >
+                  Update Password
+                </Button>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+      </div>
+    </main>
+  )
+}

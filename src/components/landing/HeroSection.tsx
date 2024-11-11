@@ -1,9 +1,11 @@
 "use client";
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef, act } from 'react';
 import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 import {  getHeroImages } from '@/http/api';
 import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 
 interface FileObject {
   id: number;
@@ -28,6 +30,8 @@ export default function HeroSection() {
     staleTime: 0, // Data is considered stale immediately
   });
 
+  console.log('heroImages')
+
 
   const images: string[] = getFileUrls(heroImages);
 
@@ -36,6 +40,33 @@ export default function HeroSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const scrollToNext = () => {
+    if (carouselRef.current && images) {
+      const newIndex = (activeIndex + 1) % images.length;
+      const cardWidth = carouselRef.current.offsetWidth;
+      carouselRef.current.scrollTo({
+        left: cardWidth * newIndex,
+        behavior: 'smooth'
+      });
+      setActiveIndex(newIndex);
+    }
+  };
+
+  const scrollToPrev = () => {
+    if (carouselRef.current && images) {
+      const newIndex = activeIndex === 0 ? images.length - 1 : activeIndex - 1;
+      const cardWidth = carouselRef.current.offsetWidth ; // Show 4 cards at a time
+      carouselRef.current.scrollTo({
+        left: cardWidth * newIndex,
+        behavior: 'smooth'
+      });
+      setActiveIndex(newIndex);
+    }
+  };
 
   const handleImageChange = (index: number) => {
     setIsTransitioning(true);
@@ -60,12 +91,12 @@ export default function HeroSection() {
   
   return (
     <main 
-      className="relative w-screen aspect-video bg-cover bg-center transition-all duration-500"
-      style={{ 
-        backgroundImage: `url(${images[activeIndex]})`
-      }}
+      className="relative w-screen aspect-video"
+     
     >
-      <div className="relative w-full h-full">
+      <div className="relative w-full h-full"
+                   ref={carouselRef}
+      >
         {images.map((image, index) => (
           <div
             key={index}
@@ -80,12 +111,23 @@ export default function HeroSection() {
               fill
               priority={index === 0}
               quality={90}
-              
               className="object-cover object-center"
             />
             </Link>
           </div>
         ))}
+          <button 
+          onClick={scrollToPrev}
+          className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 rounded-full p-2 text-white backdrop-blur-sm z-30"
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </button>
+        <button 
+          onClick={scrollToNext}
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 rounded-full p-2 text-white backdrop-blur-sm z-30"
+        >
+          <ChevronRight className="w-6 h-6" />
+        </button>
       </div>
     </main>
   );

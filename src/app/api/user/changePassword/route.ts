@@ -1,41 +1,37 @@
-import { auth } from '@/auth';
-import prisma from '@/lib/prisma';
-import { NextResponse, type NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server'
+import bcrypt from 'bcryptjs'
+import prisma from '@/lib/prisma'
 
-export async function POST(
-  req: NextRequest,
-  { params }: { params: { tournamentId: string } }
-) {
-
-
-  const userName = await req.json();
-  const user = await prisma.user.findFirst({
-    where:{
-        name: userName
-    }
-  })
-  
-
+export async function POST(request: NextRequest) {
   try {
-    const tournaments = await prisma.tournament.findMany({
-      where: { 
-            user: user
-       },
-     
-    });
+    const { email, newPassword } = await request.json()
 
-    if (!tournaments) {
-      return NextResponse.json(
-        { message: 'Tournament not found' },
-        {
-          status: 404,
-        }
-      );
+    if (!email || !newPassword) {
+      return NextResponse.json({ error: 'Email and new password are required' }, { status: 400 })
     }
-    return NextResponse.json(tournaments, { status: 200 });
-  } catch (error: any) {
-    const errorMessage = error.message || 'Internal server error';
-    console.error('Error fetching tournament details', error);
-    return NextResponse.json({ message: errorMessage }, { status: 500 });
-  }
+
+    // Find the user
+    const user = await prisma.user.findUnique({
+      where: { email },
+    })
+
+    if (!user) {
+      return NextResponse.json({ error: 'User not found' }, { status: 404 })
+    }
+
+    // Hash the new password
+    const saltRounds = 10
+    const hashedPassword = await bcrypt.hash(newPassword, saltRounds)
+
+    // Update the user's password
+    const updatedUser = await prisma.user.update({
+      where: { email },
+      data: { password: hashedPassword },
+    })
+
+    return NextResponse.json({ message: 'Password updated successfully' }, { status: 200 })
+  } catch (error) {
+    console.error('Error updating password:', error)
+    return NextResponse.json({ error: 'An error occurred while updating the password' }, { status: 500 })
+  } 
 }

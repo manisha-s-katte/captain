@@ -127,6 +127,7 @@ model PartnerPost {
 model HeroPost {
     id        Int      @id @default(autoincrement())
     fileUrl   String
+    link      String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }

@@ -1,41 +1,52 @@
-import { auth } from '@/auth';
-import prisma from '@/lib/prisma';
-import { NextResponse, type NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server'
+import prisma from '@/lib/prisma'
 
-export async function POST(
-  req: NextRequest,
-  { params }: { params: { tournamentId: string } }
-) {
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams
+  const email = searchParams.get('email')
 
-
-  const {email} = await req.json();
-  const user = await prisma.user.findUnique({
-    where:{
-        email: email
-    }
-  })
-  
+  if (!email) {
+    return NextResponse.json({ error: 'Email is required' }, { status: 400 })
+  }
 
   try {
-    const tournaments = await prisma.tournament.findMany({
-      where: { 
-            user: user
-       },
-     
-    });
+    const user = await prisma.user.findUnique({
+      where: { email },
+      include: {
+        tournaments: true,
+        teamMembers: {
+          include: {
+            team: {
+              include: {
+                tournament: true,
+              },
+            },
+          },
+        },
+      },
+    })
 
-    if (!tournaments) {
-      return NextResponse.json(
-        { message: 'Tournament not found' },
-        {
-          status: 404,
-        }
-      );
+    if (!user) {
+      return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
-    return NextResponse.json(tournaments, { status: 200 });
-  } catch (error: any) {
-    const errorMessage = error.message || 'Internal server error';
-    console.error('Error fetching tournament details', error);
-    return NextResponse.json({ message: errorMessage }, { status: 500 });
-  }
+
+    // Collect tournaments from user's created tournaments and team memberships
+    const tournaments = [
+      ...user.tournaments,
+      ...user.teamMembers.map((member) => member.team.tournament),
+    ]
+
+    // Remove duplicates
+    const uniqueTournaments = Array.from(new Set(tournaments.map((t) => t.id))).map(
+      (id) => tournaments.find((t) => t.id === id)
+    )
+
+    return NextResponse.json({ tournaments: uniqueTournaments })
+  } catch (error) {
+    console.error('Error fetching user tournaments:', error)
+    return NextResponse.json(
+      { error: 'An error occurred while fetching tournaments' },
+      { status: 500 }
+    )
+  } 
 }
