@@ -25,6 +25,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { useSession } from 'next-auth/react'
 
 
 type FormData = {
@@ -32,7 +33,9 @@ type FormData = {
   password: string
 }
 
-export default function Settings({email}:{email:string}) {
+export default function Settings() {
+  const user = useSession().data?.user || null
+
   const form = useForm<FormData>({
     defaultValues: {
       username: '',
@@ -45,7 +48,7 @@ export default function Settings({email}:{email:string}) {
       fetch('/api/user/changeUser',{
         method:"POST",
         body:JSON.stringify({
-          "email": email,
+          "email": user?.email,
           "userName":data.username
         })
       })
@@ -63,7 +66,7 @@ export default function Settings({email}:{email:string}) {
       fetch('/api/user/changePassword',{
         method:"POST",
         body:JSON.stringify({
-          "email": email,
+          "email": user?.email,
           "newPassword":data.password
         })
       })
