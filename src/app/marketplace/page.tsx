@@ -1,85 +1,127 @@
-'use client'; // <-- Add this line at the top
+"use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from 'next/navigation'; // <-- Use next/navigation instead of next/router
+import { useRouter } from "next/navigation";
+import Navbar from "@/components/landing/Navbar";
 
 const Marketplace = () => {
-  const [products, setProducts] = useState([]);
-  const [userProducts, setUserProducts] = useState<any[]>([]); // To store the user's products for resale
-  const router = useRouter();
+	const [products, setProducts] = useState<any[]>([]);
+	const [userProducts, setUserProducts] = useState<any[]>([]);
+	const [searchTerm, setSearchTerm] = useState("");
+	const [credits, setCredits] = useState(1000); // Initialize user credits
+	const router = useRouter();
+  
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const response = await fetch("http://localhost:3000/api/products");
-      const data = await response.json();
-      setProducts(data);
-    };
+	useEffect(() => {
+		const fetchProducts = async () => {
+			const response = await fetch("/api/products"); // Adjust API endpoint as needed
+			const data = await response.json();
+			setProducts(data);
+		};
 
-    fetchProducts();
+		fetchProducts();
 
-    // Retrieve purchased products from localStorage (assuming they have already been added to the cart)
-    const cartProducts = JSON.parse(localStorage.getItem("cart") || "[]");
-    setUserProducts(cartProducts);
-  }, []);
+		const cartProducts = JSON.parse(localStorage.getItem("cart") || "[]");
+		setUserProducts(cartProducts);
 
-  // Function to add products to the cart
-  const addToCart = (product: any) => {
-    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-    const productInCart = cart.find((item: any) => item.id === product.id);
-    if (!productInCart) {
-      cart.push(product);
-      localStorage.setItem("cart", JSON.stringify(cart));
-    } else {
-      alert("This product is already in your cart.");
-    }
-  };
+    
+	}, []);
 
-  // Function to resell a product
-  const resellProduct = (product: any) => {
-    // Check if the product is already resold
-    const productResold = { ...product, isResold: true };
+	const handleBuy = (productId: number) => {
+		const product = products.find((p) => p.id === productId);
+		if (credits >= product.price) {
+			setCredits((prevCredits) => prevCredits - product.price); // Deduct credits
+			alert(
+				`You bought ${product.name}! Remaining credits: ${
+					credits - product.price
+				}`
+			);
 
-    // Add the product to the resellProducts list
-    const updatedUserProducts = [...userProducts, productResold];
-    setUserProducts(updatedUserProducts);
+			// Add product to cart
+			addToCart(product);
+		} else {
+			alert("Not enough credits!");
+		}
+	};
 
-    // Store updated list in localStorage for persistence
-    localStorage.setItem("cart", JSON.stringify(updatedUserProducts));
+	const addToCart = (product: any) => {
+		const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+		if (!cart.some((item: any) => item.id === product.id)) {
+			cart.push(product);
+			localStorage.setItem("cart", JSON.stringify(cart));
+			setUserProducts([...userProducts, product]); // Real-time update
+		}
+	};
 
-    alert("Product has been resold!");
-  };
+	const filteredProducts = products.filter((product) =>
+		product.name.toLowerCase().includes(searchTerm.toLowerCase())
+	);
 
-  return (
-    <div className="marketplace">
-      <h1>Marketplace</h1>
-      <div className="product-list">
-        {products.map((product: any) => (
-          <div key={product.id} className="product-item">
-            {/* Assuming your images are stored in the public/images/ folder */}
-            
-            <img src={`/images/${product.image}`} alt={product.name} /> {/* Update the image path */}
-            <h3>{product.name}</h3>
-            <p>${product.price}</p>
+	return (
+		<>
+			<Navbar />
+			<div className="flex">
+				{/* Sidebar */}
+				<div className="w-1/4 p-4 border-r">
+					<h2 className="text-lg font-bold mb-4">Credits: ${credits}</h2>
+					<button
+						className="w-full mb-4 p-2 bg-blue-500 text-white rounded"
+						onClick={() => router.push("/cart")}
+					>
+						Cart
+					</button>
+					<button
+						className="w-full mb-4 p-2 bg-blue-500 text-white rounded"
+						onClick={() => router.push("/marketplace")}
+					>
+						Market place
+					</button>
+					<button
+						className="w-full p-2 bg-blue-500 text-white rounded"
+						onClick={() => router.push("/secondhand")}
+					>
+						Second-Hand Market
+					</button>
+				</div>
 
-            {/* Display resell button for purchased products */}
-            {userProducts.some((userProduct: any) => userProduct.id === product.id) ? (
-              <button
-                onClick={() => resellProduct(product)}
-                disabled={product.isResold}
-              >
-                {product.isResold ? "Already Resold" : "Resell"}
-              </button>
-            ) : (
-              <button onClick={() => addToCart(product)}>Add to Cart</button>
-            )}
-          </div>
-        ))}
-      </div>
+				{/* Main Content */}
+				<div className="w-3/4 p-5">
+					{/* Search Bar */}
+					<input
+						type="text"
+						placeholder="Search products..."
+						className="w-full p-2 mb-5 border rounded"
+						value={searchTerm}
+						onChange={(e) => setSearchTerm(e.target.value)}
+					/>
 
-      <button onClick={() => router.push('/cart')}>Go to Cart</button> {/* Button to view cart */}
-      <button onClick={() => router.push('/secondhand')}>Go to Second-Hand Market</button> {/* Link to second-hand market */}
-    </div>
-  );
+					{/* Product Grid */}
+					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+						{filteredProducts.map((product: any) => (
+							<div
+								key={product.id}
+								className="border p-5 text-center"
+							>
+								<img
+									src={product.image}
+									alt={product.name}
+									className="w-full h-48 object-cover mb-3"
+								/>
+								<h3 className="text-lg font-semibold">{product.name}</h3>
+								<p className="text-sm text-gray-600">${product.price}</p>
+								<button
+									onClick={() => handleBuy(product.id)}
+									className="mt-3 bg-green-500 text-white py-2 px-4 rounded"
+								>
+									Buy
+								</button>
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
+		</>
+	);
 };
 
 export default Marketplace;
