@@ -53,7 +53,7 @@ export default function Settings() {
         })
       })
       console.log('Password changed:', data.password)
-      toast.success('Password updated successfully!')
+      toast.success('Username Updated Successfully!')
     } catch (error) {
       console.error('Error updating username:', error)
       toast.error('Failed to update username. Please try again.')
@@ -79,7 +79,7 @@ export default function Settings() {
   }
 
   return (
-    <main className="flex min-h-screen bg-gradient-to-tr from-[#3A0153] to-[#1D022A] py-16">
+    <main className="flex min-h-screen bg-gradient-to-tr from-[#3A0153] to-[#1D022A] py-16 justify-center items-center w-screen ">
       <div className="container flex flex-col items-center">
         <Link href="/" className="self-start">
           <Button variant="ghost" className="text-white">
