@@ -93,7 +93,7 @@ export default function Navbar({ bgColor = "#110219" }: NavbarProps) {
 						<Link
 							href="marketplace"
 							className={`text-md ${
-								activeLink === "marketplace" || "secondhand"
+								activeLink === "marketplace"
 									? "text-fuchsia-600"
 									: "hover:text-fuchsia-600"
 							}`}
@@ -202,6 +202,15 @@ export default function Navbar({ bgColor = "#110219" }: NavbarProps) {
 							onClick={() => handleLinkClick("gamePass")}
 						>
 							Game Pass
+						</Link>
+						<Link
+							href="/gamePass"
+							className={`block px-3 py-2 rounded-md text-base font-medium ${
+								activeLink === "marketplace" ? "bg-gray-700" : "hover:bg-gray-700"
+							}`}
+							onClick={() => handleLinkClick("gamePass")}
+						>
+							Market Place
 						</Link>
 						<Link
 							href="/aboutus"
