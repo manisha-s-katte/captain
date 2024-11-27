@@ -25,7 +25,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { useSession } from 'next-auth/react'
+import { useSession} from 'next-auth/react'
 
 
 type FormData = {
@@ -45,38 +45,57 @@ export default function Settings() {
 
   const onSubmitUsername = async (data: FormData) => {
     try {
-      fetch('/api/user/changeUser',{
-        method:"POST",
-        body:JSON.stringify({
-          "email": user?.email,
-          "userName":data.username
+      const response = await fetch('/api/user/changeUsername', {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          email: user?.email,
+          userName: data.username
         })
-      })
-      console.log('Password changed:', data.password)
-      toast.success('Username Updated Successfully!')
+      });
+  
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+      }
+  
+      const result = await response.json();
+      console.log('Username changed:', data.username);
+      toast.success('Username Updated Successfully!');
     } catch (error) {
-      console.error('Error updating username:', error)
-      toast.error('Failed to update username. Please try again.')
+      console.error('Error updating username:', error);
+      toast.error('Failed to update username. Please try again.');
     }
-  }
-
+  };
+  
   const onSubmitPassword = async (data: FormData) => {
-    
     try {
-      fetch('/api/user/changePassword',{
-        method:"POST",
-        body:JSON.stringify({
-          "email": user?.email,
-          "newPassword":data.password
+      const response = await fetch('/api/user/changePassword', {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          email: user?.email,
+          newPassword: data.password
         })
-      })
-      console.log('Password changed:', data.password)
-      toast.success('Password updated successfully!')
+      });
+  
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+      }
+  
+      const result = await response.json();
+      console.log('Password changed:', data.password);
+      toast.success('Password updated successfully!');
     } catch (error) {
-      console.error('Error updating password:', error)
-      toast.error('Failed to update password. Please try again.')
+      console.error('Error updating password:', error);
+      toast.error('Failed to update password. Please try again.');
     }
-  }
+  };
 
   return (
     <main className="flex min-h-screen bg-gradient-to-tr from-[#3A0153] to-[#1D022A] py-16 justify-center items-center w-screen ">

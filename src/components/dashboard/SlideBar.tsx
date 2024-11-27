@@ -33,6 +33,9 @@ export default function Slidebar({ username = 'username', fullName = 'Full Name'
   const searchParams = useSearchParams()
   const option = searchParams.get('opt')
   const [selectedOption, setSelectedOption] = React.useState<string>('dashboard')
+  const [userData, setUserData] = React.useState<{name: string, email: string}>()
+
+  const { data: session } = useSession()
 
   React.useEffect(() => {
     if (option==='dashboard') {
@@ -41,6 +44,24 @@ export default function Slidebar({ username = 'username', fullName = 'Full Name'
       setSelectedOption('settings')
     }
   }, [option])
+
+  React.useEffect(() => {
+    const fetchUserData = async () => {
+      if (session?.user?.email) {
+        try {
+          const response = await fetch(`/api/user/getUserDetails?email=${session.user.email}`)
+          if (response.ok) {
+            const data = await response.json()
+            setUserData(data)
+          }
+        } catch (error) {
+          console.error('Error fetching user details:', error)
+        }
+      }
+    }
+
+    fetchUserData()
+  }, [session])
 
   const handleOptionClick = (option: string) => {
     if (option === 'dashboard') {
@@ -65,8 +86,8 @@ export default function Slidebar({ username = 'username', fullName = 'Full Name'
             </AvatarFallback>
           </Avatar>
           <div className="mt-4 text-center">
-            <h1 className="text-xl font-medium tracking-widest">{user?.name}</h1>
-            <p className="text-xs text-purple-400">{user?.email}</p>
+            <h1 className="text-xl font-medium tracking-widest">{userData?.name}</h1>
+            <p className="text-xs text-purple-400">{userData?.email}</p>
           </div>
         </SidebarHeader>
         <SidebarContent>
