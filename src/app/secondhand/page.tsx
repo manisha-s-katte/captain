@@ -10,17 +10,17 @@ const SecondHandMarket = () => {
 	const router = useRouter();
 
 	useEffect(() => {
-		// Fetch user purchased products from local storage
+		// to fetch user purchased products from local storage
 		const purchasedProducts = JSON.parse(localStorage.getItem("cart") || "[]");
 		setUserProducts(purchasedProducts);
 	}, []);
 
-	// Function to filter products based on the search term
+	// FILTERING PRODUCTS BASED ON SEARCH 
 	const filteredProducts = userProducts.filter((product) =>
 		product.name.toLowerCase().includes(searchTerm.toLowerCase())
 	);
 
-	// Function to handle resell action
+	// resell action functon
 	const resellProduct = (product: any) => {
 		// Mark the product as resold
 		const updatedProduct = { ...product, isResold: true };
@@ -29,7 +29,7 @@ const SecondHandMarket = () => {
 		);
 		setUserProducts(updatedProducts);
 
-		// Update local storage
+		// 
 		localStorage.setItem("cart", JSON.stringify(updatedProducts));
 		alert("Product resold!");
 	};

@@ -1,6 +1,6 @@
-// next.config.js
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Other configurations...
+  // Enable remote images from specified hosts
   images: {
     remotePatterns: [
       {
@@ -15,8 +15,13 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'cdn.discordapp.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'm.media-amazon.com', // Add Amazon's media domain for your use case
+      },
     ],
   },
+  // Customize webpack configuration
   webpack(config) {
     config.optimization.minimize = false;
     return config;

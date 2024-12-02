@@ -14,7 +14,7 @@ const Cart = () => {
 		setCartItems(cart);
 	}, []);
 
-	// Function to remove an item from the cart
+	// emove items from the cart
 	const removeFromCart = (productId: number) => {
 		const updatedCart = cartItems.filter((item: any) => item.id !== productId);
 		localStorage.setItem("cart", JSON.stringify(updatedCart));

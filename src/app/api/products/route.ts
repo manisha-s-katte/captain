@@ -1,72 +1,74 @@
 import { NextResponse } from "next/server";
 
-// Mock Database (for demonstration purposes, replace with actual DB logic)
-// let products = [
-//   { id: 1, name: 'Product 1', price: 100, image: '/images/product1.jpg' },
-//   { id: 2, name: 'Product 2', price: 150, image: '/images/product2.jpg' },
-// ];
+// dummy db 
 let products = [
 	{
 		id: 1,
-		name: "Product 1",
+		name: "Zebronics MAX FURY Transparent RGB LED Illuminated Wired Gamepad",
 		price: 100,
 		image:
-			"https://captain-side.vercel.app/_next/image?url=https%3A%2F%2Fwteevsttakocypgyobcb.supabase.co%2Fstorage%2Fv1%2Fobject%2Fpublic%2Fimages%2F6a8629c1-38c6-47ef-9901-d1ccc4dc30be-ARSENAL%25201.webp&w=1920&q=90",
+			"https://m.media-amazon.com/images/I/51Kumm2y2mL._SX300_SY300_QL70_FMwebp_.jpg",
+	},
+	{
+		id: 2,
+		name: "EvoFox Blaze Programmable Gaming Mouse",
+		price: 200,
+		image:
+			"https://m.media-amazon.com/images/I/41MwUWdUZ8L._SX300_SY300_QL70_FMwebp_.jpg",
 	},
 	{
 		id: 3,
-		name: "Product 2",
-		price: 150,
+		name: "WAR HAMMER Gaming Mouse Pad (DragonFire)",
+		price: 100,
 		image:
-			"https://captain-side.vercel.app/_next/image?url=https%3A%2F%2Fwteevsttakocypgyobcb.supabase.co%2Fstorage%2Fv1%2Fobject%2Fpublic%2Fimages%2Fbfc82689-bcea-4fc1-abd2-aa7870d757fc-ARSENAL%25202.webp&w=1920&q=90",
+			"https://m.media-amazon.com/images/I/41bZQ1GTauL._SY300_SX300_QL70_FMwebp_.jpg",
 	},
 	{
 		id: 4,
-		name: "Product 2",
-		price: 150,
+		name: "ZEBRONICS Optimu39.99s Gaming Keyboard & Mouse Combo",
+		price: 100,
 		image:
-			"https://captain-side.vercel.app/_next/image?url=https%3A%2F%2Fwteevsttakocypgyobcb.supabase.co%2Fstorage%2Fv1%2Fobject%2Fpublic%2Fimages%2Fbfc82689-bcea-4fc1-abd2-aa7870d757fc-ARSENAL%25202.webp&w=1920&q=90",
+			"https://m.media-amazon.com/images/I/41sZmWcNNKL._SX300_SY300_QL70_FMwebp_.jpg",
 	},
 	{
 		id: 5,
-		name: "Product 2",
-		price: 150,
-		image:
-			"https://captain-side.vercel.app/_next/image?url=https%3A%2F%2Fwteevsttakocypgyobcb.supabase.co%2Fstorage%2Fv1%2Fobject%2Fpublic%2Fimages%2Fbfc82689-bcea-4fc1-abd2-aa7870d757fc-ARSENAL%25202.webp&w=1920&q=90",
+		name: "ZEBRONICS Havoc Premium Gaming Over Ear Headphone with Dolby Atmos Subscription",
+		price: 200,
+		image: "https://m.media-amazon.com/images/I/71YjS4nfPVL._SL1500_.jpg",
 	},
 	{
 		id: 6,
-		name: "Product 2",
-		price: 150,
+		name: "Ant Esports Elite 1100 Mid-Tower Computer Case/Gaming Cabinet ",
+		price: 100,
 		image:
-			"https://captain-side.vercel.app/_next/image?url=https%3A%2F%2Fwteevsttakocypgyobcb.supabase.co%2Fstorage%2Fv1%2Fobject%2Fpublic%2Fimages%2Fbfc82689-bcea-4fc1-abd2-aa7870d757fc-ARSENAL%25202.webp&w=1920&q=90",
+			"https://m.media-amazon.com/images/I/41dtRPYZIAL._SX300_SY300_QL70_FMwebp_.jpg",
 	},
 	{
-		id: 2,
-		name: "Product 2",
-		price: 150,
+		id: 7,
+		name: "Sony PS4 Slim 500 GB Console",
+		price: 100,
 		image:
-			"https://captain-side.vercel.app/_next/image?url=https%3A%2F%2Fwteevsttakocypgyobcb.supabase.co%2Fstorage%2Fv1%2Fobject%2Fpublic%2Fimages%2Fbfc82689-bcea-4fc1-abd2-aa7870d757fc-ARSENAL%25202.webp&w=1920&q=90",
+			"https://m.media-amazon.com/images/I/41w32g06cSL._SY300_SX300_QL70_FMwebp_.jpg",
 	},
 	{
-		id: 2,
-		name: "Product 2",
-		price: 150,
+		id: 8,
+		name: "Sony PlayStation®5 Console (slim)",
+		price: 100,
 		image:
-			"https://captain-side.vercel.app/_next/image?url=https%3A%2F%2Fwteevsttakocypgyobcb.supabase.co%2Fstorage%2Fv1%2Fobject%2Fpublic%2Fimages%2Fbfc82689-bcea-4fc1-abd2-aa7870d757fc-ARSENAL%25202.webp&w=1920&q=90",
+			"https://m.media-amazon.com/images/I/41b-EDZt7dL._SX300_SY300_QL70_FMwebp_.jpg",
 	},
 ];
 
-// GET Request: Fetch All Products
+// GET request: For fetching all Products
 export async function GET() {
 	return NextResponse.json(products);
 }
 
-// POST Request: Add a New Product (for Admin only)
+// POST request: add a new product for Admin only
 export async function POST(req: Request) {
 	const { name, price, image } = await req.json();
 
-	// Validate incoming data
+	// validate the incoming data
 	if (!name || !price || !image) {
 		return NextResponse.json(
 			{ error: "Missing required fields (name, price, image)" },
@@ -74,7 +76,7 @@ export async function POST(req: Request) {
 		);
 	}
 
-	// Create a new product and add it to the list
+	// create a new product and add it to the list
 	const newProduct = { id: products.length + 1, name, price, image };
 	products.push(newProduct);
 
