@@ -8,7 +8,8 @@ let products = [
 		price: 100,
 		image:
 			"https://m.media-amazon.com/images/I/51Kumm2y2mL._SX300_SY300_QL70_FMwebp_.jpg",
-	},
+	},git add .
+
 	{
 		id: 2,
 		name: "EvoFox Blaze Programmable Gaming Mouse",
